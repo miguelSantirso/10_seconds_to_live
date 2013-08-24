@@ -15,7 +15,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _playerInput:IPlayerInput;
 		
 		private var _player:Player;
-		private var _interactiveObjects:Vector.<InteractiveObject> = new Vector.<InteractiveObject>();
 		private var _entities:Vector.<Entity> = new Vector.<Entity>();
 
 		private var _sceneContainer:Sprite;
@@ -23,6 +22,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected var _gameMap:GameMap;
 		private var _collisions:WallCollisions;
 		private var _roomUtils:RoomUtils;
+		
+		private var _realityLogic:RealityLogic;
 		
 		protected override function init():void 
 		{
@@ -46,19 +47,21 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			_entities.push(_player);
 			
-			// TEST:
+			// ALBERT TEST:
+			_realityLogic = new RealityLogic();
+			
+			var testObject:InteractiveObject;
 			for (var i:int = 0; i < 10; ++i)
 			{
-				_interactiveObjects.push(new InteractiveObject());
-				_interactiveObjects[i].x = 50;
-				_interactiveObjects[i].y = 250;
+				testObject = new InteractiveObject();
+				
+				_realityLogic.registerInteractiveEntity("paco" + i, testObject);
+				_entities.push(testObject);
+
+				//_interactiveObjects[i].x = 50;
+				//_interactiveObjects[i].y = 250;
 			}
-			// FIN TEST
-			
-			for (i = 0; i < _interactiveObjects.length; ++i)	
-			{
-				_entities.push(_interactiveObjects[i]);
-			}
+			// FIN ALBERT TEST
 			
 			for each (var entity:Entity in _entities)
 				entity.load(this);
@@ -66,7 +69,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_gameMap = new GameMap(new VisualGameMap());
 			_gameMap.init();
 			_gameMap.addChild(_player);
-			for (i = 0; i < _interactiveObjects.length; ++i) _gameMap.addChild(_interactiveObjects[i]);
+			// TEST ALBERT:
+			_gameMap.addChild(_realityLogic.findEntityByName("paco0"));
+			_realityLogic.findEntityByName("paco0").x = 50;
+			_realityLogic.findEntityByName("paco0").y = 250;
 			
 			_sceneContainer = new Sprite();
 			addChild(_sceneContainer);
@@ -77,6 +83,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			spCollisions.visible = false;
 			addChild(spCollisions);// needs to be in the display list for the hit test to work
+			
+			// muestra los radios de todos los objetos interactivos:
+			_realityLogic.showInteractionRadiuses = true;
 		}
 		
 		public override function update():void 
