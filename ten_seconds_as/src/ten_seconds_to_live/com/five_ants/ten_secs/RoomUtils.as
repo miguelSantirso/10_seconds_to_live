@@ -14,12 +14,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function getRoomByPosition(x:int, y:int):String
 		{
 			var roomShape:Sprite;
-			for (var key:String in _roomsByName)
+			for (var key:String in _roomShapesByName)
 			{
 				roomShape = _roomShapesByName[key];
 				
 				if (roomShape.hitTestPoint(x, y, true))
-					return roomShape;
+					return key;
 			}
 			
 			return null;

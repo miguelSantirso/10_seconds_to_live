@@ -12,14 +12,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	 */
 	public class GameMap  extends VisualGameMap implements IInitializable, IDisposable, IUpdateable 
 	{
-		protected var _mapElements:Vector.<MovieClip>;
+		protected var _mapElements:Vector.<DisplayObject>;
 		
 		protected var _player:Player;
 		protected var _previousPlayerY:Number;
 		
 		public function GameMap() 
 		{
-			_mapElements = new Vector.<MovieClip>();
+			_mapElements = new Vector.<DisplayObject>();
 		}
 		
 		public function dispose():void
