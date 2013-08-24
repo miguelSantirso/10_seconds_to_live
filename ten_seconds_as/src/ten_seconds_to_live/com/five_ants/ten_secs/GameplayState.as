@@ -2,6 +2,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.text.TextField;
 	import flash.utils.Dictionary;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInitializable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
@@ -23,9 +24,16 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _realities:Vector.<AlternativeReality> = new Vector.<AlternativeReality>();
 		private var _currentReality:int = -1;
 		
+		private var _gameTime:GameTime;
+		private var _timeTextField:TextField;
+		
+		private var _interactiveObjects:Vector.<InteractiveObject> = new Vector.<InteractiveObject>();
 		
 		protected override function init():void 
 		{
+			_gameTime = new GameTime();
+			_timeTextField = new TextField();
+			
 			_playerInput = new KeyboardInput();
 			_playerInput.init(_stage);
 			
@@ -33,11 +41,23 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_realities.push(new AlternativeReality(new MainReality()));
 			
 			changeToReality(REALITY_MAIN);
+			
+			
+			// HUD
+			_timeTextField.x = _timeTextField.y = 10;
+			addChild(_timeTextField);
 		}
 		
 		public override function update():void 
 		{
 			currentReality.update();
+			
+			_gameTime.update();
+			_timeTextField.text = String(_gameTime.seconds);
+			
+			// test
+			if (!_gameTime.slowmoActive && _playerInput.testPressed)
+				_gameTime.startSlowmo();
 		}
 		
 		public override function dispose():void 
