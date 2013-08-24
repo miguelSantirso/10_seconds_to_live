@@ -1,6 +1,7 @@
 package ten_seconds_to_live.com.five_ants.ten_secs 
 {
 	import flash.display.Sprite;
+	import flash.display.Stage;
 	
 	/**
 	 * @author Miguel Santirso
@@ -8,6 +9,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	public class TenSecsMain extends Sprite 
 	{
 		private var _currentState:IGameState;
+		
+		private var _stage:Stage;
+		
+		public function TenSecsMain(stage:Stage):void
+		{
+			_stage = stage;
+		}
 		
 		public function update():void
 		{
@@ -26,7 +34,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			_currentState = newState;
 			
-			_currentState.load(this);
+			_currentState.load(this, _stage);
 			addChild(_currentState);
 		}
 	}

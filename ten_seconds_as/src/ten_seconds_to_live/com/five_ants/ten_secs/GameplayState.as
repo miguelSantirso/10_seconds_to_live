@@ -8,36 +8,50 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	 */
 	public class GameplayState extends IGameState 
 	{
-		private var _main:TenSecsMain;
+		private var _player:Player;
+		private var _entities:Vector.<Entity> = new Vector.<Entity>();
 		
-		// visual
+		private var _playerInput:IPlayerInput;
+		
+		// map visuals
 		protected var _map:VisualGameMap;
+		// map logic
 		protected var _rooms:Array;
-		
-		// elements vector
 		protected var _roomsDictionary:Dictionary;
 		
-		public override function load(refToMain:TenSecsMain):void 
+		protected override function init():void 
 		{
-			_main = refToMain;
+			_playerInput = new KeyboardInput();
+			_playerInput.init(_stage);
 			
+			_player = new Player();
+			_player.x = 300; _player.y = 300;
+			
+			_entities.push(_player);
+			
+			for each (var entity:Entity in _entities)
+				entity.load(this);
+				
+			// map
 			_roomsDictionary = new Dictionary();
-			
 			_map = new VisualGameMap();
 			_rooms = [_map.room1];
 			
 			initRooms();
 			
+			addChild(_player);
 			addChild(_map);
 		}
 		
 		public override function update():void 
 		{
-			
+			for each (var entity:Entity in _entities)
+				entity.update();
 		}
 		
 		public override function dispose():void 
 		{
+			// map
 			removeChild(_map);
 			
 			for each(var roomVector:Vector.<MovieClip> in _roomsDictionary) {
@@ -47,6 +61,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				delete _roomsDictionary[key];
 			}
 			_roomsDictionary = null;
+			
+			// player
+			_playerInput.dispose();
+			
+			for each (var entity:Entity in _entities)
+				entity.dispose();
 		}
 		
 		protected function initRooms():void
@@ -88,6 +108,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			{ 
 				return 0; 
 			} 
+		}
+		
+		public function get playerInput():IPlayerInput
+		{
+			return _playerInput;
 		}
 		
 		// Temp

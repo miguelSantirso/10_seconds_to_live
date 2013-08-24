@@ -26,7 +26,7 @@ package ten_seconds_to_live
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			
 			// entry point
-			game = new TenSecsMain();
+			game = new TenSecsMain(stage);
 			game.changeState(new GameplayState());
 			addChild(game);
 		}
