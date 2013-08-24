@@ -40,7 +40,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			// Set up realities, push in order to vector
 			_realities.push(new AlternativeReality(new MainReality()));
 			
-			for (var reality:AlternativeReality in _realities)
+			for each (var reality:AlternativeReality in _realities)
 				reality.init(this);
 			
 			changeToReality(REALITY_MAIN);
