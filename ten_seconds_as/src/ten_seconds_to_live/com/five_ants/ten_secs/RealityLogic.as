@@ -40,6 +40,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			}
 		}
 		
+		public function checkAllPlayerCollisions(player:Player, roomUtils:RoomUtils):void
+		{
+			for each(var entity:InteractiveObject in _entitiesByName)
+			{
+				entity.checkPlayerCollision(player, roomUtils);
+			}
+		}
+		
 	}
 
 }
