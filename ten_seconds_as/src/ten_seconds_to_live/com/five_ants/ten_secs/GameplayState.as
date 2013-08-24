@@ -2,22 +2,20 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 {
 	import flash.display.MovieClip;
 	import flash.utils.Dictionary;
+	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInitializable;
+	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
+	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IUpdateable;
 	/**
 	 * ...
 	 * @author Miguel Santirso
 	 */
-	public class GameplayState extends IGameState 
+	public class GameplayState extends IGameState implements IDisposable, IUpdateable
 	{
 		private var _player:Player;
 		private var _entities:Vector.<Entity> = new Vector.<Entity>();
 		
 		private var _playerInput:IPlayerInput;
-		
-		// map visuals
-		protected var _map:VisualGameMap;
-		// map logic
-		protected var _rooms:Array;
-		protected var _roomsDictionary:Dictionary;
+		protected var _gameMap:GameMap;
 		
 		protected override function init():void 
 		{
@@ -31,16 +29,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			for each (var entity:Entity in _entities)
 				entity.load(this);
+			
+			_gameMap = new GameMap();
+			_gameMap.init();
 				
-			// map
-			_roomsDictionary = new Dictionary();
-			_map = new VisualGameMap();
-			_rooms = [_map.room1];
-			
-			initRooms();
-			
 			addChild(_player);
-			addChild(_map);
+			addChild(_gameMap);
 		}
 		
 		public override function update():void 
@@ -51,63 +45,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public override function dispose():void 
 		{
-			// map
-			removeChild(_map);
-			
-			for each(var roomVector:Vector.<MovieClip> in _roomsDictionary) {
-				roomVector.splice(0, roomVector.length);
-			}
-			for (var key:Object in _roomsDictionary) {
-				delete _roomsDictionary[key];
-			}
-			_roomsDictionary = null;
+			_gameMap.dispose();
+			removeChild(_gameMap);
 			
 			// player
 			_playerInput.dispose();
 			
 			for each (var entity:Entity in _entities)
 				entity.dispose();
-		}
-		
-		protected function initRooms():void
-		{
-			// crear diccionario y vector de movieclips por habitación
-			var room:MovieClip;
-			var roomElements:Vector.<MovieClip>;
-			var tempElement:MovieClip
-			
-			for each(room in _rooms) {
-				roomElements = new Vector.<MovieClip>();
-				
-				// filtrar objetos de colisión
-				for (var i:int = 0; i < room.numChildren; i++) {
-					roomElements.push(room.getChildAt(i));
-				}
-				roomElements.sort(sortOnYCoordinate);
-				_roomsDictionary[room.name] = roomElements;
-				
-				// hacer sorting en el display list de cada habitación
-				for (var j:int = 0; j < roomElements.length; j++) {
-					tempElement = room.getChildByName(roomElements[j].name) as MovieClip;
-					room.setChildIndex(tempElement, roomElements.length - 1 - j);
-				}
-			}
-		}
-		
-		protected function sortOnYCoordinate(a:MovieClip, b:MovieClip):int
-		{
-			if (a.y > b.y) 
-			{ 
-				return -1; 
-			} 
-			else if (a.y < b.y) 
-			{ 
-				return 1; 
-			} 
-			else 
-			{ 
-				return 0; 
-			} 
 		}
 		
 		public function get playerInput():IPlayerInput
