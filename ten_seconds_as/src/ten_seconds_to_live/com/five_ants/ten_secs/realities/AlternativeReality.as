@@ -6,7 +6,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.Entity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameMap;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
+	import ten_seconds_to_live.com.five_ants.ten_secs.InteractiveObject;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Player;
+	import ten_seconds_to_live.com.five_ants.ten_secs.RealityLogic;
 	import ten_seconds_to_live.com.five_ants.ten_secs.RoomUtils;
 	import ten_seconds_to_live.com.five_ants.ten_secs.WallCollisions;
 	/**
@@ -26,6 +28,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		private var _roomUtils:RoomUtils;
 		
 		private var _sceneContainer:Sprite;
+		
+		private var _realityLogic:RealityLogic;
 		
 		public function AlternativeReality(config:IRealityConfig)
 		{
@@ -53,9 +57,30 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_camera.target = _player;
 			_entities.push(_player);
 			
+			// ALBERT TEST:
+			_realityLogic = new RealityLogic();
+			
+			var testObject:InteractiveObject;
+			for (var i:int = 0; i < 10; ++i)
+			{
+				testObject = new InteractiveObject();
+				
+				_realityLogic.registerInteractiveEntity("paco" + i, testObject);
+				_entities.push(testObject);
+			}
+			// FIN ALBERT TEST
+			
 			_gameMap = new GameMap(_config.constructVisualGameMap());
 			_gameMap.init();
 			_gameMap.addChild(_player);
+			
+			// TEST ALBERT:
+			_gameMap.addChild(_realityLogic.findEntityByName("paco0"));
+			_realityLogic.findEntityByName("paco0").x = 75;
+			_realityLogic.findEntityByName("paco0").y = 250;
+			
+			// muestra los radios de todos los objetos interactivos:
+			_realityLogic.showInteractionRadiuses = true;
 			
 			for each (var entity:Entity in _entities)
 				entity.load(_gameplay);
@@ -77,6 +102,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_gameMap.update();
 			
 			_camera.update();
+			
+			_realityLogic.update(_player, _roomUtils, _gameplay.playerInput);
 		}
 		
 		

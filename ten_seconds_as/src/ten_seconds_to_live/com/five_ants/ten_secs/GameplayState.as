@@ -35,6 +35,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		private var _interactiveObjects:Vector.<InteractiveObject> = new Vector.<InteractiveObject>();
 		
+		private var _realityLogic:RealityLogic;
+		
 		protected override function init():void 
 		{
 			// time
