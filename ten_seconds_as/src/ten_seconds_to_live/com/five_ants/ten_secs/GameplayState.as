@@ -7,26 +7,27 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInitializable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IUpdateable;
+	import ten_seconds_to_live.com.five_ants.ten_secs.realities.MainReality;
+	
+	import ten_seconds_to_live.com.five_ants.ten_secs.realities.AlternativeReality;
+	
 	/**
 	 * ...
 	 * @author Miguel Santirso
 	 */
 	public class GameplayState extends IGameState implements IDisposable, IUpdateable
 	{
-		private var _gameTime:GameTime;
-		private var _timeTextField:TextField;
+		public static const REALITY_MAIN:int = 0;
 		
 		private var _playerInput:IPlayerInput;
 		
-		private var _player:Player;
+		private var _realities:Vector.<AlternativeReality> = new Vector.<AlternativeReality>();
+		private var _currentReality:int = -1;
+		
+		private var _gameTime:GameTime;
+		private var _timeTextField:TextField;
+		
 		private var _interactiveObjects:Vector.<InteractiveObject> = new Vector.<InteractiveObject>();
-		private var _entities:Vector.<Entity> = new Vector.<Entity>();
-
-		private var _sceneContainer:Sprite;
-		private var _camera:Camera;
-		protected var _gameMap:GameMap;
-		private var _collisions:WallCollisions;
-		private var _roomUtils:RoomUtils;
 		
 		protected override function init():void 
 		{
@@ -36,54 +37,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_playerInput = new KeyboardInput();
 			_playerInput.init(_stage);
 			
-			_camera = new Camera();
+			// Set up realities, push in order to vector
+			_realities.push(new AlternativeReality(new MainReality()));
 			
-			_collisions = new WallCollisions();
-			var spCollisions:Sprite = new HouseCollisions();
-			_collisions.setCollisions(spCollisions);
+			for (var reality:AlternativeReality in _realities)
+				reality.init(this);
 			
-			var floors:Sprite = new Floors();
-			_roomUtils = new RoomUtils();
-			_roomUtils.setRoomShapes(floors);
-			
-			_player = new Player();
-			_player.x = 300; _player.y = 400;
-			
-			_camera.target = _player;
-			
-			_entities.push(_player);
-			
-			// TEST:
-			for (var i:int = 0; i < 10; ++i)
-			{
-				_interactiveObjects.push(new InteractiveObject());
-				_interactiveObjects[i].x = 50;
-				_interactiveObjects[i].y = 250;
-			}
-			// FIN TEST
-			
-			for (i = 0; i < _interactiveObjects.length; ++i)	
-			{
-				_entities.push(_interactiveObjects[i]);
-			}
-			
-			for each (var entity:Entity in _entities)
-				entity.load(this);
-			
-			_gameMap = new GameMap(new VisualGameMap());
-			_gameMap.init();
-			_gameMap.addChild(_player);
-			for (i = 0; i < _interactiveObjects.length; ++i) _gameMap.addChild(_interactiveObjects[i]);
-			
-			_sceneContainer = new Sprite();
-			addChild(_sceneContainer);
-			_camera.sceneContainer = _sceneContainer;
-			
-			_sceneContainer.addChild(floors);
-			_sceneContainer.addChild(_gameMap.world);
-			
-			spCollisions.visible = false;
-			addChild(spCollisions);// needs to be in the display list for the hit test to work
+			changeToReality(REALITY_MAIN);
 			
 			
 			// HUD
@@ -93,12 +53,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public override function update():void 
 		{
-			for each (var entity:Entity in _entities)
-				entity.update();
-				
-			_gameMap.update();
-			
-			_camera.update();
+			currentReality.update();
 			
 			_gameTime.update();
 			_timeTextField.text = String(_gameTime.seconds);
@@ -110,27 +65,34 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public override function dispose():void 
 		{
-			_gameMap.dispose();
-			removeChild(_gameMap.world);
-			
-			// player
 			_playerInput.dispose();
 			
-			for each (var entity:Entity in _entities)
-				entity.dispose();
+			for each (var reality:AlternativeReality in _realities)
+				reality.dispose();
+		}
+		
+		public function changeToReality(reality:int):void
+		{
+			if (_currentReality >= 0)
+			{
+				removeChild(currentReality);
+				//currentReality.dispose();
+			}
+			
+			_currentReality = reality;
+			
+			//currentReality.init(this);
+			addChild(currentReality);
+		}
+		
+		public function get currentReality():AlternativeReality
+		{
+			return _realities[_currentReality];
 		}
 		
 		public function get playerInput():IPlayerInput
 		{
 			return _playerInput;
-		}
-		public function get collisions():WallCollisions
-		{
-			return _collisions;
-		}
-		public function get roomUtils():RoomUtils
-		{
-			return _roomUtils;
 		}
 		
 		// Temp
