@@ -2,8 +2,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.text.TextField;
 	import flash.utils.Dictionary;
+	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUD;
+	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUDClock;
+	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUDInventory;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInitializable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IUpdateable;
@@ -24,15 +28,20 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _realities:Vector.<AlternativeReality> = new Vector.<AlternativeReality>();
 		private var _currentReality:int = -1;
 		
+		protected var _hud:HUD;
+		
+		// time
 		private var _gameTime:GameTime;
-		private var _timeTextField:TextField;
 		
 		private var _interactiveObjects:Vector.<InteractiveObject> = new Vector.<InteractiveObject>();
 		
 		protected override function init():void 
 		{
+			// time
 			_gameTime = new GameTime();
-			_timeTextField = new TextField();
+			_gameTime.addEventListener(GameTime.TIMEUP_EVENT, onTimeUp, false, 0, true);
+			_gameTime.addEventListener(GameTime.SLOWMO_START_EVENT, onSlowmoStart, false, 0, true);
+			_gameTime.addEventListener(GameTime.SLOWMO_END_EVENT, onSlowmoEnd, false, 0, true);
 			
 			_playerInput = new KeyboardInput();
 			_playerInput.init(_stage);
@@ -45,10 +54,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			changeToReality(REALITY_MAIN);
 			
-			
-			// HUD
-			_timeTextField.x = _timeTextField.y = 10;
-			addChild(_timeTextField);
+			_hud = new HUD();
+			_hud.init();
+			addChild(_hud);
 		}
 		
 		public override function update():void 
@@ -56,11 +64,16 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			currentReality.update();
 			
 			_gameTime.update();
-			_timeTextField.text = String(_gameTime.seconds);
+			
+			_hud.time = _gameTime.seconds;
+			_hud.update();
 			
 			// test
-			if (!_gameTime.slowmoActive && _playerInput.testPressed)
+			if (!_gameTime.slowmoActive && _playerInput.testPressed){
 				_gameTime.startSlowmo();
+				_hud.inventory.addItem("pistola");
+				_hud.openItemPopUp("pistola");
+			}
 		}
 		
 		public override function dispose():void 
@@ -69,6 +82,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			for each (var reality:AlternativeReality in _realities)
 				reality.dispose();
+				
+			// hud
+			_hud.dispose();
+			
+			_gameTime.removeEventListener(GameTime.TIMEUP_EVENT, onTimeUp);
+			_gameTime.removeEventListener(GameTime.SLOWMO_START_EVENT, onSlowmoStart);
+			_gameTime.removeEventListener(GameTime.SLOWMO_END_EVENT, onSlowmoEnd);
 		}
 		
 		public function changeToReality(reality:int):void
@@ -93,6 +113,24 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function get playerInput():IPlayerInput
 		{
 			return _playerInput;
+		}
+		
+		protected function onTimeUp(e:Event):void 
+		{
+			// game over
+		}
+		
+		public function onSlowmoStart(e:Event):void
+		{
+			_hud.slowmo = true;
+		}
+		
+		public function onSlowmoEnd(e:Event):void
+		{
+			_hud.slowmo = false;
+			
+			_hud.inventory.removeItem("pistola");
+			_hud.closeItemPopUp();
 		}
 		
 		// Temp
