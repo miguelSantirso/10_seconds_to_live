@@ -10,9 +10,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.interfaces
 	{
 		function get name():String;
 		
-		function addAction(action:ObjectActionBase);
+		function addAction(action:ObjectActionBase):void;
 		
-		function executeAllActions();
+		function executeAllActions():void;
 	}
 	
 }

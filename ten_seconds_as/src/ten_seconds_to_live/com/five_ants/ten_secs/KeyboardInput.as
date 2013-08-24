@@ -47,6 +47,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			return _keysState[39];
 		}
 		
+		public function get ePressed():Boolean
+		{
+			return _keysState[69]; //e
+		}
+		
 		public function get testPressed():Boolean 
 		{
 			return _keysState[32];

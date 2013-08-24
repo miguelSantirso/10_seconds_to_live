@@ -29,6 +29,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		private var _interactiveObjects:Vector.<InteractiveObject> = new Vector.<InteractiveObject>();
 		
+		private var _realityLogic:RealityLogic;
+		
 		protected override function init():void 
 		{
 			_gameTime = new GameTime();
@@ -44,7 +46,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				reality.init(this);
 			
 			changeToReality(REALITY_MAIN);
-			
 			
 			// HUD
 			_timeTextField.x = _timeTextField.y = 10;

@@ -15,6 +15,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		function get downPressed():Boolean;
 		function get leftPressed():Boolean;
 		function get rightPressed():Boolean;
+		function get ePressed():Boolean;
 		
 		function get testPressed():Boolean;
 	}
