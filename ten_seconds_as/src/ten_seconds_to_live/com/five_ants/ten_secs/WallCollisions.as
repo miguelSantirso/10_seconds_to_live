@@ -24,6 +24,17 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		}
 		
 		
+		public function changeCollision(collisionBlockName:String, toEnabled:Boolean):void
+		{
+			var collisionBlock:Sprite = _collisions.getChildByName(collisionBlockName) as Sprite;
+			
+			if (!collisionBlock)
+				throw new Error("WallCollisions: Can't find collision block with name: " + collisionBlockName);
+			
+			collisionBlock.visible = toEnabled;
+		}
+		
+		
 		public function setCollisions(collisions:Sprite):void
 		{
 			_collisions = collisions;
