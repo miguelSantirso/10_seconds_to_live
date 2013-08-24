@@ -16,11 +16,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		private var _playerInput:IPlayerInput;
 		protected var _gameMap:GameMap;
+		private var _collisions:WallCollisions;
 		
 		protected override function init():void 
 		{
 			_playerInput = new KeyboardInput();
 			_playerInput.init(_stage);
+			
+			_collisions = new WallCollisions();
 			
 			_player = new Player();
 			_player.x = 300; _player.y = 300;
@@ -58,6 +61,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function get playerInput():IPlayerInput
 		{
 			return _playerInput;
+		}
+		public function get collisions():WallCollisions
+		{
+			return _collisions;
 		}
 		
 		// Temp
