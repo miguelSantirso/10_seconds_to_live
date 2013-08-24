@@ -52,6 +52,7 @@
   <!-- SWC Libraries -->
   <libraryPaths>
     <element path="lib\sort_test.swc" />
+    <element path="lib\sort_test_albert.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

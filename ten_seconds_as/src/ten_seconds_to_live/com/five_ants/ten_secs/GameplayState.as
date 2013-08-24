@@ -15,6 +15,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _playerInput:IPlayerInput;
 		
 		private var _player:Player;
+		private var _interactiveObjects:Vector.<InteractiveObject> = new Vector.<InteractiveObject>();
 		private var _entities:Vector.<Entity> = new Vector.<Entity>();
 
 		private var _sceneContainer:Sprite;
@@ -45,12 +46,27 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			_entities.push(_player);
 			
+			// TEST:
+			for (var i:int = 0; i < 10; ++i)
+			{
+				_interactiveObjects.push(new InteractiveObject());
+				_interactiveObjects[i].x = 50;
+				_interactiveObjects[i].y = 250;
+			}
+			// FIN TEST
+			
+			for (i = 0; i < _interactiveObjects.length; ++i)	
+			{
+				_entities.push(_interactiveObjects[i]);
+			}
+			
 			for each (var entity:Entity in _entities)
 				entity.load(this);
 			
 			_gameMap = new GameMap(new VisualGameMap());
 			_gameMap.init();
 			_gameMap.addChild(_player);
+			for (i = 0; i < _interactiveObjects.length; ++i) _gameMap.addChild(_interactiveObjects[i]);
 			
 			_sceneContainer = new Sprite();
 			addChild(_sceneContainer);
