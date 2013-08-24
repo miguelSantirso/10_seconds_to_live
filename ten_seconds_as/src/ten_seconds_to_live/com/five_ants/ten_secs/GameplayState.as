@@ -2,6 +2,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.text.TextField;
 	import flash.utils.Dictionary;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInitializable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
@@ -12,6 +13,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	 */
 	public class GameplayState extends IGameState implements IDisposable, IUpdateable
 	{
+		private var _gameTime:GameTime;
+		private var _timeTextField:TextField;
+		
 		private var _playerInput:IPlayerInput;
 		
 		private var _player:Player;
@@ -25,6 +29,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		protected override function init():void 
 		{
+			_gameTime = new GameTime();
+			_timeTextField = new TextField();
+			
 			_playerInput = new KeyboardInput();
 			_playerInput.init(_stage);
 			
@@ -61,6 +68,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			spCollisions.visible = false;
 			addChild(spCollisions);// needs to be in the display list for the hit test to work
+			
+			
+			// HUD
+			_timeTextField.x = _timeTextField.y = 10;
+			addChild(_timeTextField);
 		}
 		
 		public override function update():void 
@@ -71,6 +83,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_gameMap.update();
 			
 			_camera.update();
+			
+			_gameTime.update();
+			_timeTextField.text = String(_gameTime.seconds);
+			
+			// test
+			if (!_gameTime.slowmoActive && _playerInput.testPressed)
+				_gameTime.startSlowmo();
 		}
 		
 		public override function dispose():void 
