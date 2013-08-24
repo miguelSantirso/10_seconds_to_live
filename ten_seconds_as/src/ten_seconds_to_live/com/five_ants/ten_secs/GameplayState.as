@@ -32,8 +32,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			_gameMap = new GameMap();
 			_gameMap.init();
-				
-			addChild(_player);
+			_gameMap.addChild(_player);
+			
 			addChild(_gameMap);
 		}
 		

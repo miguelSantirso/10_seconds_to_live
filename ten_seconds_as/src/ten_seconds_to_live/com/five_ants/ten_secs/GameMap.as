@@ -1,5 +1,6 @@
 package ten_seconds_to_live.com.five_ants.ten_secs 
 {
+	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.utils.Dictionary;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInitializable;
@@ -54,6 +55,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					room.setChildIndex(tempElement, roomElements.length - 1 - j);
 				}
 			}
+		}
+		
+		public override function addChild(child:DisplayObject):DisplayObject
+		{
+			if (child is Player)
+				return room1.addChildAt(child,0);
+			else
+				return super.addChild(child);
 		}
 		
 		protected function sortOnYCoordinate(a:MovieClip, b:MovieClip):int
