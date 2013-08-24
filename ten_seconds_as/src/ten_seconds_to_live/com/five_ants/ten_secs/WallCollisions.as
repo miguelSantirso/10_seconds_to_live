@@ -12,15 +12,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	 */
 	public class WallCollisions
 	{
-		private var _gameplay:GameplayState;
-		
 		private var _collisions:Sprite;
-		
-		public function WorldCollisions(refToGameplay:GameplayState)
-		{
-			_gameplay = refToGameplay;
-		}
-		
 		
 		public function isPointNavigable(point:Point):Boolean
 		{
@@ -28,16 +20,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		}
 		public function isPositionNavigable(x:int, y:int):Boolean
 		{
-			//return _collisions.hitTestPoint(x, y, true);
-			
-			return x > 0 
-				&&	x < 800
-				&& y > 0
-				&& y < 600;
+			return ! _collisions.hitTestPoint(x, y, true);
 		}
 		
 		
-		private function setCollisions(collisions:Sprite):void
+		public function setCollisions(collisions:Sprite):void
 		{
 			_collisions = collisions;
 		}

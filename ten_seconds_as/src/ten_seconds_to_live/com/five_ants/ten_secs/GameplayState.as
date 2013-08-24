@@ -1,6 +1,7 @@
 package ten_seconds_to_live.com.five_ants.ten_secs 
 {
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInitializable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
@@ -25,10 +26,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_playerInput.init(_stage);
 			
 			_collisions = new WallCollisions();
+			var spCollisions:Sprite = new HouseCollisions();
+			_collisions.setCollisions(spCollisions);
+			
 			_roomUtils = new RoomUtils();
 			
 			_player = new Player();
-			_player.x = 300; _player.y = 300;
+			_player.x = 300; _player.y = 400;
 			
 			_entities.push(_player);
 			
@@ -40,6 +44,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_gameMap.addChild(_player);
 			
 			addChild(_gameMap);
+			addChild(spCollisions);
 		}
 		
 		public override function update():void 

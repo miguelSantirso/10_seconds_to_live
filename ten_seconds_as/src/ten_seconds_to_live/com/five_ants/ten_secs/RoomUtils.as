@@ -32,7 +32,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			var roomName:String;
 			for (var i:int = 0; i < roomShapes.numChildren; ++i)
 			{
-				roomShape = roomShapes.getChildAt(i);
+				roomShape = roomShapes.getChildAt(i) as Sprite;
 				roomName = roomShape.name;
 				
 				if (roomName)
