@@ -19,11 +19,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function changeState(newState:IGameState):void
 		{
 			if (_currentState)
+			{
+				removeChild(_currentState);
 				_currentState.dispose();
+			}
 			
 			_currentState = newState;
 			
 			_currentState.load(this);
+			addChild(_currentState);
 		}
 	}
 

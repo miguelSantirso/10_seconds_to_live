@@ -1,17 +1,18 @@
 package ten_seconds_to_live.com.five_ants.ten_secs 
 {
+	import flash.display.Sprite;
 	
 	/**
 	 * ...
 	 * @author Miguel Santirso
 	 */
-	public interface IGameState 
+	public class IGameState extends Sprite
 	{
-		function load(refToMain:TenSecsMain):void;
+		public function load(refToMain:TenSecsMain):void {}
 		
-		function update():void;
+		public function update():void {}
 		
-		function dispose():void;
+		public function dispose():void {}
 	}
 	
 }
