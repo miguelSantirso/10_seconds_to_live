@@ -46,6 +46,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			for each (var entity:Entity in _entities)
 				entity.update();
+				
+			_gameMap.update();
 		}
 		
 		public override function dispose():void 
