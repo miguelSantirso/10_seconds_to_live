@@ -11,7 +11,7 @@ package ten_seconds_to_live
 	 */
 	public class Main extends Sprite 
 	{
-		var game:TenSecsMain;
+		private var game:TenSecsMain;
 		
 		public function Main():void 
 		{
