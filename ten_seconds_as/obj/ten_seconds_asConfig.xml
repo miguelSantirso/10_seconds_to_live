@@ -37,6 +37,7 @@
     </source-path>
     <library-path append="true">
       <path-element>C:\Users\Miguel\workspace\10_seconds_to_live\ten_seconds_as\lib\sort_test.swc</path-element>
+      <path-element>C:\Users\Miguel\workspace\10_seconds_to_live\ten_seconds_as\lib\animations_main_ch.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>

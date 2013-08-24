@@ -30,35 +30,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			super();
 			
-			var mc:MovieClip = new MovieClip();
-			mc.graphics.beginFill(0, 1);
-			mc.graphics.drawRect( -5, 0, 10, -20);
-			mc.graphics.endFill();
-			_animations[ANIM_IDLE] = mc;
+			_animations[ANIM_IDLE] = new MainCharacterIdle();
 			
-			mc = new MovieClip();
-			mc.graphics.beginFill(0, 1);
-			mc.graphics.drawRect( -5, 0, 10, -50);
-			mc.graphics.endFill();
-			_animations[ANIM_WALK_UP] = mc;
+			_animations[ANIM_WALK_UP] = new MainCharacterRunUp();
 			
-			mc = new MovieClip();
-			mc.graphics.beginFill(0, 1);
-			mc.graphics.drawRect(0, -5, 50, -10);
-			mc.graphics.endFill();
-			_animations[ANIM_WALK_RIGHT] = mc;
+			_animations[ANIM_WALK_RIGHT] = new MainCharacterRunRight();
 			
-			mc = new MovieClip();
-			mc.graphics.beginFill(0, 1);
-			mc.graphics.drawRect( -5, 0, 10, 50);
-			mc.graphics.endFill();
-			_animations[ANIM_WALK_DOWN] = mc;
+			_animations[ANIM_WALK_DOWN] = new MainCharacterRunDown();
 			
-			mc = new MovieClip();
-			mc.graphics.beginFill(0, 1);
-			mc.graphics.drawRect(0, -5, -50, -10);
-			mc.graphics.endFill();
-			_animations[ANIM_WALK_LEFT] = mc;
+			_animations[ANIM_WALK_LEFT] = new MainCharacterRunLeft();
 			
 			setAnimation(ANIM_IDLE);
 		}
@@ -104,6 +84,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		private function setAnimation(newAnimation:int):void
 		{
+			if (newAnimation == _currentAnimation)
+				return;
+			
 			if (_currentAnimation >= 0)
 			{
 				_animations[_currentAnimation].stop();
