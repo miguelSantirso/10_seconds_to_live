@@ -15,7 +15,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _player:Player;
 		private var _entities:Vector.<Entity> = new Vector.<Entity>();
 		
+		private var _sceneContainer:Sprite;
 		private var _playerInput:IPlayerInput;
+		private var _camera:Camera;
 		protected var _gameMap:GameMap;
 		private var _collisions:WallCollisions;
 		private var _roomUtils:RoomUtils;
@@ -25,14 +27,20 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_playerInput = new KeyboardInput();
 			_playerInput.init(_stage);
 			
+			_camera = new Camera();
+			
 			_collisions = new WallCollisions();
 			var spCollisions:Sprite = new HouseCollisions();
 			_collisions.setCollisions(spCollisions);
 			
+			var floors:Sprite = new Floors();
 			_roomUtils = new RoomUtils();
+			_roomUtils.setRoomShapes(floors);
 			
 			_player = new Player();
 			_player.x = 300; _player.y = 400;
+			
+			_camera.target = _player;
 			
 			_entities.push(_player);
 			
@@ -43,8 +51,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_gameMap.init();
 			_gameMap.addChild(_player);
 			
-			addChild(_gameMap);
-			addChild(spCollisions);
+			_sceneContainer = new Sprite();
+			addChild(_sceneContainer);
+			_camera.sceneContainer = _sceneContainer;
+			
+			_sceneContainer.addChild(floors);
+			_sceneContainer.addChild(_gameMap);
+			
+			spCollisions.visible = false;
+			addChild(spCollisions);// needs to be in the display list for the hit test to work
 		}
 		
 		public override function update():void 
@@ -53,6 +68,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				entity.update();
 				
 			_gameMap.update();
+			
+			_camera.update();
 		}
 		
 		public override function dispose():void 

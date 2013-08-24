@@ -3,15 +3,16 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.geom.Point;
+	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.ICameraTarget;
 	
 	/**
 	 * ...
 	 * @author Miguel Santirso
 	 */
-	public class Player extends Entity 
+	public class Player extends Entity implements ICameraTarget
 	{
-		private static const SPEED_HORIZONTAL:Number = 3.8;
-		private static const SPEED_VERTICAL:Number = 5;
+		private static const SPEED_HORIZONTAL:Number = 18;
+		private static const SPEED_VERTICAL:Number = 25;
 		
 		private static const ANIM_IDLE:int = 0;
 		private static const ANIM_WALK_UP:int = 1;
