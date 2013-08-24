@@ -18,7 +18,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_entitiesByName[name] = entity;
 		}
 		
-		
 		public function findEntityByName(name:String):InteractiveObject
 		{
 			if (!_entitiesByName[name])
@@ -39,12 +38,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				entity.showRadius = value;
 			}
 		}
-		
-		public function checkAllPlayerCollisions(player:Player, roomUtils:RoomUtils):void
+	
+		public function update(player:Player, roomUtils:RoomUtils, playerInput:IPlayerInput):void
 		{
 			for each(var entity:InteractiveObject in _entitiesByName)
 			{
-				entity.checkPlayerCollision(player, roomUtils);
+				entity.checkPlayerCollision(player, roomUtils, playerInput);
 			}
 		}
 		

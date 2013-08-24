@@ -76,7 +76,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			// TEST ALBERT:
 			_gameMap.addChild(_realityLogic.findEntityByName("paco0"));
-			_realityLogic.findEntityByName("paco0").x = 50;
+			_realityLogic.findEntityByName("paco0").x = 75;
 			_realityLogic.findEntityByName("paco0").y = 250;
 			
 			// muestra los radios de todos los objetos interactivos:
@@ -103,7 +103,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			_camera.update();
 			
-			_realityLogic.checkAllPlayerCollisions(_player, _roomUtils);
+			_realityLogic.update(_player, _roomUtils, _gameplay.playerInput);
 		}
 		
 		
