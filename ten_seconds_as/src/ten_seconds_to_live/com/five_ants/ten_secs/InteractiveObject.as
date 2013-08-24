@@ -42,28 +42,28 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public function checkPlayerCollision(player:Player, roomUtils:RoomUtils, playerInput:IPlayerInput):void
 		{
-			// hacer lo de las rooms cuando el mapeado esté bien!
-			trace("PLAYER ROOM: " + roomUtils.getRoomByPosition(player.x, player.y));
-			
 			var interactionEvent:InteractiveObjectEvent;
 			
-			var p1:Point = new Point(player.x, player.y);
-			var p2:Point = new Point(x, y);
-			
-			var distance:Number = Math.sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y))
-			
-			if (distance <= INTERACTION_RADIUS)
+			if (roomUtils.getRoomByPosition(player.x, player.y) == roomUtils.getRoomByPosition(x, y))
 			{
-				if (playerInput.ePressed) 
+				var p1:Point = new Point(player.x, player.y);
+				var p2:Point = new Point(x, y);
+				
+				var distance:Number = Math.sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y))
+				
+				if (distance <= INTERACTION_RADIUS)
 				{
-					_visualObject.gotoAndStop(LABEL_PRESSED);
-					
-					interactionEvent = new InteractiveObjectEvent(InteractiveObjectEvent.DO_ACTION);
-					dispatchEvent(interactionEvent);
+					if (playerInput.ePressed) 
+					{
+						_visualObject.gotoAndStop(LABEL_PRESSED);
+						
+						interactionEvent = new InteractiveObjectEvent(InteractiveObjectEvent.DO_ACTION);
+						dispatchEvent(interactionEvent);
+					}
+					else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);
 				}
-				else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);
+				else if (_visualObject.currentLabel != LABEL_FAR) _visualObject.gotoAndStop(LABEL_FAR);
 			}
-			else if (_visualObject.currentLabel != LABEL_FAR) _visualObject.gotoAndStop(LABEL_FAR);
 		}
 		
 		public override function get name():String
