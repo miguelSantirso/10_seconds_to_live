@@ -1,6 +1,8 @@
 package ten_seconds_to_live.com.five_ants.ten_secs 
 {
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.geom.Point;
 	
 	/**
 	 * ...
@@ -8,29 +10,101 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	 */
 	public class Player extends Entity 
 	{
-		protected static const SPEED_HORIZONTAL:Number = 3.8;
-		protected static const SPEED_VERTICAL:Number = 5;
+		private static const SPEED_HORIZONTAL:Number = 3.8;
+		private static const SPEED_VERTICAL:Number = 5;
+		
+		private static const ANIM_IDLE:int = 0;
+		private static const ANIM_WALK_UP:int = 1;
+		private static const ANIM_WALK_RIGHT:int = 2;
+		private static const ANIM_WALK_DOWN:int = 3;
+		private static const ANIM_WALK_LEFT:int = 4;
+		
+		
+		private var _movement:Point = new Point();
+		
+		private var _animations:Vector.<MovieClip> = new Vector.<MovieClip>();
+		private var _currentAnimation:int = -1;
 		
 		public function Player()
 		{
 			super();
 			
-			graphics.beginFill(0, 1);
-			graphics.drawRect( -5, 0, 10, -50);
-			graphics.endFill();
+			var mc:MovieClip = new MovieClip();
+			mc.graphics.beginFill(0, 1);
+			mc.graphics.drawRect( -5, 0, 10, -20);
+			mc.graphics.endFill();
+			_animations[ANIM_IDLE] = mc;
+			
+			mc = new MovieClip();
+			mc.graphics.beginFill(0, 1);
+			mc.graphics.drawRect( -5, 0, 10, -50);
+			mc.graphics.endFill();
+			_animations[ANIM_WALK_UP] = mc;
+			
+			mc = new MovieClip();
+			mc.graphics.beginFill(0, 1);
+			mc.graphics.drawRect(0, -5, 50, -10);
+			mc.graphics.endFill();
+			_animations[ANIM_WALK_RIGHT] = mc;
+			
+			mc = new MovieClip();
+			mc.graphics.beginFill(0, 1);
+			mc.graphics.drawRect( -5, 0, 10, 50);
+			mc.graphics.endFill();
+			_animations[ANIM_WALK_DOWN] = mc;
+			
+			mc = new MovieClip();
+			mc.graphics.beginFill(0, 1);
+			mc.graphics.drawRect(0, -5, -50, -10);
+			mc.graphics.endFill();
+			_animations[ANIM_WALK_LEFT] = mc;
+			
+			setAnimation(ANIM_IDLE);
 		}
 		
 		public override function update():void
 		{
-			if (_gameplay.playerInput.leftPressed)
-				x -= SPEED_HORIZONTAL;
-			if (_gameplay.playerInput.rightPressed)
-				x += SPEED_HORIZONTAL;
-			if (_gameplay.playerInput.upPressed)
-				y -= SPEED_VERTICAL;
-			if (_gameplay.playerInput.downPressed)
-				y += SPEED_VERTICAL;
+			_movement.x = 0;
+			_movement.y = 0;
 			
+			if (_gameplay.playerInput.leftPressed)
+				_movement.x -= 1;
+			if (_gameplay.playerInput.rightPressed)
+				_movement.x += 1;
+			if (_gameplay.playerInput.upPressed)
+				_movement.y -= 1;
+			if (_gameplay.playerInput.downPressed)
+				_movement.y += 1;
+			
+			if (_movement.x == 0 && _movement.y == 0)
+				setAnimation(ANIM_IDLE);
+			else if (_movement.x != 0 && _movement.y == 0)
+				setAnimation(_movement.x > 0 ? ANIM_WALK_RIGHT : ANIM_WALK_LEFT);
+			else if (_movement.y != 0 && _movement.x == 0)
+				setAnimation(_movement.y > 0 ? ANIM_WALK_DOWN : ANIM_WALK_UP);
+			/*else // x and y != 0 
+			{
+				
+			}*/
+			
+			x += _movement.x * SPEED_HORIZONTAL;
+			y += _movement.y * SPEED_VERTICAL;
+			
+		}
+		
+		
+		private function setAnimation(newAnimation:int):void
+		{
+			if (_currentAnimation >= 0)
+			{
+				_animations[_currentAnimation].stop();
+				removeChild(_animations[_currentAnimation]);
+			}
+			
+			_currentAnimation = newAnimation;
+			
+			addChild(_animations[_currentAnimation]);
+			_animations[_currentAnimation].gotoAndPlay(1);
 		}
 	}
 
