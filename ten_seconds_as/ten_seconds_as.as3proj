@@ -53,6 +53,7 @@
   <libraryPaths>
     <element path="lib\sort_test.swc" />
     <element path="lib\sort_test_albert.swc" />
+    <element path="lib\animations_main_ch.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
