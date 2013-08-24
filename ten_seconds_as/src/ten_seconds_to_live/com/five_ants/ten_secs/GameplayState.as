@@ -12,10 +12,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	 */
 	public class GameplayState extends IGameState implements IDisposable, IUpdateable
 	{
+		private var _playerInput:IPlayerInput;
+		
 		private var _player:Player;
 		private var _entities:Vector.<Entity> = new Vector.<Entity>();
-		
-		private var _playerInput:IPlayerInput;
 		protected var _gameMap:GameMap;
 		private var _collisions:WallCollisions;
 		private var _roomUtils:RoomUtils;
@@ -39,11 +39,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			for each (var entity:Entity in _entities)
 				entity.load(this);
 			
-			_gameMap = new GameMap();
+			_gameMap = new GameMap(new VisualGameMap());
 			_gameMap.init();
 			_gameMap.addChild(_player);
 			
-			addChild(_gameMap);
+			addChild(_gameMap.world);
 			addChild(spCollisions);
 		}
 		
@@ -58,7 +58,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public override function dispose():void 
 		{
 			_gameMap.dispose();
-			removeChild(_gameMap);
+			removeChild(_gameMap.world);
 			
 			// player
 			_playerInput.dispose();

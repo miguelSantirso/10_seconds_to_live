@@ -2,6 +2,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 {
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInitializable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
@@ -10,15 +11,17 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	 * ...
 	 * @author ...
 	 */
-	public class GameMap  extends VisualGameMap implements IInitializable, IDisposable, IUpdateable 
+	public class GameMap implements IInitializable, IDisposable, IUpdateable 
 	{
+		protected var _world:MovieClip;
 		protected var _mapElements:Vector.<DisplayObject>;
 		
 		protected var _player:Player;
 		protected var _previousPlayerY:Number;
 		
-		public function GameMap() 
+		public function GameMap(world:MovieClip) 
 		{
+			_world = world;
 			_mapElements = new Vector.<DisplayObject>();
 			_previousPlayerY = Number.NaN;
 		}
@@ -35,15 +38,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			var tempElement:MovieClip
 			
-			for (var i:int = numChildren - 1; i >= 0; i--) {
-				_mapElements.push(getChildAt(i));
+			for (var i:int = _world.numChildren - 1; i >= 0; i--) {
+				_mapElements.push(_world.getChildAt(i));
 			}
 			_mapElements.sort(sortMapElementOnY);
 			
 			// hacer sorting en el display list de cada habitación
 			for (var j:int = 0; j < _mapElements.length; j++) {
-				tempElement = getChildByName(_mapElements[j].name) as MovieClip;
-				setChildIndex(tempElement, j);
+				tempElement = _world.getChildByName(_mapElements[j].name) as MovieClip;
+				_world.setChildIndex(tempElement, j);
 			}
 		}
 		
@@ -55,14 +58,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			}
 		}
 		
-		public override function addChild(child:DisplayObject):DisplayObject
+		public function addChild(child:DisplayObject):DisplayObject
 		{
 			if (child is Player) {
 				_player = child as Player;
 				_previousPlayerY = _player.y;
-				return addChildAt(child,initPlayerIndex);
+				return _world.addChildAt(child,initPlayerIndex);
 			}else
-				return super.addChild(child);
+				return _world.addChild(child);
 		}
 		
 		protected function sortMapElementOnY(a:MovieClip, b:MovieClip):int
@@ -80,9 +83,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			var newPlayerIndex:int = newPlayerIndex;
 			
-			if (newPlayerIndex != getChildIndex(_player)){
-				setChildIndex(_player, newPlayerIndex);
+			if (newPlayerIndex != _world.getChildIndex(_player)){
+				_world.setChildIndex(_player, newPlayerIndex);
 			}
+		}
+		
+		public function get world():MovieClip
+		{
+			return _world;
 		}
 		
 		protected function get initPlayerIndex():int
@@ -99,7 +107,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		protected function get newPlayerIndex():int
 		{
-			var currentPlayerIndex:int = getChildIndex(_player);
+			var currentPlayerIndex:int = _world.getChildIndex(_player);
 			
 			if (_player.y < _previousPlayerY) {
 				for (var i:int = currentPlayerIndex - 1; i >= 0; i--) {
