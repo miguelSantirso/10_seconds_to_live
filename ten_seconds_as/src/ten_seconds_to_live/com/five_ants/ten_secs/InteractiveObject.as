@@ -52,15 +52,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			var interactionEvent:InteractiveObjectEvent;
 			
-			if (roomUtils.getRoomByPosition(player.x, player.y) == roomUtils.getRoomByPosition(x, y))
+			//if (roomUtils.getRoomByPosition(player.x, player.y) == roomUtils.getRoomByPosition(x, y))
 			{
 				var p1:Point = new Point(player.x, player.y);
 				var p2:Point = new Point(x, y);
 				
 				var distance:Number = Math.sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y))
-				
+
 				if (distance <= _interactionRadius)
-				{
+				{	
 					if (_interactionEnabled && playerInput.ePressed) 
 					{
 						_visualObject.gotoAndStop(LABEL_PRESSED);

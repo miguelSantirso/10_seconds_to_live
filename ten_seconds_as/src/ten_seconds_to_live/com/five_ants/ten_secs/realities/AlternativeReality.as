@@ -57,13 +57,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_camera.target = _player;
 			_entities.push(_player);
 			
-			// ALBERT TEST:
+			/// ALBERT TEST:
 			_realityLogic = new RealityLogic();
 			
 			var testObject:InteractiveObject;
 			for (var i:int = 0; i < 10; ++i)
 			{
-				testObject = new InteractiveObject("paco" + i);
+				testObject = new InteractiveObject("paco" + i, 100 * (i+1));
 				
 				_realityLogic.registerInteractiveEntity(testObject.getName(), testObject);
 				_entities.push(testObject);
@@ -73,6 +73,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_gameMap = new GameMap(_config.constructVisualGameMap());
 			_gameMap.init();
 			_gameMap.addChild(_player);
+			
+			initInteractiveObjects();
 			
 			// TEST ALBERT:
 			_gameMap.addChild(_realityLogic.findEntityByName("paco0"));
@@ -97,6 +99,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_sceneContainer.addChild(_gameMap.world);
 		}
 		
+		private function initInteractiveObjects():void
+		{
+			for each(var object:MovieClip in _gameMap.world)
+			{
+				trace("OBJECT: " + object.name);
+			}
+		}
 		
 		public function update():void
 		{
@@ -109,7 +118,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			_realityLogic.update(_player, _roomUtils, _gameplay.playerInput);
 		}
-		
 		
 		public function dispose():void
 		{
