@@ -20,6 +20,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function GameMap() 
 		{
 			_mapElements = new Vector.<DisplayObject>();
+			_previousPlayerY = Number.NaN;
 		}
 		
 		public function dispose():void
@@ -34,8 +35,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			var tempElement:MovieClip
 			
-			// filtrar objetos de colisión
-			for (var i:int = 0; i < numChildren; i++) {
+			for (var i:int = numChildren - 1; i >= 0; i--) {
 				_mapElements.push(getChildAt(i));
 			}
 			_mapElements.sort(sortMapElementOnY);
@@ -43,7 +43,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			// hacer sorting en el display list de cada habitación
 			for (var j:int = 0; j < _mapElements.length; j++) {
 				tempElement = getChildByName(_mapElements[j].name) as MovieClip;
-				setChildIndex(tempElement, _mapElements.length - 1 - j);
+				setChildIndex(tempElement, j);
 			}
 		}
 		
@@ -67,48 +67,37 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		protected function sortMapElementOnY(a:MovieClip, b:MovieClip):int
 		{
-			if (a.y > b.y) 
-			{ 
+			if (a.y < b.y){ 
 				return -1; 
-			} 
-			else if (a.y < b.y) 
-			{ 
+			}else if (a.y > b.y){ 
 				return 1; 
-			} 
-			else 
-			{ 
+			}else{ 
 				return 0; 
 			} 
 		}
 		
 		protected function sortPlayerIndex():void
 		{
-			//remove player;
+			var newPlayerIndex:int = newPlayerIndex;
 			
-			
-			//var _roomElements:Vector.<MovieClip> = _roomsDictionary[_currentRoom.name] as Vector.<MovieClip>;
-			var newPlayerIndex:int = getNewPlayerIndex();
-			
-				trace("new player index",newPlayerIndex);
-			if (newPlayerIndex != getChildIndex(_player)) {
-				trace("new player index",newPlayerIndex);
+			if (newPlayerIndex != getChildIndex(_player)){
 				setChildIndex(_player, newPlayerIndex);
 			}
-			
-			//trace("new player index",newPlayerIndex);
-			//_currentRoom.setChildIndex(_player, newPlayerIndex);
 		}
 		
 		protected function get initPlayerIndex():int
 		{
+			var currY:Number;
 			for (var i:int = 0; i < _mapElements.length; i++) {
-				if (_player.y < _mapElements[i].y)
+				currY = _mapElements[i].y;
+				if (_player.y < _mapElements[i].y){
 					return i;
+				}
 			}
 			return _mapElements.length - 1;
 		}
 		
-		protected function getNewPlayerIndex():int
+		protected function get newPlayerIndex():int
 		{
 			var currentPlayerIndex:int = getChildIndex(_player);
 			
@@ -123,7 +112,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 						return j;
 				}
 			}
-			
 			return currentPlayerIndex;
 		}
 	}
