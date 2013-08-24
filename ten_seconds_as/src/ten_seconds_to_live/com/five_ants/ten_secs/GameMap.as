@@ -89,8 +89,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			//var _roomElements:Vector.<MovieClip> = _roomsDictionary[_currentRoom.name] as Vector.<MovieClip>;
 			var newPlayerIndex:int = getNewPlayerIndex();
 			
-			if (newPlayerIndex != getChildIndex(_player))
+				trace("new player index",newPlayerIndex);
+			if (newPlayerIndex != getChildIndex(_player)) {
+				trace("new player index",newPlayerIndex);
 				setChildIndex(_player, newPlayerIndex);
+			}
 			
 			//trace("new player index",newPlayerIndex);
 			//_currentRoom.setChildIndex(_player, newPlayerIndex);
@@ -115,9 +118,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 						return i + 1;
 				} 
 			}else if (_player.y > _previousPlayerY) {
-				for (var i:int = currentPlayerIndex; i < _mapElements.length; i++) {
-					if (_player.y < _mapElements[i].y && _mapElements[i] != _player)
-						return i;
+				for (var j:int = currentPlayerIndex; j < _mapElements.length; j++) {
+					if (_player.y < _mapElements[j].y && _mapElements[j] != _player)
+						return j;
 				}
 			}
 			
