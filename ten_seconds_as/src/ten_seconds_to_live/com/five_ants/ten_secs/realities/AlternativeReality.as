@@ -63,9 +63,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			var testObject:InteractiveObject;
 			for (var i:int = 0; i < 10; ++i)
 			{
-				testObject = new InteractiveObject();
+				testObject = new InteractiveObject("paco" + i);
 				
-				_realityLogic.registerInteractiveEntity("paco" + i, testObject);
+				_realityLogic.registerInteractiveEntity(testObject.getName(), testObject);
 				_entities.push(testObject);
 			}
 			// FIN ALBERT TEST
@@ -78,9 +78,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_gameMap.addChild(_realityLogic.findEntityByName("paco0"));
 			_realityLogic.findEntityByName("paco0").x = 75;
 			_realityLogic.findEntityByName("paco0").y = 250;
+			_gameMap.addChild(_realityLogic.findEntityByName("paco1"));
+			_realityLogic.findEntityByName("paco1").x = 1200;
+			_realityLogic.findEntityByName("paco1").y = 450;
 			
 			// muestra los radios de todos los objetos interactivos:
 			_realityLogic.showInteractionRadiuses = true;
+			_realityLogic.enableAllInteractions = true;
 			
 			for each (var entity:Entity in _entities)
 				entity.load(_gameplay);
