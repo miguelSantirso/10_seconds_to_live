@@ -11,8 +11,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	 */
 	public class Player extends Entity implements ICameraTarget
 	{
-		private static const SPEED_HORIZONTAL:Number = 18;
-		private static const SPEED_VERTICAL:Number = 25;
+		private static const SPEED_HORIZONTAL:Number = 16;
+		private static const SPEED_VERTICAL:Number = 20;
 		
 		private static const ANIM_IDLE:int = 0;
 		private static const ANIM_WALK_UP:int = 1;
