@@ -47,6 +47,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			for (var j:int = 0; j < _mapElements.length; j++) {
 				tempElement = _world.getChildByName(_mapElements[j].name) as MovieClip;
 				_world.setChildIndex(tempElement, j);
+				trace(tempElement.name + " " + j + " " + tempElement.y);
 			}
 		}
 		
