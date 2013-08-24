@@ -18,7 +18,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			_roomsDictionary = new Dictionary();
 			
-			_rooms = [room1];
+			_rooms = [room0];
 		}
 		
 		public function dispose():void
@@ -60,7 +60,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public override function addChild(child:DisplayObject):DisplayObject
 		{
 			if (child is Player)
-				return room1.addChildAt(child,0);
+				return room0.addChildAt(child,0);
 			else
 				return super.addChild(child);
 		}
