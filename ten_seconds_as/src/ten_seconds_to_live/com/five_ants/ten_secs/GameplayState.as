@@ -17,6 +17,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _playerInput:IPlayerInput;
 		protected var _gameMap:GameMap;
 		private var _collisions:WallCollisions;
+		private var _roomUtils:RoomUtils;
 		
 		protected override function init():void 
 		{
@@ -24,6 +25,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_playerInput.init(_stage);
 			
 			_collisions = new WallCollisions();
+			_roomUtils = new RoomUtils();
 			
 			_player = new Player();
 			_player.x = 300; _player.y = 300;
@@ -65,6 +67,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function get collisions():WallCollisions
 		{
 			return _collisions;
+		}
+		public function get roomUtils():RoomUtils
+		{
+			return _roomUtils;
 		}
 		
 		// Temp
