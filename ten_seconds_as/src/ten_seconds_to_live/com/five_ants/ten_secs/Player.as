@@ -87,8 +87,16 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				
 			}*/
 			
-			x += _movement.x * SPEED_HORIZONTAL;
-			y += _movement.y * SPEED_VERTICAL;
+			_movement.x *= SPEED_HORIZONTAL;
+			_movement.y *= SPEED_VERTICAL;
+			
+			if (!_gameplay.collisions.isPositionNavigable(x + _movement.x, y))
+				_movement.x = 0;
+			if (!_gameplay.collisions.isPositionNavigable(x, y + _movement.y))
+				_movement.y = 0;
+			
+			x += _movement.x;
+			y += _movement.y;
 			
 		}
 		
