@@ -68,16 +68,24 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				
 			}*/
 			
-			_movement.x *= SPEED_HORIZONTAL;
-			_movement.y *= SPEED_VERTICAL;
+			/*_movement.x *= SPEED_HORIZONTAL;
+			_movement.y *= SPEED_VERTICAL;*/
 			
-			if (!_gameplay.currentReality.collisions.isPositionNavigable(x + _movement.x, y))
-				_movement.x = 0;
-			if (!_gameplay.currentReality.collisions.isPositionNavigable(x, y + _movement.y))
-				_movement.y = 0;
+			var collisions:WallCollisions = _gameplay.currentReality.collisions;
 			
-			x += _movement.x;
-			y += _movement.y;
+			var tentativeMovement:int = _movement.x * SPEED_HORIZONTAL;
+			while (tentativeMovement != 0 && !collisions.isPositionNavigable(x + tentativeMovement, y))
+			{
+				tentativeMovement /= 2;
+			}
+			x += tentativeMovement;
+			
+			tentativeMovement = _movement.y * SPEED_VERTICAL;
+			while (tentativeMovement != 0 && !collisions.isPositionNavigable(x, y + tentativeMovement))
+			{
+				tentativeMovement /= 2;
+			}
+			y += tentativeMovement;
 			
 		}
 		
