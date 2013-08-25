@@ -29,7 +29,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	{
 		public static const REALITY_MAIN:int = 0;
 		
-		private var _playerInput:IPlayerInput;
+		private static var _playerInput:IPlayerInput;
 		
 		private var _realities:Vector.<AlternativeReality> = new Vector.<AlternativeReality>();
 		private var _currentReality:int = -1;
@@ -97,6 +97,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				_gameTime.update();*/
 			
 			_hud.time = _gameTime.seconds;
+			_hud.update();
 			
 			// temp
 			if(_playerInput.testPressed){
@@ -247,7 +248,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			paused = false;
 		}
 		
-		// TODO remove
 		protected function onHUDResume(event:Event):void
 		{
 			_hud.closePauseMenu();
@@ -257,6 +257,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			_hud.openCreditsPopUp();
 		}		
+		
+		public static function get playerInput():IPlayerInput
+		{
+			return _playerInput;
+		}
 		
 		// Temp
 		protected function traceRoomElements(roomElements:Vector.<MovieClip>):void

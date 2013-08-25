@@ -93,6 +93,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			_hudDialog.x = (800 - _hudDialog.width) * 0.5;
 			_hudDialog.y = 456;
+			_hudDialog.addEventListener(HUDDialog.DIALOG_COMPLETE_EVENT, closeDialog, false, 0, true);
 			
 			addChild(_hudClock);
 			addChild(_hudButtonPanel);
@@ -129,6 +130,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudCreditsPopUp.dispose();
 			_hudCreditsPopUp = null;
 			
+			_hudDialog.removeEventListener(HUDDialog.DIALOG_COMPLETE_EVENT, closeDialog);
 			_hudDialog.dispose();
 			_hudDialog = null;
 		}
@@ -259,7 +261,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			}
 		}
 		
-		public function closeDialog():void
+		public function closeDialog(event:Event = null):void
 		{	
 			_dialogOpened = false;
 			
