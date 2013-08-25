@@ -91,7 +91,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			addChild(_sceneContainer);
 			_camera.sceneContainer = _sceneContainer;
 			
-			_sceneContainer.addChild(_config.constructFloors());
+			var visualRoomFloors:Sprite = _config.constructFloors();
+			_sceneContainer.addChild(visualRoomFloors);
+			_roomUtils.setRoomVisuals(visualRoomFloors);
 			_sceneContainer.addChild(_gameMap.world);
 		}
 		
@@ -139,11 +141,23 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		
 		public function update():void
 		{
+			updateEntities();
+			updateRooms();
+			
+			_gameMap.update();
+			
+			_camera.update();
+			
+			_realityLogic.update(_player, _gameplay.playerInput);
+		}
+		
+		protected function updateEntities():void
+		{
 			for each (var entity:Entity in _entities)
 			{
 				entity.update();
 				
-				if (entity.getMyRoom(_roomUtils) != _player.getMyRoom(_roomUtils))
+				if (entity.getMyRoom() != _player.getMyRoom())
 				{
 					entity.visualObject.visible = false;
 				}
@@ -152,12 +166,17 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 					entity.visualObject.visible = true;
 				}
 			}
-			
-			_gameMap.update();
-			
-			_camera.update();
-			
-			_realityLogic.update(_player, _gameplay.playerInput);
+		}
+		
+		protected function updateRooms():void
+		{
+			for each(var roomName:String in _roomUtils.allRoomNames)
+			{
+				if(roomName != _player.getMyRoom())
+					_roomUtils.hideRoom(roomName);
+				else
+					_roomUtils.showRoom(roomName);
+			}
 		}
 		
 		public function dispose():void

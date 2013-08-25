@@ -4,6 +4,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.display.Sprite;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IUpdateable;
+	import ten_seconds_to_live.com.five_ants.ten_secs.realities.AlternativeReality;
 	
 	/**
 	 * ...
@@ -35,9 +36,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public function update():void { }
 		
-		public function getMyRoom(roomUtils:RoomUtils):String
+		public function getMyRoom():String
 		{
-			return roomUtils.getRoomByPosition(x, y);
+			return AlternativeReality._roomUtils.getRoomByPosition(x, y);
 		}
 		
 		public function get visualObject():MovieClip

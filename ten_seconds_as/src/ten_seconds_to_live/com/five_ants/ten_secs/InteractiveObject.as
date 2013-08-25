@@ -39,6 +39,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected static const LABEL_NEAR:String = "near";
 		protected static const LABEL_PRESSED:String = "pressed";
 		
+		protected static const LABEL_POINTER_BEGIN:String = "begin";
+		protected static const LABEL
+		
 		public function InteractiveObject(visualObject:MovieClip, roomUtils:RoomUtils, interactionRadius:Number = STD_INTERACTION_RADIUS)
 		{
 			super(visualObject);
@@ -56,6 +59,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_visualInteractionPointer.y = 0;
 			
 			_visualInteractionPointer.visible = true;
+			
+			//_visualInteractionPointer.gotoAndPlay("
 		}
 		
 		public override function update():void
