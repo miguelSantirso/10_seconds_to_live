@@ -196,6 +196,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			return _interactiveObjects[name];
 		}
+		public function removeInteractiveObject(name:String):void
+		{
+			var intObj:InteractiveObject = _realityLogic.removeEntityByName(name) as InteractiveObject;
+			intObj.visualObject.visible = false;
+			_entities.splice(_entities.indexOf(intObj), 1);
+		}
 		
 		public function get roomUtils():RoomUtils 
 		{
