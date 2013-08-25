@@ -2,6 +2,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import ten_seconds_to_live.com.five_ants.ten_secs.events.InventoryItemEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInitializable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
 	/**
@@ -42,9 +43,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			_hudItemPopUp.x = (800 - _hudItemPopUp.width) * 0.5;
 			_hudItemPopUp.y = (600 - _hudItemPopUp.height) * 0.5;
+			_hudItemPopUp.addEventListener(InventoryItemEvent.ITEM_EVENT, closeItemPopUp, false, 0, true);
 			
 			_hudKnowledgeList.x = (800 - _hudKnowledgeList.width) * 0.5;
 			_hudKnowledgeList.y = 600 - _hudKnowledgeList.height;
+			_hudKnowledgeList.addEventListener(HUDKnowledgeList.CLOSE_REQUEST_EVENT, closeKnowledgeList, false, 0, true);
 			
 			addChild(_hudClock);
 			addChild(_hudInventory);
@@ -53,10 +56,18 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public function dispose():void
 		{
 			_hudClock.dispose();
-			_hudInventory.dispose();
-			
 			_hudClock = null;
+
+			_hudInventory.dispose();
 			_hudInventory = null;
+			
+			_hudItemPopUp.removeEventListener(InventoryItemEvent.ITEM_EVENT, closeItemPopUp);
+			_hudItemPopUp.dispose();
+			_hudItemPopUp = null;
+			
+			_hudKnowledgeList.removeEventListener(HUDKnowledgeList.CLOSE_REQUEST_EVENT, closeKnowledgeList);
+			_hudKnowledgeList.dispose();
+			_hudKnowledgeList = null;
 		}
 
 		public function set slowmo(isActive:Boolean):void
@@ -114,7 +125,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			dispatchEvent(new Event(POPUP_OPENED_EVENT));
 		}
 		
-		public function closeItemPopUp():void
+		public function closeItemPopUp(event:InventoryItemEvent):void
 		{
 			_hudItemPopUp.close();
 			
@@ -122,7 +133,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			_popupOpened = false;
 			
-			dispatchEvent(new Event(POPUP_CLOSED_EVENT));
+			dispatchEvent(new InventoryItemEvent(event.type,POPUP_CLOSED_EVENT));
 		}
 		
 		public function openKnowledgeList(knowledgeVector:Vector.<String>):void
@@ -134,7 +145,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			dispatchEvent(new Event(KNOWLEDGE_OPENED_EVENT));
 		}
 		
-		public function closeKnowledgeList():void
+		public function closeKnowledgeList(event:Event = null):void
 		{
 			_hudKnowledgeList.close();
 			
