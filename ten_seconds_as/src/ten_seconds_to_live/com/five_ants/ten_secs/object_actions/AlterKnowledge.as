@@ -8,9 +8,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 	 */
 	public class AlterKnowledge extends ObjectActionBase 
 	{
-		private var _knowledgeItem:int;
+		private var _knowledgeItem:String;
 		
-		public function AlterKnowledge(knowledgeItem:int)
+		public function AlterKnowledge(knowledgeItem:String)
 		{
 			_knowledgeItem = knowledgeItem;
 		}

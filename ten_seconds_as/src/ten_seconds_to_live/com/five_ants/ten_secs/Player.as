@@ -22,6 +22,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private static const ANIM_WALK_DOWN:int = 3;
 		private static const ANIM_WALK_LEFT:int = 4;
 		private static const ANIM_JUMP_WINDOW:int = 5;
+		private static const ANIM_DIE:int = 6;
 		
 		private var _movement:Point = new Point();
 		
@@ -44,6 +45,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_animations[ANIM_WALK_LEFT] = new MainCharacterRunLeft();
 			// Cinematic
 			registerCinematic(ANIM_JUMP_WINDOW, new MainCharacterJumpWindow(), new Point(0, -35));
+			registerCinematic(ANIM_DIE, new MainCharacterDies(), new Point(0, 0));
 			
 			setAnimation(ANIM_IDLE);
 		}

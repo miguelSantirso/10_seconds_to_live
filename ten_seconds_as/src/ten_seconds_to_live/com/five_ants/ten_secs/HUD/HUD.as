@@ -96,12 +96,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 				// enable
 				_hudClock.visible = true;
 				_hudInventory.visible = true;
-				_hudItemPopUp.visible = true;	
+				_hudItemPopUp.visible = true;
+				_hudKnowledgeList.visible = true;
 			}else if (!value && _enabled) {
 				// disable
 				_hudClock.visible = false;
 				_hudInventory.visible = false;
 				_hudItemPopUp.visible = false;
+				_hudKnowledgeList.visible = false;
 			}
 			
 			_enabled = value;

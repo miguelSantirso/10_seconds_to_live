@@ -9,6 +9,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 	{
 		protected var _items:Vector.<HUDInventoryItem>;
 		
+		protected const _itemGap:int = 6;
+		
 		public function HUDInventory() 
 		{
 			_items = new Vector.<HUDInventoryItem>();
@@ -46,8 +48,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			var inventoryItem:HUDInventoryItem = new HUDInventoryItem(itemType);
 		
-			inventoryItem.x = 6 + (6 + inventoryItem.width)*_items.length;
-			inventoryItem.y = 6;
+			inventoryItem.x = _itemGap + (_itemGap + inventoryItem.width)*_items.length;
+			inventoryItem.y = _itemGap;
 			inventoryItem.init();
 		
 			addChild(inventoryItem);

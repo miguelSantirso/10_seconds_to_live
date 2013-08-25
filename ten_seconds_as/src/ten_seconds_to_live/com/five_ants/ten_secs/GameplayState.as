@@ -32,6 +32,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		protected var _hud:HUD;
 		
+		private var _paused:Boolean = false;
+		
 		// time
 		private var _gameTime:GameTime;
 		
@@ -67,12 +69,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public override function update():void 
 		{
+			if (_paused)
+				return;
+			
 			currentReality.update();
 			
 			_gameTime.update();
 			
 			_hud.time = _gameTime.seconds;
-			_hud.update();
 			
 			newRoom = currentReality.roomUtils.getRoomByPosition(currentReality.player.x, currentReality.player.y);
 			if (newRoom != _currentRoom)
@@ -80,12 +84,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				trace("** room: " + newRoom);
 			}
 			_currentRoom = newRoom;
-			
-			/*// test
-			if (!_gameTime.slowmoActive && _playerInput.testPressed){
-				_gameTime.startSlowmo();
-				_hud.openKnowledgeList(null);
-			}*/
+				
+			var testKnowledge:Vector.<String> = new Vector.<String>();
+			testKnowledge.push("kung fu.");
+			testKnowledge.push("Ubuntu.");
+			testKnowledge.push("I just had sex.");
+			_hud.openKnowledgeList(testKnowledge);
 		}
 		
 		public override function dispose():void 
@@ -133,6 +137,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function get gameTime():GameTime 
 		{
 			return _gameTime;
+		}
+		
+		public function get paused():Boolean 
+		{
+			return _paused;
+		}
+		public function set paused(value:Boolean):void 
+		{
+			_paused = value;
 		}
 		
 		

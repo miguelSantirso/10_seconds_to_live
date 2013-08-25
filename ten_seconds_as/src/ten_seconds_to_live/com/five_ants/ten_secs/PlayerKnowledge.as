@@ -7,18 +7,22 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	 */
 	public class PlayerKnowledge 
 	{
-		public static const KNOL_ss:int = "";
+		private static var _knownThings:Vector.<String> = new Vector.<String>();
 		
-		private static var _knowledge:Dictionary = new Dictionary();
-		
-		public static function learnKnowledge(id:int):void
+		public static function learnKnowledge(id:String):void
 		{
-			_knowledge[id] = true;
+			if (_knownThings.indexOf(id) < 0)
+				_knownThings.push(id);
 		}
 		
-		public static function getKnowledge(id:int):Boolean
+		public static function getKnowledge(id:String):Boolean
 		{
-			return _knowledge[id];
+			return _knownThings.indexOf(id) >= 0;
+		}
+		
+		public static function getEverythingThePlayerKnows():Vector.<String>
+		{
+			return _knownThings
 		}
 	}
 
