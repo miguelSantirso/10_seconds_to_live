@@ -24,8 +24,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		protected var _interactionEnabled:Boolean = true;
 		
-		protected var _visualObject:MovieClip = new MovieClip();
-		
 		protected var _itemDependency:int = -1;
 		protected var _knowledgeDependency:String = null;
 		
@@ -33,24 +31,42 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected var _actionsNoItem:Vector.<ObjectActionTuple> = new Vector.<ObjectActionTuple>();
 		protected var _actionsSuccess:Vector.<ObjectActionTuple> = new Vector.<ObjectActionTuple>();
 		
+		protected var _visualInteractionPointer:MovieClip = new InteractionPointer();
+		
 		protected static const STD_INTERACTION_RADIUS:Number = 100;
 		
 		protected static const LABEL_FAR:String = "far";
 		protected static const LABEL_NEAR:String = "near";
 		protected static const LABEL_PRESSED:String = "pressed";
 		
+		protected static const LABEL_POINTER_BEGIN:String = "begin";
+		protected static const LABEL
+		
 		public function InteractiveObject(visualObject:MovieClip, roomUtils:RoomUtils, interactionRadius:Number = STD_INTERACTION_RADIUS)
 		{
-			super();
+			super(visualObject);
 			
-			_visualObject = visualObject;
 			_name = visualObject.name;
 			_interactionRadius = interactionRadius;
 			_roomUtils = roomUtils;
+			
+			x = _visualObject.x;
+			y = _visualObject.y;
+			
+			_visualObject.addChild(_visualInteractionPointer);
+			
+			_visualInteractionPointer.x = 0;
+			_visualInteractionPointer.y = 0;
+			
+			_visualInteractionPointer.visible = true;
+			
+			//_visualInteractionPointer.gotoAndPlay("
 		}
 		
 		public override function update():void
 		{
+			super.update();
+			
 			_roomName = _roomUtils.getRoomByPosition(_visualObject.x, _visualObject.y);
 			enableInteractions = !_gameplay.hud.popupOpened;
 		}
@@ -58,8 +74,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function checkPlayerCollision(player:Player, playerInput:IPlayerInput):void
 		{
 			var interactionEvent:InteractiveObjectEvent;
-			
-			//_interactionEnabled = true;
 			
 			if (_interactionEnabled && 
 				(_roomUtils.getRoomByPosition(player.x, player.y) == _roomUtils.getRoomByPosition(x, y)))
@@ -180,8 +194,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 						action.repeated = true;
 					}
 				}
-				
-				//enableInteractions = false;
 			}
 		}
 		
@@ -204,9 +216,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_interactionEnabled = value;
 		}
 		
-		public function get visualObject():MovieClip 
+		public function glowInteractionPointer():void
 		{
-			return _visualObject;
+			_visualInteractionPointer.visible = true;
 		}
 	}
 
