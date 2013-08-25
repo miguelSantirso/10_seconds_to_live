@@ -1,10 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <view name="knowledge">
-	<fact id="0" text="Text for fact 0"/>
-	<fact id="1" text="Text for fact 1"/>
-	<fact id="2" text="Text for fact 2"/>
-	<fact id="3" text="Text for fact 3"/>
-	<fact id="4" text="Text for fact 4"/>
-	<fact id="5" text="Text for fact 5"/>
-	<fact id="6" text="Text for fact 6"/>
+	<fact id="going_to_die" text="I'm poisoned"/>
+	<fact id="there_are_pills_in_car" text="I have adrenaline in the car"/>
+	<fact id="i_need_the_secret_code" text="I must remember the code to enter the panic room"/>
+	<fact id="there_is_a_panic_room" text="I have a panic room, the cameras recorded eveything"/>
+	<fact id="the_secret_code_is_1234" text="the secret code is 1602, our aniversary date"/>
+	<fact id="catnip_attracts_cat" text="the catnip is irresistible for the cat"/>
 </view>
