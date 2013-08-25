@@ -154,7 +154,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			_realityLogic.update(_player, _gameplay.playerInput);
 			
-			if (_firstUpdate) setUpRoom();
+			if (_firstUpdate) setUpRoom("room");
 		}
 		
 		public function dispose():void
@@ -189,7 +189,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			setUpRoom();
 		}
 		
-		private function setUpRoom():void
+		private function setUpRoom(forceRoom:String = null):void
 		{
 			for each (var entity:Entity in _entities)
 			{
@@ -206,7 +206,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			for each(var roomName:String in _roomUtils.allRoomNames)
 			{
-				if(roomName != _player.getMyRoom())
+				if(roomName != (forceRoom ? forceRoom : _player.getMyRoom()))
 					_roomUtils.hideRoom(roomName);
 				else
 					_roomUtils.showRoom(roomName);
