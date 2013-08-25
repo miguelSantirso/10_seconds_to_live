@@ -21,7 +21,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 		
 		public override function execute():void
 		{
-			AlternativeReality._gameplay.collisions.changeCollision(_collisionBlock, _toEnabled);
+			AlternativeReality._gameplay.currentReality.collisions.removeCollisionBlock(_collisionBlock);
 		}
 		
 	}

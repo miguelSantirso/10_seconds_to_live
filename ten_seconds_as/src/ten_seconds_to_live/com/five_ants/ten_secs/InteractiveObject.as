@@ -57,6 +57,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			var interactionEvent:InteractiveObjectEvent;
 			
+			_interactionEnabled = true;
+			
 			if (_interactionEnabled && 
 				(_roomUtils.getRoomByPosition(player.x, player.y) == _roomUtils.getRoomByPosition(x, y)))
 			{
@@ -67,7 +69,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				
 				if (distance <= _interactionRadius)
 				{	
-					if (_interactionEnabled && playerInput.ePressed)
+					if (playerInput.ePressed)
 					{
 						_visualObject.gotoAndStop(LABEL_PRESSED);
 						
@@ -121,6 +123,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public function executeAllActions():void
 		{
+			if (_name == "_statue")
+							trace("STATUE ACTION");
+			
 			var action:ObjectActionBase;
 			
 			var itemVerified:Boolean = true;
@@ -136,7 +141,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				knowledgeVerified = PlayerKnowledge.getKnowledge(_knowledgeDependency);
 			}
 			
-			if (!itemVerified && !knowledgeVerified)
+			if ((!itemVerified && !knowledgeVerified) || (!knowledgeVerified && itemVerified))
 			{
 				for each(action in _actionsNoItemNoKnowledge)
 				{
@@ -144,7 +149,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				}
 			}
 			
-			if (!itemVerified)
+			if (!itemVerified && knowledgeVerified)
 			{
 				for each(action in _actionsNoItem)
 				{
@@ -159,7 +164,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					action.execute();
 				}
 				
-				enableInteractions = false;
+				//enableInteractions = false;
 			}
 		}
 		

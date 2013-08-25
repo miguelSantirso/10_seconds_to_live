@@ -80,8 +80,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			addChild(_hud);
 			
-			currentReality.collisions.removeCollisionBlock("door");
-			currentReality.collisions.removeCollisionBlock("library_secret_door");
+			/*currentReality.collisions.removeCollisionBlock("door");
+			currentReality.collisions.removeCollisionBlock("library_secret_door");*/
 			
 			Sounds.playSoundById(Sounds.GIRL_LAUGH_REVERB);
 		}
@@ -93,8 +93,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			currentReality.update();
 			
-			if (!_wakingUp)
-				_gameTime.update();
+			//if (!_wakingUp)
+				//_gameTime.update();
 			
 			_hud.time = _gameTime.seconds;
 			_hud.update();
@@ -236,6 +236,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected function onKnowledgeClosed(event:Event):void
 		{
 			paused = false;
+			stage.focus = this;
 		}
 		
 		protected function onPauseMenuOpened(event:Event):void
@@ -246,6 +247,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected function onPauseMenuClosed(event:Event):void
 		{
 			paused = false;
+			stage.focus = this;
 		}
 		
 		protected function onHUDResume(event:Event):void
