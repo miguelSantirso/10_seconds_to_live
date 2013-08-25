@@ -67,7 +67,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		public function onCloseClick(event:MouseEvent):void
 		{
-			dispatchEvent(new InventoryItemEvent(_itemId,CLOSE_REQUEST_EVENT));
+			dispatchEvent(new InventoryItemEvent(_itemId, CLOSE_REQUEST_EVENT));
 		}
 	}
 

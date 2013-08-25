@@ -1,6 +1,7 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.object_actions 
 {
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
+	import ten_seconds_to_live.com.five_ants.ten_secs.realities.AlternativeReality;
 	/**
 	 * ...
 	 * @author Miguel Santirso
@@ -11,10 +12,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 		
 		private var _toEnabled:Boolean;
 		
-		public function ChangeCollision(collisionBlockName:String, toEnabled:Boolean, gamePlay:GameplayState) 
+		public function ChangeCollision(collisionBlockName:String, toEnabled:Boolean) 
 		{
-			super(gamePlay);
-			
 			_collisionBlock = collisionBlockName;
 			_toEnabled = toEnabled;
 		}
@@ -22,7 +21,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 		
 		public override function execute():void
 		{
-			_gameplay.collisions.changeCollision(_collisionBlock, _toEnabled);
+			AlternativeReality._gameplay.collisions.changeCollision(_collisionBlock, _toEnabled);
 		}
 		
 	}

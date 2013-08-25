@@ -19,6 +19,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		function get spacebarPressed():Boolean;
 		
 		function get testPressed():Boolean;
+		
+		function set enabled(value:Boolean):void;
 	}
 	
 }

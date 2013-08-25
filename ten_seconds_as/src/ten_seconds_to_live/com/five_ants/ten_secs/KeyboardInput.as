@@ -16,15 +16,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function init(stage:Stage):void
 		{
 			_stage = stage;
-			
-			_stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
-			_stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+	
+			enabled = true;
 		}
 		
 		public function dispose():void
 		{
-			_stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
-			_stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+			enabled = false;
 		}
 		
 		public function get upPressed():Boolean 
@@ -70,6 +68,20 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private function onKeyUp(e:KeyboardEvent):void
 		{
 			_keysState[e.keyCode] = false;
+		}
+		
+		public function set enabled(value:Boolean):void
+		{
+			if (value)
+			{
+				_stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+				_stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+			}
+			else
+			{
+				_stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+				_stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+			}
 		}
 		
 	}

@@ -21,6 +21,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public static const CAMERA:int = registerItem(Item_Placeholder, "Camera");
 		public static const BED:int = registerItem(Item_Placeholder, "_bed");
 		
+		public static const FAN:int = registerItem(Item_Placeholder, "_fan");
+		
 		private static var _itemsById:Vector.<Class>;
 		private static var _itemsByName:Dictionary;
 		

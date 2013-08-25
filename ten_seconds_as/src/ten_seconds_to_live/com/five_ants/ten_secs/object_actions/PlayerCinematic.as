@@ -1,6 +1,7 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.object_actions 
 {
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
+	import ten_seconds_to_live.com.five_ants.ten_secs.realities.AlternativeReality;
 	/**
 	 * ...
 	 * @author Miguel Santirso
@@ -9,16 +10,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 	{
 		private var _animation:int;
 		
-		public function PlayerCinematic(animationId:int, gameplay:GameplayState) 
+		public function PlayerCinematic(animationId:int) 
 		{
-			super(gameplay);
 			_animation = animationId;
 		}
 		
 		
 		public override function execute():void
 		{
-			_gameplay.currentReality.player.playCinematic(_animation);
+			AlternativeReality._gameplay.currentReality.player.playCinematic(_animation);
 		}
 		
 	}

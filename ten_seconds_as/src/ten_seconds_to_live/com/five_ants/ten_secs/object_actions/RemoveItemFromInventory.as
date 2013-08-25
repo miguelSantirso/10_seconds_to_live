@@ -1,6 +1,7 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.object_actions 
 {
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
+	import ten_seconds_to_live.com.five_ants.ten_secs.realities.AlternativeReality;
 	/**
 	 * ...
 	 * @author Miguel Santirso
@@ -9,17 +10,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 	{
 		private var _itemToRemove:int;
 		
-		public function RemoveItemFromInventory(itemToRemove:int, gamePlay:GameplayState) 
+		public function RemoveItemFromInventory(itemToRemove:int) 
 		{
-			super(gamePlay);
-			
 			_itemToRemove = itemToRemove;
 		}
 		
 		
 		public override function execute():void
 		{
-			_gameplay.hud.inventory.removeItem(_itemToRemove);
+			AlternativeReality._gameplay.hud.inventory.removeItem(_itemToRemove);
 		}
 		
 	}
