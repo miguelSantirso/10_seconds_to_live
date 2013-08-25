@@ -128,6 +128,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			return _hud;
 		}
+		public function get gameTime():GameTime 
+		{
+			return _gameTime;
+		}
 		
 		
 		
