@@ -115,6 +115,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			return _playerInput;
 		}
+		public function get hud():HUD 
+		{
+			return _hud;
+		}
+		
+		
 		
 		protected function onTimeUp(e:Event):void 
 		{

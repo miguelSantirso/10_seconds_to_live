@@ -8,7 +8,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.interfaces
 	 */
 	public interface IInteractiveEntity 
 	{
-		function get name():String;
+		function getName():String;
 		
 		function addAction(action:ObjectActionBase):void;
 		

@@ -57,15 +57,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_camera.target = _player;
 			_entities.push(_player);
 			
-			// ALBERT TEST:
+			/// ALBERT TEST:
 			_realityLogic = new RealityLogic();
 			
 			var testObject:InteractiveObject;
 			for (var i:int = 0; i < 10; ++i)
 			{
-				testObject = new InteractiveObject();
+				testObject = new InteractiveObject("paco" + i, 100 * (i+1));
 				
-				_realityLogic.registerInteractiveEntity("paco" + i, testObject);
+				_realityLogic.registerInteractiveEntity(testObject.getName(), testObject);
 				_entities.push(testObject);
 			}
 			// FIN ALBERT TEST
@@ -74,13 +74,19 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_gameMap.init();
 			_gameMap.addChild(_player);
 			
+			initInteractiveObjects();
+			
 			// TEST ALBERT:
 			_gameMap.addChild(_realityLogic.findEntityByName("paco0"));
 			_realityLogic.findEntityByName("paco0").x = 75;
 			_realityLogic.findEntityByName("paco0").y = 250;
+			_gameMap.addChild(_realityLogic.findEntityByName("paco1"));
+			_realityLogic.findEntityByName("paco1").x = 1200;
+			_realityLogic.findEntityByName("paco1").y = 450;
 			
 			// muestra los radios de todos los objetos interactivos:
 			_realityLogic.showInteractionRadiuses = true;
+			_realityLogic.enableAllInteractions = true;
 			
 			for each (var entity:Entity in _entities)
 				entity.load(_gameplay);
@@ -93,6 +99,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_sceneContainer.addChild(_gameMap.world);
 		}
 		
+		private function initInteractiveObjects():void
+		{
+			for each(var object:MovieClip in _gameMap.world)
+			{
+				trace("OBJECT: " + object.name);
+			}
+		}
 		
 		public function update():void
 		{
@@ -105,7 +118,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			_realityLogic.update(_player, _roomUtils, _gameplay.playerInput);
 		}
-		
 		
 		public function dispose():void
 		{

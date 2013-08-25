@@ -38,6 +38,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				entity.showRadius = value;
 			}
 		}
+		
+		public function set enableAllInteractions(value:Boolean):void
+		{
+			for each(var entity:InteractiveObject in _entitiesByName)
+			{
+				entity.enableInteractions = value;
+			}
+		}
 	
 		public function update(player:Player, roomUtils:RoomUtils, playerInput:IPlayerInput):void
 		{
