@@ -18,7 +18,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private static const SPEED_HORIZONTAL:Number = 16;
 		private static const SPEED_VERTICAL:Number = 20;
 		
-		public static const ANIM_IDLE:int = 0;
+		public static const ANIM_IDLE_DOWN:int = 0;
 		public static const ANIM_WALK_UP:int = 1;
 		public static const ANIM_WALK_RIGHT:int = 2;
 		public static const ANIM_WALK_DOWN:int = 3;
@@ -26,10 +26,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public static const ANIM_JUMP_WINDOW:int = 5;
 		public static const ANIM_DIE:int = 6;
 		public static const ANIM_WAKE_UP:int = 7;
+		public static const ANIM_IDLE_UP:int = 8;
+		public static const ANIM_IDLE_RIGHT:int = 9;
+		public static const ANIM_IDLE_LEFT:int = 10;
 		
 		private var _movement:Point = new Point();
+		private var _prevMovement:Point = new Point();
 		
-		private var _animations:Vector.<MovieClip> = new Vector.<MovieClip>();
+		private var _animations:Vector.<MovieClip> = new Vector.<MovieClip>(30);
 		private var _currentAnimation:int = -1;
 		
 		private var _cinematicAnimations:Vector.<int> = new Vector.<int>();
@@ -44,7 +48,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			super();
 			
 			// Movement
-			_animations[ANIM_IDLE] = new MainCharacterIdle();
+			_animations[ANIM_IDLE_UP] = new MainCharacterIdleUp();
+			_animations[ANIM_IDLE_RIGHT] = new MainCharacterIdleRight;
+			_animations[ANIM_IDLE_DOWN] = new MainCharacterIdleDown();
+			_animations[ANIM_IDLE_LEFT] = new MainCharacterIdleLeft();
 			_animations[ANIM_WALK_UP] = new MainCharacterRunUp();
 			_animations[ANIM_WALK_RIGHT] = new MainCharacterRunRight();
 			_animations[ANIM_WALK_DOWN] = new MainCharacterRunDown();
@@ -54,7 +61,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			registerCinematic(ANIM_DIE, new MainCharacterDies(), new Point(0, 0));
 			registerCinematic(ANIM_WAKE_UP, new MainCharacterWakesUp(), new Point(0, 0));
 			
-			setAnimation(ANIM_IDLE);
+			
+			setAnimation(ANIM_IDLE_DOWN);
 		}
 		
 		public override function dispose():void
@@ -66,12 +74,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public override function update():void
 		{
-			if (_currentAnimation == ANIM_IDLE && _gameplay.playerInput.testPressed)
-				playCinematic (ANIM_JUMP_WINDOW);
-			
 			if (_inCinematic)
 				return;
 			
+			_prevMovement.x = _movement.x;
+			_prevMovement.y = _movement.y;
 			_movement.x = 0;
 			_movement.y = 0;
 			
@@ -85,7 +92,16 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				_movement.y += 1;
 			
 			if (_movement.x == 0 && _movement.y == 0)
-				setAnimation(ANIM_IDLE);
+			{
+				if (_prevMovement.y > 0)
+					setAnimation(ANIM_IDLE_DOWN);
+				else if (_prevMovement.y < 0)
+					setAnimation(ANIM_IDLE_UP)
+				else if (_prevMovement.x > 0)
+					setAnimation(ANIM_IDLE_RIGHT);
+				else if (_prevMovement.x < 0)
+					setAnimation(ANIM_IDLE_LEFT);
+			}
 			else if (_movement.x != 0 && _movement.y == 0)
 				setAnimation(_movement.x > 0 ? ANIM_WALK_RIGHT : ANIM_WALK_LEFT);
 			else if (_movement.y != 0 && _movement.x == 0)
@@ -162,7 +178,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_animationComplete.dispatch(_currentAnimation);
 			
 			if (!_loopCinematic)
-				setAnimation(ANIM_IDLE);
+				setAnimation(ANIM_IDLE_DOWN);
 		}
 		
 		public function get animationComplete():Signal
