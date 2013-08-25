@@ -10,6 +10,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInteractiveEntity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.AddItemToInventory;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.AlterKnowledge;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ChangeCollision;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlayerCinematic;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowPopUp;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.StartSlowMotion;
@@ -61,15 +62,20 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		{
 			_logic = logic;
 			
-			// _bed
-			object("_bed").setItemDependency(Items.GUN);
-			object("_bed").addActionNoItem(new ShowPopUp(Items.CAT, "hola", "hola"));
-			object("_bed").addActionNoItem(new StartSlowMotion(0.2, 5));
-			object("_bed").addActionSuccess(new ShowPopUp(Items.CAT, "camara", "camara!"));
-			object("_bed").addActionSuccess(new AddItemToInventory(Items.CAMERA));
+			object("_roomTable").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "Note from A.B.", "You are going to die. A.B."));
+			object("_roomTable").addActionSuccess(new AlterKnowledge("going_to_die"));
 			
-			object("_chair").addActionSuccess(new AddItemToInventory(Items.GUN));
-			object("_chair").addActionSuccess(new ShowPopUp(Items.FAN, "pistola", "pistola regalada"));
+			object("_window").addActionSuccess(new PlayerCinematic(Player.ANIM_JUMP_WINDOW));
+			
+			object("_gun").setKnowledgeDependency("going_to_die");
+			object("_gun").addActionSuccess(new ShowPopUp(Items.GUN, "My Gun", "bla bla bla"));
+			object("_gun").addActionSuccess(new AddItemToInventory(Items.GUN));
+			
+			object("_door").setItemDependency(Items.GUN);
+			object("_door").addActionNoItem(new ShowPopUp(Items.GUN, "Locked Door", "Argh! The door is locked, I need something to open it!"));
+			object("_door").addActionSuccess(new ShowPopUp(Items.GUN, "Door Open!", "I opened the door with the gun"));
+			object("_door").addActionSuccess(new ChangeCollision("door", false));
+			object("_door").addActionSuccess(new PlayerCinematic(Player.ANIM_SHOOTING));
 		}
 	}
 
