@@ -80,7 +80,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_door").addActionNoItem(new ShowPopUp(Items.DORM_DOOR, "locked_door_noI"));
 			object("_door").addActionSuccess(new ShowPopUp(Items.DORM_DOOR, "locked_door"));
 			object("_door").addActionSuccess(new ChangeCollision("door", false));
-			object("_door").addActionSuccess(new PlayerCinematic(Player.ANIM_SHOOTING));
 			object("_door").addActionSuccess(new RemoveItemFromInventory(Items.GUN));
 			object("_door").addActionSuccess(new RemoveInteractiveObject("_door"));
 			
