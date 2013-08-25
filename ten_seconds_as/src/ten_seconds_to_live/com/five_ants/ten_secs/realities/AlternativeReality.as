@@ -8,6 +8,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.Camera;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.Cat;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Entity;
+	import ten_seconds_to_live.com.five_ants.ten_secs.events.PlayerEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameMap;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
 	import ten_seconds_to_live.com.five_ants.ten_secs.InteractiveObject;
@@ -33,6 +34,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		private var _gameMap:GameMap;
 		private var _collisions:WallCollisions;
 		public static var _roomUtils:RoomUtils;
+		private var _firstUpdate:Boolean = true;
 		
 		private var _sceneContainer:Sprite;
 		
@@ -146,8 +148,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 				entity.update();
 			}
 
-
-			
 			_gameMap.update();
 			
 			_camera.update();
@@ -158,35 +158,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			if (_firstUpdate) setUpRoom("room");
 		}
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 		public function dispose():void
 		{
