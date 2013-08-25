@@ -38,6 +38,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _interactiveObjects:Vector.<InteractiveObject> = new Vector.<InteractiveObject>();
 		
 		private var _realityLogic:RealityLogic;
+		private var _currentRoom:String;
+		private var newRoom:String;
 		
 		protected override function init():void 
 		{
@@ -74,11 +76,17 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud.time = _gameTime.seconds;
 			_hud.update();
 			
-			/*// test
+			newRoom = currentReality.roomUtils.getRoomByPosition(currentReality.player.x, currentReality.player.y);
+			if (newRoom != _currentRoom)
+			{
+				trace("** room: " + newRoom);
+			}
+			_currentRoom = newRoom;
+			
+			// test
 			if (!_gameTime.slowmoActive && _playerInput.testPressed){
 				_gameTime.startSlowmo();
-				_hud.inventory.addItem("pistola");
-				_hud.openItemPopUp("pistola");
+				_hud.openKnowledgeList(null);
 			}*/
 		}
 		
@@ -120,6 +128,16 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			return _playerInput;
 		}
+		public function get hud():HUD 
+		{
+			return _hud;
+		}
+		public function get gameTime():GameTime 
+		{
+			return _gameTime;
+		}
+		
+		
 		
 		protected function onTimeUp(e:Event):void 
 		{
@@ -135,8 +153,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			_hud.slowmo = false;
 			
-			_hud.inventory.removeItem("pistola");
-			_hud.closeItemPopUp();
+			_hud.closeKnowledgeList();
 		}
 		
 		private function openActionPopup(event:InteractiveObjectEvent):void

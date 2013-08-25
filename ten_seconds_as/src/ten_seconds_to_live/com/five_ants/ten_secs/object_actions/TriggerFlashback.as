@@ -5,7 +5,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 	 * ...
 	 * @author Miguel Santirso
 	 */
-	public class TriggerFlashback implements IObjectAction 
+	public class TriggerFlashback extends ObjectActionBase
 	{
 		private var _flashbackName:String;
 		

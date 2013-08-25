@@ -16,7 +16,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 		
 		public override function execute():void
 		{
-			//_gameplay.currentReality.addItemToInventory(_itemName);
+			_gameplay.hud.inventory.addItem(_itemName);
 		}
 		
 	}
