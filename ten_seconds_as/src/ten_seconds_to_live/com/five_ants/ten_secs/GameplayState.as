@@ -43,7 +43,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _interactiveObjects:Vector.<InteractiveObject> = new Vector.<InteractiveObject>();
 		
 		private var _realityLogic:RealityLogic;
-		private var _wakingUp = true;
+		private var _wakingUp:Boolean = true;
 		
 		protected override function init():void 
 		{
@@ -69,6 +69,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud = new HUD();
 			_hud.init();
 			addChild(_hud);
+			
+			currentReality.collisions.removeCollisionBlock("door");
 		}
 		
 		public override function update():void 
@@ -78,8 +80,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			currentReality.update();
 			
-			if (!_wakingUp)
-				_gameTime.update();
+			/*if (!_wakingUp)
+				_gameTime.update();*/
 			
 			_hud.time = _gameTime.seconds;
 			
