@@ -5,9 +5,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.events.Event;
 	import flash.text.TextField;
 	import flash.utils.Dictionary;
+	import ten_seconds_to_live.com.five_ants.ten_secs.events.InteractiveObjectEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUD;
 	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUDClock;
 	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUDInventory;
+	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUDItemPopUp;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInitializable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IUpdateable;
@@ -59,6 +61,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud = new HUD();
 			_hud.init();
 			addChild(_hud);
+			
+			currentReality.addEventListener(InteractiveObjectEvent.DO_ACTION, openActionPopup);
 		}
 		
 		public override function update():void 
@@ -70,12 +74,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud.time = _gameTime.seconds;
 			_hud.update();
 			
-			// test
+			/*// test
 			if (!_gameTime.slowmoActive && _playerInput.testPressed){
 				_gameTime.startSlowmo();
 				_hud.inventory.addItem("pistola");
 				_hud.openItemPopUp("pistola");
-			}
+			}*/
 		}
 		
 		public override function dispose():void 
@@ -133,6 +137,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			_hud.inventory.removeItem("pistola");
 			_hud.closeItemPopUp();
+		}
+		
+		private function openActionPopup(event:InteractiveObjectEvent):void
+		{
+			_hud.openItemPopUp(event.actionType);
 		}
 		
 		// Temp

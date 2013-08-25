@@ -57,9 +57,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_camera.target = _player;
 			_entities.push(_player);
 			
-			/// ALBERT TEST:
 			_realityLogic = new RealityLogic();
 			
+			/*/// ALBERT TEST:
 			var testObject:InteractiveObject;
 			for (var i:int = 0; i < 10; ++i)
 			{
@@ -68,7 +68,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 				_realityLogic.registerInteractiveEntity(testObject.getName(), testObject);
 				_entities.push(testObject);
 			}
-			// FIN ALBERT TEST
+			// FIN ALBERT TEST*/
 			
 			_gameMap = new GameMap(_config.constructVisualGameMap());
 			_gameMap.init();
@@ -76,13 +76,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			initInteractiveObjects();
 			
-			// TEST ALBERT:
+			/*// TEST ALBERT:
 			_gameMap.addChild(_realityLogic.findEntityByName("paco0"));
 			_realityLogic.findEntityByName("paco0").x = 75;
 			_realityLogic.findEntityByName("paco0").y = 250;
 			_gameMap.addChild(_realityLogic.findEntityByName("paco1"));
 			_realityLogic.findEntityByName("paco1").x = 1200;
-			_realityLogic.findEntityByName("paco1").y = 450;
+			_realityLogic.findEntityByName("paco1").y = 450;*/
 			
 			// muestra los radios de todos los objetos interactivos:
 			_realityLogic.showInteractionRadiuses = true;
@@ -101,9 +101,25 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		
 		private function initInteractiveObjects():void
 		{
-			for each(var object:MovieClip in _gameMap.world)
+			var child:MovieClip;
+			var interactiveObject:InteractiveObject;
+			
+			for (var i:int = 0; i < _gameMap.world.numChildren; i++)
 			{
-				trace("OBJECT: " + object.name);
+				child = _gameMap.world.getChildAt(i) as MovieClip;
+				
+				if (child != null)
+				{
+					if (child.name.charAt(0) == "_")
+					{
+						interactiveObject = new InteractiveObject(child, 100);
+						_realityLogic.registerInteractiveEntity(child.name, interactiveObject);
+						
+						_entities.push(interactiveObject);
+						
+						trace("ADDED INTERACTIVE OBJECT: " + child.name);
+					}
+				}
 			}
 		}
 		
