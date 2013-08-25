@@ -15,7 +15,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 			_slowMoDuration = duration;
 		}
 		
-		public override function execute()
+		public override function execute():void
 		{
 			_gameplay.gameTime.startSlowmo(_slowMoRate, _slowMoDuration);
 		}
