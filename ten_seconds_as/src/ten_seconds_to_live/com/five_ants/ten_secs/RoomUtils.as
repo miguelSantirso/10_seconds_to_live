@@ -1,5 +1,6 @@
 package ten_seconds_to_live.com.five_ants.ten_secs 
 {
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	/**
@@ -43,6 +44,16 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					_roomShapesByName[roomShape.name] = roomShape;
 				}
 			}
+		}
+		
+		
+		public function hideRoom(roomName:String):void
+		{
+			(_roomShapesByName[roomName] as Sprite).visible = false;
+		}
+		public function showRoom(roomName:String):void
+		{
+			(_roomShapesByName[roomName] as Sprite).visible = true;
 		}
 		
 		
