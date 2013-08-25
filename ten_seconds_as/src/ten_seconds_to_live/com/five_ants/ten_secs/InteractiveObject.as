@@ -18,7 +18,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _interactionEnabled:Boolean = true;
 		
 		private var _visualObject:MovieClip = new MovieClip();
-		private var _visualRadius:Sprite = new Sprite();
 		
 		private static const STD_INTERACTION_RADIUS:Number = 100;
 		
@@ -33,33 +32,28 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_visualObject = visualObject;
 			_name = visualObject.name;
 			_interactionRadius = interactionRadius;
-			
-			//addChild(_visualObject);
-			
-			_visualRadius.graphics.beginFill(0xffff00, 0.2);
-			_visualRadius.graphics.drawCircle(0, 0, _interactionRadius);
-			_visualRadius.graphics.endFill();
 		}
 		
 		public override function update():void
 		{
-			// lógica interna del objeto
+			enableInteractions = !_gameplay.hud.popupOpened;
 		}
 		
 		public function checkPlayerCollision(player:Player, roomUtils:RoomUtils, playerInput:IPlayerInput):void
 		{
 			var interactionEvent:InteractiveObjectEvent;
 			
-			//if (roomUtils.getRoomByPosition(player.x, player.y) == roomUtils.getRoomByPosition(x, y))
+			if (_interactionEnabled && 
+				(roomUtils.getRoomByPosition(player.x, player.y) == roomUtils.getRoomByPosition(x, y)))
 			{
 				var p1:Point = new Point(player.x, player.y);
 				var p2:Point = new Point(x, y);
 				
-				var distance:Number = Math.sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y))
-
+				var distance:Number = Math.sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+				
 				if (distance <= _interactionRadius)
 				{	
-					if (_interactionEnabled && playerInput.ePressed) 
+					if (_interactionEnabled && playerInput.ePressed)
 					{
 						_visualObject.gotoAndStop(LABEL_PRESSED);
 						
@@ -67,6 +61,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 						interactionEvent.actionType = "gatico"; // poner el tipo correcto
 						
 						dispatchEvent(interactionEvent);
+						
+						_gameplay.hud.openItemPopUp(interactionEvent.actionType);
 					}
 					else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);
 				}
@@ -77,6 +73,16 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function getName():String
 		{
 			return _name;
+		}
+		
+		public override function get x():Number
+		{
+			return _visualObject.x;
+		}
+		
+		public override function get y():Number
+		{
+			return _visualObject.y;
 		}
 		
 		public function addAction(action:ObjectActionBase):void
@@ -93,11 +99,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			if (value)
 			{
-				addChildAt(_visualRadius, 0);
+				_visualObject.graphics.beginFill(0xffff00, 0.2);
+				_visualObject.graphics.drawCircle(0, 0, _interactionRadius);
+				_visualObject.graphics.endFill();
 			}
-			else if(contains(_visualRadius))
+			else
 			{
-				removeChild(_visualRadius);
+				_visualObject.graphics.clear();
 			}
 		}
 		
