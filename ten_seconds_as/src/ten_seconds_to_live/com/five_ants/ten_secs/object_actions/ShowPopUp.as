@@ -7,10 +7,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 	public class ShowPopUp extends ObjectActionBase 
 	{
 		private var _description:String;
-		private var _item:String;
+		private var _item:int;
 		private var _title:String;
 		
-		public function ShowPopUp(itemId:String, title:String, description:String) 
+		public function ShowPopUp(itemId:int, title:String, description:String) 
 		{
 			_item = itemId;
 			_title = title;
