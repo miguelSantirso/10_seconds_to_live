@@ -80,8 +80,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			addChild(_hud);
 			
-			currentReality.collisions.removeCollisionBlock("door");
-			currentReality.collisions.removeCollisionBlock("library_secret_door");
+			/*currentReality.collisions.removeCollisionBlock("door");
+			currentReality.collisions.removeCollisionBlock("library_secret_door");*/
 			
 			Sounds.playSoundById(Sounds.GIRL_LAUGH_REVERB);
 		}
