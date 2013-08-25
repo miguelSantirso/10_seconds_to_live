@@ -164,12 +164,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 				else if (entity.visualObject)
 				{
 					entity.visualObject.visible = true;
+					entity.glowInteractionPointer();
 				}
-			}
-			
-			for each(var interactive:InteractiveObject in _interactiveObjects)
-			{
-				
 			}
 		}
 		
