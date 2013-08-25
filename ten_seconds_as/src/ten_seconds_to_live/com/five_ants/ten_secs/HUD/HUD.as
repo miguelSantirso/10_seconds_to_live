@@ -11,25 +11,44 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 	 */
 	public class HUD extends Sprite implements IInitializable, IDisposable
 	{
+		public static const TOGGLE_PAUSE_EVENT:String = "togglePauseEvent";
+		public static const TOGGLE_KNOWLEDGE_EVENT:String = "toggleKnowledgeEvent";
+		
 		public static const POPUP_OPENED_EVENT:String = "popupOpenedEvent";
 		public static const POPUP_CLOSED_EVENT:String = "popupClosedEvent";
+		
 		public static const KNOWLEDGE_OPENED_EVENT:String = "knowledgeOpenedEvent";
 		public static const KNOWLEDGE_CLOSED_EVENT:String = "knowledgeClosedEvent";
+
+		public static const PAUSEMENU_OPENED_EVENT:String = "pauseMenuOpenedEvent";
+		public static const PAUSEMENU_CLOSED_EVENT:String = "pauseMenuClosedEvent";
+		
+		public static const CREDITS_OPENED_EVENT:String = "creditsOpenedEvent";
+		public static const CREDITS_CLOSED_EVENT:String = "creditsClosedEvent";
 		
 		protected var _hudClock:HUDClock;
+		protected var _hudButtonPanel:HUDButtonPanel;
 		protected var _hudInventory:HUDInventory;
 		protected var _hudItemPopUp:HUDItemPopUp;
 		protected var _hudKnowledgeList:HUDKnowledgeList;
+		protected var _hudPauseMenu:HUDPauseMenu;
+		protected var _hudCreditsPopUp:HUDCreditsPopUp;
 		
 		protected var _enabled:Boolean;
 		protected var _popupOpened:Boolean = false;
+		protected var _knowledgeListOpened:Boolean = false;
+		protected var _pauseMenuOpened:Boolean = false;
+		protected var _creditsPopUpOpened:Boolean = false;
 		
 		public function HUD() 
 		{
 			_hudClock = new HUDClock();
+			_hudButtonPanel = new HUDButtonPanel();
 			_hudInventory = new HUDInventory();
 			_hudItemPopUp = new HUDItemPopUp();
 			_hudKnowledgeList = new HUDKnowledgeList();
+			_hudPauseMenu = new HUDPauseMenu();
+			_hudCreditsPopUp = new HUDCreditsPopUp();
 			
 			_enabled = true;
 		}
@@ -37,6 +56,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public function init():void
 		{
 			_hudClock.x = _hudClock.y = 6;
+			
+			_hudButtonPanel.x = 674;
+			_hudButtonPanel.y = 6;
+			_hudButtonPanel.addEventListener(HUDButtonPanel.PAUSE_REQUEST_EVENT, onPauseRequest, false, 0, true);
+			_hudButtonPanel.addEventListener(HUDButtonPanel.KNOWLEDGE_REQUEST_EVENT, onKnowledgeRequest, false, 0, true);
 			
 			_hudInventory.x = 6;
 			_hudInventory.y = 494;
@@ -49,7 +73,17 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudKnowledgeList.y = 600 - _hudKnowledgeList.height;
 			_hudKnowledgeList.addEventListener(HUDKnowledgeList.CLOSE_REQUEST_EVENT, closeKnowledgeList, false, 0, true);
 			
+			_hudPauseMenu.x = (800 - _hudPauseMenu.width) * 0.5;
+			_hudPauseMenu.y = (600 - _hudPauseMenu.height) * 0.5;
+			_hudPauseMenu.addEventListener(HUDPauseMenu.RESUME_REQUEST_EVENT, onResumeRequest, false, 0, true);
+			_hudPauseMenu.addEventListener(HUDPauseMenu.CREDITS_REQUEST_EVENT, oCreditsRequest, false, 0, true);
+			
+			_hudCreditsPopUp.x = (800 - _hudCreditsPopUp.width) * 0.5;
+			_hudCreditsPopUp.y = (600 - _hudCreditsPopUp.height) * 0.5;
+			_hudCreditsPopUp.addEventListener(HUDCreditsPopUp.CLOSE_REQUEST_EVENT, closeCreditsPopUp, false, 0, true);
+			
 			addChild(_hudClock);
+			addChild(_hudButtonPanel);
 			addChild(_hudInventory);
 		}
 		
@@ -58,6 +92,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudClock.dispose();
 			_hudClock = null;
 
+			_hudButtonPanel.dispose();
+			_hudButtonPanel.removeEventListener(HUDButtonPanel.PAUSE_REQUEST_EVENT, onPauseRequest);
+			_hudButtonPanel.removeEventListener(HUDButtonPanel.KNOWLEDGE_REQUEST_EVENT, onKnowledgeRequest);
+			_hudButtonPanel = null;
+			
 			_hudInventory.dispose();
 			_hudInventory = null;
 			
@@ -68,6 +107,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudKnowledgeList.removeEventListener(HUDKnowledgeList.CLOSE_REQUEST_EVENT, closeKnowledgeList);
 			_hudKnowledgeList.dispose();
 			_hudKnowledgeList = null;
+			
+			_hudPauseMenu.removeEventListener(HUDPauseMenu.RESUME_REQUEST_EVENT, onResumeRequest);
+			_hudPauseMenu.removeEventListener(HUDPauseMenu.CREDITS_REQUEST_EVENT, oCreditsRequest);
+			_hudPauseMenu.dispose();
+			_hudPauseMenu = null;
+			
+			_hudCreditsPopUp.removeEventListener(HUDCreditsPopUp.CLOSE_REQUEST_EVENT, closeCreditsPopUp);
+			_hudCreditsPopUp.dispose();
+			_hudCreditsPopUp = null;
 		}
 
 		public function set slowmo(isActive:Boolean):void
@@ -114,13 +162,23 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_enabled = value;
 		}
 		
+		public function get knowledgeListOpen():Boolean
+		{
+			return _knowledgeListOpened;
+		}
+		
+		public function get pauseMenuOpened():Boolean 
+		{
+			return _pauseMenuOpened;
+		}
+		
 		public function openItemPopUp(itemType:String):void
 		{
 			_hudItemPopUp.open(itemType);
 			
-			addChild(_hudItemPopUp);
-			
 			_popupOpened = true;
+			
+			addChild(_hudItemPopUp);
 			
 			dispatchEvent(new Event(POPUP_OPENED_EVENT));
 		}
@@ -129,9 +187,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		{
 			_hudItemPopUp.close();
 			
-			removeChild(_hudItemPopUp);
-			
 			_popupOpened = false;
+			
+			removeChild(_hudItemPopUp);
 			
 			dispatchEvent(new InventoryItemEvent(event.type,POPUP_CLOSED_EVENT));
 		}
@@ -140,6 +198,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		{
 			_hudKnowledgeList.open(knowledgeVector);
 			
+			_knowledgeListOpened = true;
+			
 			addChild(_hudKnowledgeList);
 			
 			dispatchEvent(new Event(KNOWLEDGE_OPENED_EVENT));
@@ -147,11 +207,78 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		public function closeKnowledgeList(event:Event = null):void
 		{
+			if (!_knowledgeListOpened)
+				return;
+				
 			_hudKnowledgeList.close();
+			
+			_knowledgeListOpened = false;
 			
 			removeChild(_hudKnowledgeList);
 			
 			dispatchEvent(new Event(KNOWLEDGE_CLOSED_EVENT));
+		}
+		
+		public function openPauseMenu():void
+		{
+			_pauseMenuOpened = true;
+			
+			addChild(_hudPauseMenu);
+			
+			dispatchEvent(new Event(PAUSEMENU_OPENED_EVENT));
+		}
+		
+		public function closePauseMenu():void
+		{
+			if (!_pauseMenuOpened)
+				return;
+				
+			_pauseMenuOpened = false;
+			
+			removeChild(_hudPauseMenu);
+			
+			dispatchEvent(new Event(PAUSEMENU_CLOSED_EVENT));
+		}
+		
+		public function openCreditsPopUp():void
+		{
+			_creditsPopUpOpened = true;
+			
+			addChild(_hudCreditsPopUp);
+			
+			dispatchEvent(new Event(CREDITS_OPENED_EVENT));
+		}
+		
+		public function closeCreditsPopUp(e:Event = null):void
+		{
+			if (!_creditsPopUpOpened)
+				return;
+			
+			_creditsPopUpOpened = false;
+			
+			removeChild(_hudCreditsPopUp);
+			
+			dispatchEvent(new Event(CREDITS_CLOSED_EVENT));
+		}
+		
+		public function onPauseRequest(event:Event):void
+		{
+			dispatchEvent(new Event(TOGGLE_PAUSE_EVENT));
+		}
+		
+		public function onKnowledgeRequest(event:Event):void
+		{
+			dispatchEvent(new Event(TOGGLE_KNOWLEDGE_EVENT));
+		}
+		
+		public function onResumeRequest(event:Event):void
+		{
+			dispatchEvent(event);
+		}
+		
+		public function oCreditsRequest(event:Event):void
+		{
+			dispatchEvent(event);
 		}
 	}
 
