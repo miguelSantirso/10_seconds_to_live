@@ -87,7 +87,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_car").addActionSuccess(new StartSlowMotion(0.2, 10));
 			
 			object("_statue").setKnowledgeDependency("i_need_the_secret_code");
-			object("_statue").addActionNoItemNoKnowledge(new ShowPopUp(Items.STATUE, "My Wife", "This is my wife, a long time ago"));
+			object("_statue").addActionNoItemNoKnowledge(new ShowPopUp(Items.STATUE, "Statue", "This is the statue I sent carving for our anniversary. There’s a date written on the foot. “February 16th.” Wasn’t she beautiful...?"));
 			object("_statue").addActionSuccess(new ShowPopUp(Items.SECRET_KEY, "1234", "1234! That's the code"));
 			object("_statue").addActionSuccess(new AlterKnowledge("the_secret_code_is_1234"));
 			
