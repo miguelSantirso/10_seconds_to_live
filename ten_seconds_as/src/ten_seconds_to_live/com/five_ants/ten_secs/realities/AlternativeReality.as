@@ -16,7 +16,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.RoomUtils;
 	import ten_seconds_to_live.com.five_ants.ten_secs.WallCollisions;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.InteractiveObjectEvent;
-	import ten_seconds_to_live.com.five_ants.ten_secs.events.PlayerEvent;
 	/**
 	 * ...
 	 * @author Miguel Santirso
@@ -34,7 +33,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		private var _gameMap:GameMap;
 		private var _collisions:WallCollisions;
 		public static var _roomUtils:RoomUtils;
-		private var _firstUpdate:Boolean = true;
 		
 		private var _sceneContainer:Sprite;
 		
@@ -66,10 +64,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			addChild(floors);
 			
 			_player = _config.constructPlayer();
-			_player.x = 285; _player.y = 1000;
+			_player.x = 230; _player.y = 1036;
 			_camera.target = _player;
 			_player.animationComplete.addOnce(function(anim:int):void { _playerWokeUp.dispatch(); } );
-			_player.addEventListener(PlayerEvent.CHANGED_ROOM, onPlayerChangedRoom, false, 0, true);
 			_entities.push(_player);
 			
 			_realityLogic = new RealityLogic();
@@ -83,7 +80,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_config.scriptEntities(_realityLogic);
 			
 			// muestra los radios de todos los objetos interactivos:
-			_realityLogic.showInteractionRadiuses = false;
+			_realityLogic.showInteractionRadiuses = true;
 			_realityLogic.enableAllInteractions = true;
 			
 			for each (var entity:Entity in _entities)
@@ -143,18 +140,43 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		
 		public function update():void
 		{
-			for each (var entity:Entity in _entities)
-			{
-				entity.update();
-			}
+			updateEntities();
+			updateRooms();
 			
 			_gameMap.update();
 			
 			_camera.update();
 			
 			_realityLogic.update(_player, _gameplay.playerInput);
-			
-			if (_firstUpdate) setUpRoom();
+		}
+		
+		protected function updateEntities():void
+		{
+			for each (var entity:Entity in _entities)
+			{
+				entity.update();
+				
+				if (entity.getMyRoom() != _player.getMyRoom())
+				{
+					entity.visualObject.visible = false;
+				}
+				else if (entity.visualObject)
+				{
+					entity.visualObject.visible = true;
+					entity.glowInteractionPointer();
+				}
+			}
+		}
+		
+		protected function updateRooms():void
+		{
+			for each(var roomName:String in _roomUtils.allRoomNames)
+			{
+				if(roomName != _player.getMyRoom())
+					_roomUtils.hideRoom(roomName);
+				else
+					_roomUtils.showRoom(roomName);
+			}
 		}
 		
 		public function dispose():void
@@ -163,8 +185,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			for each (var entity:Entity in _entities)
 				entity.dispose();
-				
-			_player.removeEventListener(PlayerEvent.CHANGED_ROOM, onPlayerChangedRoom);
 		}
 		
 		
@@ -180,37 +200,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			var intObj:InteractiveObject = _realityLogic.removeEntityByName(name) as InteractiveObject;
 			intObj.visualObject.visible = false;
 			_entities.splice(_entities.indexOf(intObj), 1);
-		}
-		
-		private function onPlayerChangedRoom(event:PlayerEvent = null):void
-		{
-			_firstUpdate = false;
-			
-			setUpRoom();
-		}
-		
-		private function setUpRoom():void
-		{
-			for each (var entity:Entity in _entities)
-			{
-				if (entity.getMyRoom() != _player.getMyRoom())
-				{
-					entity.visualObject.visible = false;
-				}
-				else if (entity.visualObject)
-				{
-					entity.visualObject.visible = true;
-					if(!_firstUpdate) entity.glowInteractionPointer();
-				}
-			}
-			
-			for each(var roomName:String in _roomUtils.allRoomNames)
-			{
-				if(roomName != _player.getMyRoom())
-					_roomUtils.hideRoom(roomName);
-				else
-					_roomUtils.showRoom(roomName);
-			}
 		}
 		
 		public function get roomUtils():RoomUtils 
