@@ -63,7 +63,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_animations[ANIM_WALK_DOWN] = new MainCharacterRunDown();
 			_animations[ANIM_WALK_LEFT] = new MainCharacterRunLeft();
 			// Cinematic
-			registerCinematic(ANIM_JUMP_WINDOW, new MainCharacterJumpWindow(), new Point(0, -35));
+			registerCinematic(ANIM_JUMP_WINDOW, new MainCharacterJumpWindow(), new Point(0, -45));
 			registerCinematic(ANIM_DIE, new MainCharacterDies(), new Point(0, 0));
 			registerCinematic(ANIM_WAKE_UP, new MainCharacterWakesUp(), new Point(0, 0));
 			registerCinematic(ANIM_SHOOTING, new MainCharacterShooting(), new Point( -20, 0));
