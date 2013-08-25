@@ -3,6 +3,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
+	import flash.utils.Timer;
+	import flash.events.TimerEvent;
 	/**
 	 * ...
 	 * @author Miguel Santirso
@@ -74,7 +76,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			_roomVisuals = object;
 		}
-		
 	}
 
 }

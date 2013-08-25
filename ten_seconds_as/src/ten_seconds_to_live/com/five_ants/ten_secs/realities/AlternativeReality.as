@@ -34,6 +34,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		private var _gameMap:GameMap;
 		private var _collisions:WallCollisions;
 		public static var _roomUtils:RoomUtils;
+		private var _firstUpdate:Boolean = true;
 		
 		private var _sceneContainer:Sprite;
 		
@@ -152,6 +153,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_camera.update();
 			
 			_realityLogic.update(_player, _gameplay.playerInput);
+			
+			if (_firstUpdate) setUpRoom();
 		}
 		
 		public function dispose():void
@@ -179,7 +182,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_entities.splice(_entities.indexOf(intObj), 1);
 		}
 		
-		private function onPlayerChangedRoom(event:PlayerEvent):void
+		private function onPlayerChangedRoom(event:PlayerEvent = null):void
+		{
+			_firstUpdate = false;
+			
+			setUpRoom();
+		}
+		
+		private function setUpRoom():void
 		{
 			for each (var entity:Entity in _entities)
 			{
@@ -190,7 +200,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 				else if (entity.visualObject)
 				{
 					entity.visualObject.visible = true;
-					entity.glowInteractionPointer();
+					if(!_firstUpdate) entity.glowInteractionPointer();
 				}
 			}
 			
