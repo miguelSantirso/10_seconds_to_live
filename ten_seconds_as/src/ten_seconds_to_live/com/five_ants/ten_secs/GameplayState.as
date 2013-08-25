@@ -40,8 +40,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _interactiveObjects:Vector.<InteractiveObject> = new Vector.<InteractiveObject>();
 		
 		private var _realityLogic:RealityLogic;
-		private var _currentRoom:String;
-		private var newRoom:String;
 		
 		protected override function init():void 
 		{
@@ -80,18 +78,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			_hud.time = _gameTime.seconds;
 			
-			newRoom = currentReality.roomUtils.getRoomByPosition(currentReality.player.x, currentReality.player.y);
-			if (newRoom != _currentRoom)
-			{
-				trace("** room: " + newRoom);
-			}
-			_currentRoom = newRoom;
-				
-				/*var testKnowledge:Vector.<String> = new Vector.<String>();
+			if(_playerInput.testPressed){
+				var testKnowledge:Vector.<String> = new Vector.<String>();
 				testKnowledge.push("kung fu.");
 				testKnowledge.push("Ubuntu.");
 				testKnowledge.push("I just had sex.");
-				_hud.openKnowledgeList(testKnowledge);*/
+				_hud.openKnowledgeList(testKnowledge);
+				//_hud.openKnowledgeList(PlayerKnowledge.getEverythingThePlayerKnows());
+			}
 		}
 		
 		public override function dispose():void 
