@@ -8,6 +8,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	 */
 	public class TenSecsMain extends Sprite 
 	{
+		private var _nextState:IGameState;
 		private var _currentState:IGameState;
 		
 		private var _stage:Stage;
@@ -19,12 +20,24 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public function update():void
 		{
+			if (_nextState)
+			{
+				doChange(_nextState);
+				_nextState = null;
+			}
+			
 			if (_currentState)
 				_currentState.update();
 		}
 		
 		
 		public function changeState(newState:IGameState):void
+		{
+			_nextState = newState;
+		}
+		
+		
+		private function doChange(newState:IGameState):void
 		{
 			if (_currentState)
 			{
@@ -37,6 +50,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_currentState.load(this, _stage);
 			addChild(_currentState);
 		}
+		
 	}
 
 }

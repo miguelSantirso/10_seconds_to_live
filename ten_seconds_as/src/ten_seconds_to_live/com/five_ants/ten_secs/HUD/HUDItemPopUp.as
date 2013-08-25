@@ -27,8 +27,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		}
 		
 		public override function dispose():void
-		{			
-			coreComponent.closeEventListener(MouseEvent.CLICK, onCloseClick);	
+		{
+			coreComponent.removeEventListener(MouseEvent.CLICK, onCloseClick);	
 			_type = null;
 			
 			super.dispose();

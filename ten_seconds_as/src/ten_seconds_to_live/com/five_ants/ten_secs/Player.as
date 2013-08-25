@@ -5,7 +5,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
+	import org.osflash.signals.Signal;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.ICameraTarget;
+	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
 	
 	/**
 	 * ...
@@ -16,29 +18,40 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private static const SPEED_HORIZONTAL:Number = 16;
 		private static const SPEED_VERTICAL:Number = 20;
 		
-		private static const ANIM_IDLE:int = 0;
-		private static const ANIM_WALK_UP:int = 1;
-		private static const ANIM_WALK_RIGHT:int = 2;
-		private static const ANIM_WALK_DOWN:int = 3;
-		private static const ANIM_WALK_LEFT:int = 4;
-		private static const ANIM_JUMP_WINDOW:int = 5;
-		private static const ANIM_DIE:int = 6;
+		public static const ANIM_IDLE_DOWN:int = 0;
+		public static const ANIM_WALK_UP:int = 1;
+		public static const ANIM_WALK_RIGHT:int = 2;
+		public static const ANIM_WALK_DOWN:int = 3;
+		public static const ANIM_WALK_LEFT:int = 4;
+		public static const ANIM_JUMP_WINDOW:int = 5;
+		public static const ANIM_DIE:int = 6;
+		public static const ANIM_WAKE_UP:int = 7;
+		public static const ANIM_IDLE_UP:int = 8;
+		public static const ANIM_IDLE_RIGHT:int = 9;
+		public static const ANIM_IDLE_LEFT:int = 10;
 		
 		private var _movement:Point = new Point();
+		private var _prevMovement:Point = new Point();
 		
-		private var _animations:Vector.<MovieClip> = new Vector.<MovieClip>();
+		private var _animations:Vector.<MovieClip> = new Vector.<MovieClip>(30);
 		private var _currentAnimation:int = -1;
 		
 		private var _cinematicAnimations:Vector.<int> = new Vector.<int>();
 		private var _offsetsAfterCinematics:Dictionary = new Dictionary();
 		private var _inCinematic:Boolean;
 		
+		private var _animationComplete:Signal = new Signal(int);
+		private var _loopCinematic:Boolean;
+		
 		public function Player()
 		{
 			super();
 			
 			// Movement
-			_animations[ANIM_IDLE] = new MainCharacterIdle();
+			_animations[ANIM_IDLE_UP] = new MainCharacterIdleUp();
+			_animations[ANIM_IDLE_RIGHT] = new MainCharacterIdleRight;
+			_animations[ANIM_IDLE_DOWN] = new MainCharacterIdleDown();
+			_animations[ANIM_IDLE_LEFT] = new MainCharacterIdleLeft();
 			_animations[ANIM_WALK_UP] = new MainCharacterRunUp();
 			_animations[ANIM_WALK_RIGHT] = new MainCharacterRunRight();
 			_animations[ANIM_WALK_DOWN] = new MainCharacterRunDown();
@@ -46,18 +59,26 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			// Cinematic
 			registerCinematic(ANIM_JUMP_WINDOW, new MainCharacterJumpWindow(), new Point(0, -35));
 			registerCinematic(ANIM_DIE, new MainCharacterDies(), new Point(0, 0));
+			registerCinematic(ANIM_WAKE_UP, new MainCharacterWakesUp(), new Point(0, 0));
 			
-			setAnimation(ANIM_IDLE);
+			
+			setAnimation(ANIM_IDLE_DOWN);
+		}
+		
+		public override function dispose():void
+		{
+			super.dispose();
+			
+			_animationComplete.removeAll();
 		}
 		
 		public override function update():void
 		{
-			if (_currentAnimation == ANIM_IDLE && _gameplay.playerInput.testPressed)
-				playCinematic (ANIM_JUMP_WINDOW);
-			
 			if (_inCinematic)
 				return;
 			
+			_prevMovement.x = _movement.x;
+			_prevMovement.y = _movement.y;
 			_movement.x = 0;
 			_movement.y = 0;
 			
@@ -70,19 +91,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			if (_gameplay.playerInput.downPressed)
 				_movement.y += 1;
 			
-			if (_movement.x == 0 && _movement.y == 0)
-				setAnimation(ANIM_IDLE);
-			else if (_movement.x != 0 && _movement.y == 0)
-				setAnimation(_movement.x > 0 ? ANIM_WALK_RIGHT : ANIM_WALK_LEFT);
-			else if (_movement.y != 0 && _movement.x == 0)
-				setAnimation(_movement.y > 0 ? ANIM_WALK_DOWN : ANIM_WALK_UP);
-			/*else // x and y != 0 
-			{
-				
-			}*/
-			
-			/*_movement.x *= SPEED_HORIZONTAL;
-			_movement.y *= SPEED_VERTICAL;*/
 			
 			var collisions:WallCollisions = _gameplay.currentReality.collisions;
 			
@@ -91,6 +99,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			{
 				tentativeMovement /= 2;
 			}
+			_movement.x = tentativeMovement;
 			x += tentativeMovement;
 			
 			tentativeMovement = _movement.y * SPEED_VERTICAL;
@@ -98,8 +107,29 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			{
 				tentativeMovement /= 2;
 			}
+			_movement.y = tentativeMovement;
 			y += tentativeMovement;
 			
+			
+			if (_movement.x == 0 && _movement.y == 0)
+			{
+				if (_prevMovement.y > 0)
+					setAnimation(ANIM_IDLE_DOWN);
+				else if (_prevMovement.y < 0)
+					setAnimation(ANIM_IDLE_UP)
+				else if (_prevMovement.x > 0)
+					setAnimation(ANIM_IDLE_RIGHT);
+				else if (_prevMovement.x < 0)
+					setAnimation(ANIM_IDLE_LEFT);
+			}
+			else if (_movement.x != 0 && _movement.y == 0)
+				setAnimation(_movement.x > 0 ? ANIM_WALK_RIGHT : ANIM_WALK_LEFT);
+			else if (_movement.y != 0 && _movement.x == 0)
+				setAnimation(_movement.y > 0 ? ANIM_WALK_DOWN : ANIM_WALK_UP);
+			/*else // x and y != 0 
+			{
+				
+			}*/
 		}
 		
 		
@@ -120,10 +150,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_animations[_currentAnimation].gotoAndPlay(1);
 		}
 		
-		private function playCinematic(id:int):void
+		public function playCinematic(id:int, loop:Boolean = false):void
 		{
 			setAnimation(id);
 			_inCinematic = true;
+			_loopCinematic = loop;
 		}
 		
 		private function registerCinematic(id:int, mc:MovieClip, offset:Point):void
@@ -144,7 +175,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			x += offset.x;
 			y += offset.y;
 			
-			setAnimation(ANIM_IDLE);
+			_animationComplete.dispatch(_currentAnimation);
+			
+			if (!_loopCinematic)
+				setAnimation(ANIM_IDLE_DOWN);
+		}
+		
+		public function get animationComplete():Signal
+		{
+			return _animationComplete;
 		}
 		
 	}

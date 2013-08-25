@@ -52,9 +52,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			var interactionEvent:InteractiveObjectEvent;
 			
-			trace(">> PLAYER ROOM: " + _roomUtils.getRoomByPosition(player.x, player.y));
-			trace(">> OBJECT " + _name + " ROOM: " + _roomUtils.getRoomByPosition(player.x, player.y));
-			
 			if (_interactionEnabled && 
 				(_roomUtils.getRoomByPosition(player.x, player.y) == _roomUtils.getRoomByPosition(x, y)))
 			{
