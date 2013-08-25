@@ -47,13 +47,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 				return;
 			
 			var inventoryItem:HUDInventoryItem = new HUDInventoryItem(itemType);
-		
-			inventoryItem.x = _itemGap + (_itemGap + inventoryItem.width)*_items.length;
-			inventoryItem.y = _itemGap;
+			
+			inventoryItem.x = _itemGap + inventoryItem.width * 0.5 + (_itemGap + inventoryItem.width * 1.5)*_items.length;
+			inventoryItem.y = _itemGap + inventoryItem.height * 0.5;
 			inventoryItem.init();
-		
+			
 			addChild(inventoryItem);
-
+			
 			_items.push(inventoryItem);
 		}
 		

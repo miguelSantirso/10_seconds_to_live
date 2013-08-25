@@ -46,7 +46,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		public function scriptEntities(logic:RealityLogic, gamePlay:GameplayState):void
 		{
 			logic.findEntityByName("_bed").addAction(new StartSlowMotion(0.1, 5, gamePlay));
-			logic.findEntityByName("_bed").addAction(new AddItemToInventory("las bambas del jose", gamePlay));
+			logic.findEntityByName("_bed").addAction(new AddItemToInventory("NoteAndWatch", gamePlay));
 		}
 		
 	}
