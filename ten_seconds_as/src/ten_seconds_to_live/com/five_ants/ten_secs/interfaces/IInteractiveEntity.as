@@ -18,9 +18,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.interfaces
 		function setKnowledgeDependency(dependency:String):void;
 		function setItemDependency(item:int):void;
 		
-		function addActionNoItemNoKnowledge(action:ObjectActionBase):void;
-		function addActionNoItem(action:ObjectActionBase):void;
-		function addActionSuccess(action:ObjectActionBase):void;
+		function addActionNoItemNoKnowledge(action:ObjectActionBase, repeteable:Boolean = false):void;
+		function addActionNoItem(action:ObjectActionBase, repeteable:Boolean = false):void;
+		function addActionSuccess(action:ObjectActionBase, repeteable:Boolean = false):void;
 		
 		function executeAllActions():void;
 		
