@@ -11,7 +11,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameMap;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
 	import ten_seconds_to_live.com.five_ants.ten_secs.InteractiveObject;
-	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInteractiveEntity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Player;
 	import ten_seconds_to_live.com.five_ants.ten_secs.RealityLogic;
 	import ten_seconds_to_live.com.five_ants.ten_secs.RoomUtils;
@@ -28,6 +27,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		private var _player:Player;
 		//private var _cat:Cat; // TEMP ALBERT
 		private var _entities:Vector.<Entity> = new Vector.<Entity>();
+		private var _interactiveObjects:Dictionary = new Dictionary();
 		public static var _gameplay:GameplayState;
 		private var _camera:Camera;
 		private var _gameMap:GameMap;
@@ -164,12 +164,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 				else if (entity.visualObject)
 				{
 					entity.visualObject.visible = true;
+					entity.glowInteractionPointer();
 				}
-			}
-			
-			for each(var interactive:InteractiveObject in _interactiveObjects)
-			{
-				
 			}
 		}
 		
@@ -193,13 +189,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		}
 		
 		
-		
-		public function removeInteractiveObject(name:String):void
+		public function findInteractiveObject(name:String):InteractiveObject
 		{
-			var intObj:InteractiveObject = _realityLogic.removeEntityByName(name) as InteractiveObject;
-			intObj.visualObject.visible = false;
-			intObj.dispose();
-			_entities.splice(_entities.indexOf(intObj),1);
+			if (!_interactiveObjects[name])
+				throw new Error("AlternativeReality: Can't find interactive object with name " + name);
+			
+			return _interactiveObjects[name];
 		}
 		
 		public function get roomUtils():RoomUtils 

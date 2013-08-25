@@ -59,6 +59,26 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			return _keysState[32];
 		}
 		
+		public function get cPressed():Boolean
+		{
+			return _keysState[67];
+		}
+		
+		public function get fPressed():Boolean
+		{
+			return _keysState[70];
+		}
+		
+		public function get pPressed():Boolean
+		{
+			return _keysState[80];
+		}
+		
+		public function get escapePressed():Boolean
+		{
+			return _keysState[27];
+		}
+		
 		public function get testPressed():Boolean 
 		{
 			return _keysState[84];//t
@@ -66,11 +86,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		private function onKeyDown(e:KeyboardEvent):void
 		{
+			//trace("key down: " + e.keyCode);
 			_keysState[e.keyCode] = true;
 		}
 		
 		private function onKeyUp(e:KeyboardEvent):void
 		{
+			//trace("key up: " + e.keyCode);
 			_keysState[e.keyCode] = false;
 		}
 		

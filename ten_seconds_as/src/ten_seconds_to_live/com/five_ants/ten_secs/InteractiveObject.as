@@ -217,10 +217,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_interactionEnabled = value;
 		}
 		
-		public function glowInteractionPointer():void
+		public override function glowInteractionPointer():void
 		{
-			_visualInteractionPointer.visible = true;
-			_visualInteractionPointer.gotoAndPlay(LABEL_POINTER_BEGIN);
+			if (!_visualInteractionPointer.visible)
+			{
+				_visualInteractionPointer.visible = true;
+				_visualInteractionPointer.gotoAndPlay(LABEL_POINTER_BEGIN);
+			}
 		}
 		
 		public function unglowInteractionPointer():void

@@ -66,7 +66,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		{
 			_hudClock.x = _hudClock.y = 6;
 			
-			_hudButtonPanel.x = 674;
+			_hudButtonPanel.x = 582;
 			_hudButtonPanel.y = 6;
 			_hudButtonPanel.addEventListener(HUDButtonPanel.PAUSE_REQUEST_EVENT, onPauseRequest, false, 0, true);
 			_hudButtonPanel.addEventListener(HUDButtonPanel.KNOWLEDGE_REQUEST_EVENT, onKnowledgeRequest, false, 0, true);
@@ -137,9 +137,20 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 
 		public function update():void
 		{
-			if (_dialogOpened) {
+			if(_dialogOpened)
 				_hudDialog.update();
-			}
+			
+			_hudButtonPanel.update();
+			
+			if(_popupOpened)
+				_hudItemPopUp.update();
+			if(_knowledgeListOpened)
+				_hudKnowledgeList.update();
+			if(_pauseMenuOpened)
+				_hudPauseMenu.update();
+			if(_creditsPopUpOpened)
+				_hudCreditsPopUp.update();
+			
 		}
 		
 		public function set slowmo(isActive:Boolean):void

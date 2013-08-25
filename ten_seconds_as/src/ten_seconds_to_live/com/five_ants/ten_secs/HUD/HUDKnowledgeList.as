@@ -1,7 +1,8 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.HUD 
 {
 	import flash.events.Event;
-	import flash.events.MouseEvent;
+	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
+	
 	/**
 	 * ...
 	 * @author 10 2  Live Team
@@ -14,6 +15,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		protected const _itemGap:int = 6;
 		
+		protected var _ePressed:Boolean = false;
+		
 		public function HUDKnowledgeList() 
 		{
 			_coreComponent = new CoreKnowledgeList();
@@ -24,14 +27,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public override function init():void
 		{
 			super.init();
-			
-			coreComponent.closeButton.addEventListener(MouseEvent.CLICK, onCloseClick, false, 0, true);
 		}
 		
 		public override function dispose():void
 		{
-			disposeItems();			
-			coreComponent.closeButton.removeEventListener(MouseEvent.CLICK, onCloseClick);
+			disposeItems();
 		
 			super.dispose();
 		}
@@ -46,6 +46,17 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 				_knowledgeItems.splice(0, _knowledgeItems.length);
 				_knowledgeItems = null;
 			}
+		}
+		
+		public override function update():void
+		{
+			super.update();
+			
+			if (!_ePressed && GameplayState.playerInput.ePressed) {
+				onClose();
+				_ePressed = true;
+			}else if (!GameplayState.playerInput.ePressed)
+				_ePressed = false;
 		}
 		
 		public function get coreComponent():CoreKnowledgeList
@@ -79,7 +90,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			disposeItems();
 		}
 		
-		public function onCloseClick(event:MouseEvent):void
+		public function onClose():void
 		{
 			dispatchEvent(new Event(CLOSE_REQUEST_EVENT));
 		}

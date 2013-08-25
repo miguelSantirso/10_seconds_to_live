@@ -69,6 +69,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			_hud = new HUD();
 			_hud.init();
+			
+			_hud.addEventListener(HUD.POPUP_OPENED_EVENT, onItemPopUpOpened, false, 0, true);
+			_hud.addEventListener(HUD.POPUP_CLOSED_EVENT, onItemPopUpClosed, false, 0, true);
 			_hud.addEventListener(HUD.TOGGLE_PAUSE_EVENT, onPauseToggle, false, 0, true);
 			_hud.addEventListener(HUD.TOGGLE_KNOWLEDGE_EVENT, onKnowledgeToggle, false, 0, true);
 			_hud.addEventListener(HUD.KNOWLEDGE_OPENED_EVENT, onKnowledgeOpened, false, 0, true);
@@ -88,6 +91,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public override function update():void 
 		{
+			_hud.update();
+			
 			if (_paused)
 				return;
 			
@@ -97,17 +102,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				_gameTime.update();*/
 			
 			_hud.time = _gameTime.seconds;
-			_hud.update();
-			
-			// temp
-			if(_playerInput.testPressed){
-				//_hud.openItemPopUp("kitty");
-				if(!_hud.dialogOpened){
-					var dialog:Dialog = new Dialog();
-					//dialog.populate(new Object());
-					_hud.openDialog(dialog);
-				}
-			}
 		}
 		
 		public override function dispose():void 
@@ -117,6 +111,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			for each (var reality:AlternativeReality in _realities)
 				reality.dispose();
 				
+			_hud.removeEventListener(HUD.POPUP_OPENED_EVENT, onItemPopUpOpened);
+			_hud.removeEventListener(HUD.POPUP_CLOSED_EVENT, onItemPopUpClosed);
 			_hud.removeEventListener(HUD.TOGGLE_PAUSE_EVENT, onPauseToggle);
 			_hud.removeEventListener(HUD.TOGGLE_KNOWLEDGE_EVENT, onKnowledgeToggle);
 			_hud.removeEventListener(HUD.KNOWLEDGE_OPENED_EVENT, onKnowledgeOpened);
@@ -228,6 +224,16 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			}
 		}
 		
+		protected function onItemPopUpOpened(event:Event):void
+		{
+			paused = true;
+		}
+		
+		protected function onItemPopUpClosed(event:Event):void
+		{
+			paused = false;
+		}
+		
 		protected function onKnowledgeOpened(event:Event):void
 		{
 			paused = true;
@@ -236,7 +242,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected function onKnowledgeClosed(event:Event):void
 		{
 			paused = false;
-			stage.focus = this;
 		}
 		
 		protected function onPauseMenuOpened(event:Event):void
@@ -247,7 +252,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected function onPauseMenuClosed(event:Event):void
 		{
 			paused = false;
-			stage.focus = this;
 		}
 		
 		protected function onHUDResume(event:Event):void
