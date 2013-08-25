@@ -33,7 +33,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		public function update():void
 		{
-		
+			
 		}
 	}
 

@@ -64,7 +64,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		{
 			_logic = logic;
 			
-			object("_roomTable").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "Note from A.B.", "You are going to die. A.B."));
+			object("_roomTable").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "Note from A.B.", "You are going to die. A.B."), false);
 			object("_roomTable").addActionSuccess(new AlterKnowledge("going_to_die"));
 			
 			object("_window").addActionSuccess(new PlayerCinematic(Player.ANIM_JUMP_WINDOW));
@@ -74,7 +74,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_gun").addActionSuccess(new AddItemToInventory(Items.GUN));
 			
 			object("_door").setItemDependency(Items.GUN);
-			object("_door").addActionNoItem(new ShowPopUp(Items.GUN, "Locked Door", "Argh! The door is locked, I need something to open it!"));
+			object("_door").addActionNoItem(new ShowPopUp(Items.GUN, "Locked Door", "Argh! The door is locked, I need something to open it!"), true);
 			object("_door").addActionSuccess(new ShowPopUp(Items.GUN, "Door Open!", "I opened the door with the gun"));
 			object("_door").addActionSuccess(new ChangeCollision("door", false));
 			object("_door").addActionSuccess(new PlayerCinematic(Player.ANIM_SHOOTING));

@@ -4,11 +4,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import flash.utils.Dictionary;
 	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUD;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.InteractiveObjectEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.InventoryItemEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInteractiveEntity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ObjectActionBase;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ObjectActionTuple;
 	/**
 	 * ...
 	 * @author ...
@@ -27,9 +29,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected var _itemDependency:int = -1;
 		protected var _knowledgeDependency:String = null;
 		
-		protected var _actionsNoItemNoKnowledge:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
-		protected var _actionsNoItem:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
-		protected var _actionsSuccess:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
+		protected var _actionsNoItemNoKnowledge:Vector.<ObjectActionTuple> = new Vector.<ObjectActionTuple>();
+		protected var _actionsNoItem:Vector.<ObjectActionTuple> = new Vector.<ObjectActionTuple>();
+		protected var _actionsSuccess:Vector.<ObjectActionTuple> = new Vector.<ObjectActionTuple>();
 		
 		protected static const STD_INTERACTION_RADIUS:Number = 100;
 		
@@ -50,14 +52,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public override function update():void
 		{
 			_roomName = _roomUtils.getRoomByPosition(_visualObject.x, _visualObject.y);
-			enableInteractions = _interactionEnabled && !_gameplay.hud.popupOpened;
+			enableInteractions = !_gameplay.hud.popupOpened;
 		}
 		
 		public function checkPlayerCollision(player:Player, playerInput:IPlayerInput):void
 		{
 			var interactionEvent:InteractiveObjectEvent;
 			
-			_interactionEnabled = true;
+			//_interactionEnabled = true;
 			
 			if (_interactionEnabled && 
 				(_roomUtils.getRoomByPosition(player.x, player.y) == _roomUtils.getRoomByPosition(x, y)))
@@ -106,27 +108,30 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_itemDependency = item;
 		}
 		
-		public function addActionNoItemNoKnowledge(action:ObjectActionBase):void
+		public function addActionNoItemNoKnowledge(action:ObjectActionBase, repeteable:Boolean = false):void
 		{
-			_actionsNoItemNoKnowledge.push(action);
+			var actionTuple:ObjectActionTuple = new ObjectActionTuple(action, repeteable);
+			
+			_actionsNoItemNoKnowledge.push(actionTuple);
 		}
 		
-		public function addActionNoItem(action:ObjectActionBase):void
+		public function addActionNoItem(action:ObjectActionBase, repeteable:Boolean = false):void
 		{
-			_actionsNoItem.push(action);
+			var actionTuple:ObjectActionTuple = new ObjectActionTuple(action, repeteable);
+			
+			_actionsNoItem.push(actionTuple);
 		}
 		
-		public function addActionSuccess(action:ObjectActionBase):void
+		public function addActionSuccess(action:ObjectActionBase, repeteable:Boolean = false):void
 		{
-			_actionsSuccess.push(action);
+			var actionTuple:ObjectActionTuple = new ObjectActionTuple(action, repeteable);
+			
+			_actionsSuccess.push(actionTuple);
 		}
 		
 		public function executeAllActions():void
 		{
-			if (_name == "_statue")
-							trace("STATUE ACTION");
-			
-			var action:ObjectActionBase;
+			var action:ObjectActionTuple;
 			
 			var itemVerified:Boolean = true;
 			var knowledgeVerified:Boolean = true;
@@ -145,7 +150,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			{
 				for each(action in _actionsNoItemNoKnowledge)
 				{
-					action.execute();
+					if (action.repeteable || (!action.repeteable && !action.repeated))
+					{
+						action.action.execute();
+						action.repeated = true;
+					}
 				}
 			}
 			
@@ -153,7 +162,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			{
 				for each(action in _actionsNoItem)
 				{
-					action.execute();
+					if (action.repeteable || (!action.repeteable && !action.repeated))
+					{
+						action.action.execute();
+						action.repeated = true;
+					}
 				}
 			}
 			
@@ -161,7 +174,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			{
 				for each(action in _actionsSuccess)
 				{
-					action.execute();
+					if (action.repeteable || (!action.repeteable && !action.repeated))
+					{
+						action.action.execute();
+						action.repeated = true;
+					}
 				}
 				
 				//enableInteractions = false;
