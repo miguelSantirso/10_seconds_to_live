@@ -5,6 +5,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.events.Event;
 	import flash.text.TextField;
 	import flash.utils.Dictionary;
+	
+	import com.greensock.TweenMax;
+	
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.InteractiveObjectEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUD;
 	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUDClock;
@@ -41,6 +44,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _interactiveObjects:Vector.<InteractiveObject> = new Vector.<InteractiveObject>();
 		
 		private var _realityLogic:RealityLogic;
+		private var _wakingUp:Boolean = true;
 		
 		protected override function init():void 
 		{
@@ -54,7 +58,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_playerInput.init(_stage);
 			
 			// Set up realities, push in order to vector
-			_realities.push(new AlternativeReality(new MainReality()));
+			var initialReality:AlternativeReality = new AlternativeReality(new MainReality());
+			initialReality.playerWokeUp.addOnce(function ():void { _wakingUp = false; } );
+			_realities.push(initialReality);
 			
 			for each (var reality:AlternativeReality in _realities)
 				reality.init(this);
@@ -77,6 +83,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			addChild(_hud);
 			
 			currentReality.collisions.removeCollisionBlock("door");
+			
+			Sounds.playSoundById(Sounds.SOUND_GIRL_LAUGH_REVERB);
 		}
 		
 		public override function update():void 
@@ -86,7 +94,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			currentReality.update();
 			
-			_gameTime.update();
+			/*if (!_wakingUp)
+				_gameTime.update();*/
 			
 			_hud.time = _gameTime.seconds;
 			
@@ -163,7 +172,20 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		protected function onTimeUp(e:Event):void 
 		{
-			// game over
+			// Game Over
+			trace("time up");
+			currentReality.player.playCinematic(Player.ANIM_DIE, true);
+			
+			TweenMax.delayedCall(3.3, onDeathComplete);
+		}
+		private function onDeathComplete():void
+		{
+			trace("death complete");
+			TweenMax.to(this, 0.3, { "alpha": 0, onComplete: onFadeOutComplete } );
+		}
+		private function onFadeOutComplete():void
+		{
+			_main.changeState(new GameplayState());
 		}
 		
 		public function onSlowmoStart(e:Event):void

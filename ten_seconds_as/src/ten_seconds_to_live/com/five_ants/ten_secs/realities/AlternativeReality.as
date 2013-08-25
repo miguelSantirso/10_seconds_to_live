@@ -3,6 +3,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import org.osflash.signals.OnceSignal;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Camera;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Entity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameMap;
@@ -33,6 +34,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		
 		private var _realityLogic:RealityLogic;
 		
+		private var _playerWokeUp:OnceSignal = new OnceSignal();
+		
 		public function AlternativeReality(config:IRealityConfig)
 		{
 			_config = config;
@@ -57,8 +60,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			addChild(floors);
 			
 			_player = _config.constructPlayer();
-			_player.x = 300; _player.y = 400;
+			_player.x = 285; _player.y = 1000;
 			_camera.target = _player;
+			_player.playCinematic(Player.ANIM_WAKE_UP);
+			_player.animationComplete.addOnce(function(anim:int):void { _playerWokeUp.dispatch(); } );
 			_entities.push(_player);
 			
 			_realityLogic = new RealityLogic();
@@ -160,6 +165,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		public function get player():Player 
 		{
 			return _player;
+		}
+		
+		public function get playerWokeUp():OnceSignal 
+		{
+			return _playerWokeUp;
 		}
 	}
 
