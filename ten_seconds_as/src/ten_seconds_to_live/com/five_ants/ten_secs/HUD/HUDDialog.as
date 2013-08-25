@@ -16,16 +16,17 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		protected var _hudDialogItems:Vector.<HUDDialogItem>;
 		
-		protected var _currentItems:Vector.<HUDDialogItem>;
+		protected var _currentItem:HUDDialogItem;
 		
 		protected var _textMoving:Boolean = false;
 		protected var _complete:Boolean = false;
+				
+		protected var _continuing:Boolean = false;
 		
 		public function HUDDialog() 
 		{
 			_coreComponent = new CoreDialog();
 			_hudDialogItems = new Vector.<HUDDialogItem>();
-			_currentItems = new Vector.<HUDDialogItem>();
 			
 			super(_coreComponent);
 		}
@@ -36,6 +37,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			coreComponent.continueLabel.visible = false;
 			coreComponent.skipLabel.visible = false;
+			coreComponent.endLabel.visible = false;
 		}
 		
 		public override function dispose():void
@@ -45,13 +47,17 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			disposeItems();
 			
 			_hudDialogItems = null;
-			_currentItems = null;
+			_currentItem = null;
 		}
 		
 		public override function update():void
 		{
-			if (!_textMoving && GameplayState.playerInput.spacebarPressed)
+			if (!_continuing && !_textMoving && GameplayState.playerInput.spacebarPressed) {
+				_continuing = true;
 				nextDialogItem();
+			}else if (!GameplayState.playerInput.spacebarPressed){
+				_continuing = false;
+			}
 		}
 		
 		protected function disposeItems():void
@@ -64,11 +70,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			}
 			_hudDialogItems.splice(0, _hudDialogItems.length);
 			
-			for (var j = 0; j < _currentItems.length; j++) {
-				TweenLite.killTweensOf(_currentItems[j]);
-			}
-			_currentItems.splice(0, _currentItems.length);
+			if (_currentItem && contains(_currentItem))
+				removeChild(_currentItem);
 			
+			_currentItem = null;
 			
 			_textMoving = false;
 			_complete = false;
@@ -102,6 +107,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 				coreComponent.skipLabel.visible = true;
 				
 				// start dialogs
+				_textMoving = true;
 				TweenLite.delayedCall(1.0, nextDialogItem);
 			}
 		}
@@ -115,43 +121,36 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			if (_hudDialogItems.length > 0) {
 				coreComponent.continueLabel.visible = false;
+				if (_hudDialogItems.length <= 1)
+					coreComponent.skipLabel.visible = false;
 				_textMoving = true;
 				
-				nextItem = _hudDialogItems.shift();
-				nextItem.x = coreComponent.listMarker.x;
-				nextItem.y = coreComponent.listMarker.y;
-				nextItem.visible = false;
+				if (_currentItem && contains(_currentItem))
+					removeChild(_currentItem);
+				
+				_currentItem = nextItem = _hudDialogItems.shift();
+				_currentItem.x = coreComponent.listMarker.x;
+				_currentItem.y = coreComponent.listMarker.y;
+				
 				addChild(nextItem);
-				
-				_currentItems.unshift(nextItem);
-
-				checkDialogItemToRemove();
-				
-				TweenLite.from(nextItem, 0.5, 
-					{ y : nextItem.y + nextItem.height, onComplete : 
+			
+				TweenLite.from(_currentItem, 0.5, 
+					{ y : coreComponent.listMarker.y + _currentItem.height , onComplete :
 						function():void {
-							nextItem.visible = true;
 							_textMoving = false;
-							coreComponent.continueLabel.visible = true;
+							
+							if(_hudDialogItems.length > 0){
+								coreComponent.continueLabel.visible = true;							
+							}else{
+								coreComponent.endLabel.visible = true;
+							}
 						} 
 					});
-									
-				for (var i:int = 1; i < _currentItems.length ; i++) {
-					TweenLite.to(_currentItems[i], 0.5, { y : coreComponent.listMarker.y - nextItem.height*i});	
-				}
+					
 			}else {
 				_complete = true;
+				
 				dispatchEvent(new Event(DIALOG_COMPLETE_EVENT));
-				trace("dialog finished");
-			}
-		}
-		
-		protected function checkDialogItemToRemove():void
-		{
-			if (_currentItems.length > 3){
-				var removingItem:HUDDialogItem = _currentItems.pop();
-				if (contains(removingItem))
-				removeChild(removingItem);
 			}
 		}
 	}
