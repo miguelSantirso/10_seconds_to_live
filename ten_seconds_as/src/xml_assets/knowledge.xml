@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<view name="knowledge">
+	<fact id="0" text="Text for fact 0"/>
+	<fact id="1" text="Text for fact 1"/>
+	<fact id="2" text="Text for fact 2"/>
+	<fact id="3" text="Text for fact 3"/>
+	<fact id="4" text="Text for fact 4"/>
+	<fact id="5" text="Text for fact 5"/>
+	<fact id="6" text="Text for fact 6"/>
+</view>
