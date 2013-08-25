@@ -52,9 +52,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			return _keysState[69]; //e
 		}
 		
-		public function get testPressed():Boolean 
+		public function get spacebarPressed():Boolean
 		{
 			return _keysState[32];
+		}
+		
+		public function get testPressed():Boolean 
+		{
+			return _keysState[84];//t
 		}
 		
 		private function onKeyDown(e:KeyboardEvent):void
