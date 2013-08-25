@@ -87,11 +87,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			if (!_gameTime.slowmoActive && _playerInput.testPressed){
 				_gameTime.startSlowmo();
 				
-				var testKnowledge:Vector.<String> = new Vector.<String>();
-				testKnowledge.push("kung fu.");
-				testKnowledge.push("Ubuntu.");
-				testKnowledge.push("I just had sex.");
-				_hud.openKnowledgeList(testKnowledge);
+				_hud.openKnowledgeList(PlayerKnowledge.getEverythingThePlayerKnows());
 			}
 		}
 		

@@ -4,12 +4,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 	import flash.events.Event;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInitializable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
-	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IUpdateable;
 	/**
 	 * ...
 	 * @author 10 2  Live Team
 	 */
-	public class HUD extends Sprite implements IInitializable, IDisposable, IUpdateable
+	public class HUD extends Sprite implements IInitializable, IDisposable
 	{
 		public static const POPUP_OPENED_EVENT:String = "popupOpenedEvent";
 		public static const POPUP_CLOSED_EVENT:String = "popupClosedEvent";
@@ -58,12 +57,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudClock = null;
 			_hudInventory = null;
 		}
-		
-		public function update():void
-		{
-			
-		}
-		
+
 		public function set slowmo(isActive:Boolean):void
 		{
 			_hudClock.slowmo = isActive;
