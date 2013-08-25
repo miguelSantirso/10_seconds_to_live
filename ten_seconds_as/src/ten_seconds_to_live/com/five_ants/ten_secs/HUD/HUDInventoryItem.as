@@ -8,28 +8,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 	 */
 	public class HUDInventoryItem extends HUDComponent 
 	{
-		protected var _type:String;
+		protected var _itemId:int;
 		
-		public function HUDInventoryItem(itemType:String = null) 
+		public function HUDInventoryItem(itemId:int) 
 		{
-			_coreComponent = Items.getItemByName(itemType);
+			_coreComponent = Items.getItemById(itemId);
+			_itemId = itemId;
 			
 			super(_coreComponent);
-			
-			if(itemType)
-				type = itemType;
-		}
-		
-		public override function init():void
-		{
-			super.init();
-		}
-		
-		public override function dispose():void
-		{
-			super.dispose();
-			
-			_type = null;
 		}
 		
 		public function get coreComponent():CoreInventoryItem
@@ -37,16 +23,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			return _coreComponent as CoreInventoryItem;
 		}
 		
-		public function get type():String 
+		public function get itemId():int 
 		{
-			return _type;
-		}
-		
-		public function set type(value:String):void 
-		{
-			_type = value;
-			
-			// show the right item
+			return _itemId;
 		}
 	}
 

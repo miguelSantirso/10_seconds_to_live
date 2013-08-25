@@ -66,7 +66,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					{
 						_visualObject.gotoAndStop(LABEL_PRESSED);
 						
-						_gameplay.hud.openItemPopUp(getName(), "test", "test");
+						_gameplay.hud.openItemPopUp(Items.GUN, "test", "test");
 						_gameplay.hud.addEventListener(HUD.POPUP_CLOSED_EVENT, executeAllActions, false, 0, true);
 					}
 					else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);
