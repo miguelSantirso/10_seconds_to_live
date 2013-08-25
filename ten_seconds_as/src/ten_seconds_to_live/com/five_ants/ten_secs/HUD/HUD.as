@@ -2,6 +2,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import ten_seconds_to_live.com.five_ants.ten_secs.Dialog;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.InventoryItemEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInitializable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
@@ -20,6 +21,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public static const KNOWLEDGE_OPENED_EVENT:String = "knowledgeOpenedEvent";
 		public static const KNOWLEDGE_CLOSED_EVENT:String = "knowledgeClosedEvent";
 
+		public static const DIALOG_OPENED_EVENT:String = "dialogOpenedEvent";
+		public static const DIALOG_CLOSED_EVENT:String = "dialogClosedEvent";
+
 		public static const PAUSEMENU_OPENED_EVENT:String = "pauseMenuOpenedEvent";
 		public static const PAUSEMENU_CLOSED_EVENT:String = "pauseMenuClosedEvent";
 		
@@ -33,12 +37,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		protected var _hudKnowledgeList:HUDKnowledgeList;
 		protected var _hudPauseMenu:HUDPauseMenu;
 		protected var _hudCreditsPopUp:HUDCreditsPopUp;
+		protected var _hudDialog:HUDDialog;
 		
 		protected var _enabled:Boolean;
 		protected var _popupOpened:Boolean = false;
 		protected var _knowledgeListOpened:Boolean = false;
 		protected var _pauseMenuOpened:Boolean = false;
 		protected var _creditsPopUpOpened:Boolean = false;
+		protected var _dialogOpened:Boolean = false;
 		
 		public function HUD() 
 		{
@@ -49,6 +55,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudKnowledgeList = new HUDKnowledgeList();
 			_hudPauseMenu = new HUDPauseMenu();
 			_hudCreditsPopUp = new HUDCreditsPopUp();
+			_hudDialog = new HUDDialog();
 			
 			_enabled = true;
 		}
@@ -81,6 +88,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudCreditsPopUp.x = (800 - _hudCreditsPopUp.width) * 0.5;
 			_hudCreditsPopUp.y = (600 - _hudCreditsPopUp.height) * 0.5;
 			_hudCreditsPopUp.addEventListener(HUDCreditsPopUp.CLOSE_REQUEST_EVENT, closeCreditsPopUp, false, 0, true);
+			
+			_hudDialog.x = (800 - _hudDialog.width) * 0.5;
+			_hudDialog.y = 456;
 			
 			addChild(_hudClock);
 			addChild(_hudButtonPanel);
@@ -172,9 +182,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			return _pauseMenuOpened;
 		}
 		
-		public function openItemPopUp(itemType:String):void
+		public function openItemPopUp(itemId:String, title:String, description:String):void
 		{
-			_hudItemPopUp.open(itemType);
+			_hudItemPopUp.item = itemId;
+			_hudItemPopUp.title = title;
+			_hudItemPopUp.description = description;
 			
 			_popupOpened = true;
 			
@@ -185,8 +197,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		public function closeItemPopUp(event:InventoryItemEvent):void
 		{
-			_hudItemPopUp.close();
-			
 			_popupOpened = false;
 			
 			removeChild(_hudItemPopUp);
@@ -217,6 +227,28 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			removeChild(_hudKnowledgeList);
 			
 			dispatchEvent(new Event(KNOWLEDGE_CLOSED_EVENT));
+		}
+		
+		public function openDialog(dialog:Dialog):void
+		{
+			if(dialog){
+				_hudDialog.dialog = dialog;	
+				
+				_dialogOpened = true;
+			
+				addChild(_hudDialog);
+				
+				dispatchEvent(new Event(DIALOG_OPENED_EVENT));
+			}
+		}
+		
+		public function closeDialog():void
+		{	
+			_dialogOpened = false;
+			
+			removeChild(_hudDialog);
+			
+			dispatchEvent(new Event(DIALOG_CLOSED_EVENT));
 		}
 		
 		public function openPauseMenu():void

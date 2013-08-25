@@ -56,6 +56,7 @@
     <element path="lib\hud.swc" />
     <element path="lib\greensock.swc" />
     <element path="lib\sounds.swc" />
+    <element path="lib\item_icons.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

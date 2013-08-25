@@ -1,5 +1,7 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.HUD 
 {
+	import ten_seconds_to_live.com.five_ants.ten_secs.Items;
+	
 	/**
 	 * ...
 	 * @author 10 2  Live Team
@@ -10,7 +12,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		public function HUDInventoryItem(itemType:String = null) 
 		{
-			_coreComponent = new CoreInventoryItem();
+			_coreComponent = Items.getItemByName(itemType);
 			
 			super(_coreComponent);
 			
