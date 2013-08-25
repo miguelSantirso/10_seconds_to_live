@@ -103,9 +103,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_bookshelf").addActionNoItem(new ShowPopUp(Items.BOOKSHELF, "book_shelf_noI"));
 			object("_bookshelf").addActionSuccess(new ShowPopUp(Items.BOOKSHELF, "book_shelf"));
 			object("_bookshelf").addActionSuccess(new RemoveItemFromInventory(Items.BOOK));
+			object("_bookshelf").addActionSuccess(new AlterKnowledge("i_need_the_secret_code"));
 			
-			object("_picture").addActionSuccess(new ShowPopUp(Items.PICTURE, "picture"));
-			object("_picture").addActionSuccess(new AlterKnowledge("catnip_attracts_cat"));
+			object("_secretDoor").setKnowledgeDependency("the_secret_code_is_1234");
+			object("_secretDoor").addActionSuccess(new ShowPopUp(Items.SECRET_DOOR, "secretdoor"));
+			object("_secretDoor").addActionSuccess(new ChangeCollision("library_secret_door", false));
+			
+			object("_picture$80").addActionSuccess(new ShowPopUp(Items.PICTURE, "picture"));
+			object("_picture$80").addActionSuccess(new AlterKnowledge("catnip_attracts_cat"));
 			
 			object("_book").setKnowledgeDependency("there_is_a_panic_room");
 			object("_book").addActionNoItemNoKnowledge(new ShowPopUp(Items.BOOK, "book_noI_noK"));
@@ -118,6 +123,19 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			object("_camera1").addActionSuccess(new ShowPopUp(Items.CAMERA, "security_camera"));
 			object("_camera1").addActionSuccess(new AlterKnowledge("there_is_a_panic_room"));
+			
+			object("_fireplace").addActionSuccess(new ShowPopUp(Items.NONE, "fireplace"));
+			
+			object("_bathtub").addActionSuccess(new ShowPopUp(Items.NONE, "bathtub"));
+			
+			object("_bed").addActionSuccess(new ShowPopUp(Items.NONE, "bed"));
+			
+			object("_kitchen").addActionSuccess(new ShowPopUp(Items.NONE, "kitchen"));
+			
+			object("_clock$50").addActionSuccess(new ShowPopUp(Items.NONE, "clock"));
+			
+			object("_kitchenTable").addActionSuccess(new ShowPopUp(Items.NONE, "kitchen_table"));
+			
 		}
 	}
 
