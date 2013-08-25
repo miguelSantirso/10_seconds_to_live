@@ -18,6 +18,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.RoomUtils;
 	import ten_seconds_to_live.com.five_ants.ten_secs.WallCollisions;
 	import ten_seconds_to_live.com.five_ants.ten_secs.PlayerKnowledge;
+	import ten_seconds_to_live.com.five_ants.ten_secs.Items;
+	
 	/**
 	 * ...
 	 * @author Miguel Santirso
@@ -55,12 +57,18 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			else return null;
 		}
 		
-		public function scriptEntities(logic:RealityLogic, gamePlay:GameplayState):void
+		public function scriptEntities(logic:RealityLogic):void
 		{
 			_logic = logic;
 			
 			// _bed
-			object("_bed").addActionSuccess(new ShowPopUp("Gun", "gun", "gun", gamePlay));
+			object("_bed").setItemDependency(Items.GUN);
+			object("_bed").addActionNoItem(new ShowPopUp(Items.CAT, "hola", "hola"));
+			object("_bed").addActionNoItem(new StartSlowMotion(0.2, 5));
+			object("_bed").addActionSuccess(new AddItemToInventory(Items.CAMERA));
+			
+			object("_interaction1").addActionSuccess(new AddItemToInventory(Items.GUN));
+			object("_interaction1").addActionNoItem(new ShowPopUp(Items.GUN, "pistola", "pistola regalada"));
 			
 			/*// _interactive1
 			object("_interactive1").setItemDependency("angry bird");

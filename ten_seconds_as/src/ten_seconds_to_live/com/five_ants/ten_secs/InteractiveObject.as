@@ -24,7 +24,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		protected var _visualObject:MovieClip = new MovieClip();
 		
-		protected var _itemDependency:String = null;
+		protected var _itemDependency:int = -1;
 		protected var _knowledgeDependency:String = null;
 		
 		protected var _actionsNoItemNoKnowledge:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
@@ -99,7 +99,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_knowledgeDependency = knowledge;
 		}
 		
-		public function setItemDependency(item:String):void
+		public function setItemDependency(item:int):void
 		{
 			_itemDependency = item;
 		}
@@ -128,7 +128,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			if (_itemDependency)
 			{
-				itemVerified = _gameplay.hud.inventory.getItemByType(_itemDependency);
+				itemVerified = _gameplay.hud.inventory.checkItemByID(_itemDependency);
 			}
 			
 			if (_knowledgeDependency)

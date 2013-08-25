@@ -199,7 +199,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			return _dialogOpened;
 		}
 		
-		public function openItemPopUp(itemId:String, title:String, description:String):void
+		public function openItemPopUp(itemId:int, title:String, description:String):void
 		{
 			_hudItemPopUp.item = itemId;
 			_hudItemPopUp.title = title;

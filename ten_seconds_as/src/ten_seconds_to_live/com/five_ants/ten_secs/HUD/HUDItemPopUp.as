@@ -47,13 +47,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			return _itemId;
 		}
 		
-		public function set item(itemName:String):void
+		public function set item(itemId:int):void
 		{
 			var iconContainer:MovieClip = _coreComponent.iconContainer;
 			while (iconContainer.numChildren > 0)
 				iconContainer.removeChildAt(0);
 			
-			var itemMc:MovieClip = Items.getItemByName(itemName);
+			var itemMc:MovieClip = Items.getItemById(itemId);
 			iconContainer.addChild(itemMc);
 		}
 		public function set title(value:String):void

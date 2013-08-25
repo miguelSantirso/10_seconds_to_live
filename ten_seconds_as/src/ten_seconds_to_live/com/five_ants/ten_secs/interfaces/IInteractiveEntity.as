@@ -16,7 +16,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.interfaces
 		function getName():String;
 		
 		function setKnowledgeDependency(dependency:String):void;
-		function setItemDependency(item:String):void;
+		function setItemDependency(item:int):void;
 		
 		function addActionNoItemNoKnowledge(action:ObjectActionBase):void;
 		function addActionNoItem(action:ObjectActionBase):void;

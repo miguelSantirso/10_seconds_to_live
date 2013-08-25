@@ -2,6 +2,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 {
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
 	import ten_seconds_to_live.com.five_ants.ten_secs.PlayerKnowledge;
+	import ten_seconds_to_live.com.five_ants.ten_secs.realities.AlternativeReality;
 	
 	/**
 	 * ...
@@ -11,10 +12,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 	{
 		private var _knowledgeItem:String;
 		
-		public function AlterKnowledge(knowledgeItem:String, gamePlay:GameplayState)
+		public function AlterKnowledge(knowledgeItem:String)
 		{
-			super(gamePlay);
-			
 			_knowledgeItem = knowledgeItem;
 		}
 		
