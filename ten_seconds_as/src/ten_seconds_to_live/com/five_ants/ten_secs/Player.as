@@ -43,6 +43,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		private var _animationComplete:Signal = new Signal(int);
 		private var _loopCinematic:Boolean;
+		private var _animationBeforeCinematic:int;
 		
 		public function Player()
 		{
@@ -154,6 +155,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public function playCinematic(id:int, loop:Boolean = false):void
 		{
+			_animationBeforeCinematic = _currentAnimation;
 			setAnimation(id);
 			_inCinematic = true;
 			_loopCinematic = loop;
@@ -180,7 +182,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_animationComplete.dispatch(_currentAnimation);
 			
 			if (!_loopCinematic)
-				setAnimation(ANIM_IDLE_DOWN);
+				setAnimation(_animationBeforeCinematic);
 		}
 		
 		public function get animationComplete():Signal
