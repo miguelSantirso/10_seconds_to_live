@@ -2,7 +2,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 {
 	import flash.events.Event;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
-	
+	import ten_seconds_to_live.com.five_ants.ten_secs.xml.TextManager;
 	/**
 	 * ...
 	 * @author 10 2  Live Team
@@ -75,7 +75,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 				var tempKnowledgeItem:HUDKnowledgeItem;
 				
 				for (var i:int = 0; i < knowledgeVector.length; i++) {
-					tempKnowledgeItem = new HUDKnowledgeItem(knowledgeVector[i]);
+					tempKnowledgeItem = new HUDKnowledgeItem(TextManager.get().getKnowledgeTextById(knowledgeVector[i]));
 					tempKnowledgeItem.x = coreComponent.list_marker.x;
 					tempKnowledgeItem.y = coreComponent.list_marker.y + (tempKnowledgeItem.height + _itemGap) * i;
 					

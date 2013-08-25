@@ -47,8 +47,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			var inventoryItem:HUDInventoryItem = new HUDInventoryItem(itemId);
 			
-			inventoryItem.x = _itemGap + inventoryItem.width * 0.5 + (_itemGap + inventoryItem.width * 1.5)*_items.length;
-			inventoryItem.y = _itemGap + inventoryItem.height * 0.5;
+			inventoryItem.x = coreComponent.listMarker.x + (_itemGap + inventoryItem.width)*_items.length;
+			inventoryItem.y =  coreComponent.listMarker.y;
 			inventoryItem.init();
 			
 			addChild(inventoryItem);

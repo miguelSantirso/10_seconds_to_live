@@ -12,8 +12,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		public function HUDInventoryItem(itemId:int) 
 		{
-			_coreComponent = Items.getItemById(itemId);
 			_itemId = itemId;
+
+			_coreComponent = Items.getItemById(itemId);
+			_coreComponent.x = _coreComponent.x + _coreComponent.width *0.5;
 			
 			super(_coreComponent);
 		}

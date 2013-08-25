@@ -54,10 +54,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.xml
 		protected function createKnowledgeDictionary(xmlList:XMLList):void
 		{
 			var id:String;
+			var text:String;
 			for (var i:int = 0; i <  xmlList.length(); i ++)
 			{	
 				id = xmlList[i].@id;
-				_knowledgeDictionary[id] = xmlList[i].@text;
+				text = xmlList[i].@text;
+				_knowledgeDictionary[id] = text;
 			}
 		}
 		
@@ -95,7 +97,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.xml
 			}
 		}
 		
-		public function getKnowledgeTextById(id:int):String
+		public function getKnowledgeTextById(id:String):String
 		{
 			return _knowledgeDictionary[id] as String;
 		}

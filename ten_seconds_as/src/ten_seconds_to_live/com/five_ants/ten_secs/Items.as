@@ -34,6 +34,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			return new _itemsById[id]() as MovieClip;
 		}
+		
 		public static function getItemByName(name:String):MovieClip
 		{
 			if (_itemsByName[name] == null)

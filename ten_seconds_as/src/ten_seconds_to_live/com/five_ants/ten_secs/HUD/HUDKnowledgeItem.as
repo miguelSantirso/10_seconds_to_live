@@ -44,7 +44,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 				_type = value;
 				
 				// set the right text
-				coreComponent.label.text = "I know " + _type + ".";
+				coreComponent.label.text = _type;
 			}
 		}
 		
