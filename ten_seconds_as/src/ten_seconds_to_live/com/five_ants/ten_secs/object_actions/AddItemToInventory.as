@@ -1,5 +1,6 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.object_actions 
 {
+	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
 	/**
 	 * ...
 	 * @author Miguel Santirso
@@ -8,8 +9,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 	{
 		private var _itemName:String;
 		
-		public function AddItemToInventory(itemToAdd:String):void
+		public function AddItemToInventory(itemToAdd:String, gamePlay:GameplayState):void
 		{
+			super(gamePlay);
+			
 			_itemName = itemToAdd;
 		}
 		

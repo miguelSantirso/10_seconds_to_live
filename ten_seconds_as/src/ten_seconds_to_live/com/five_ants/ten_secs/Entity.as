@@ -10,7 +10,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	 */
 	public class Entity extends Sprite implements IDisposable, IUpdateable
 	{
-		protected var _gameplay:GameplayState;
+		public var _gameplay:GameplayState;
 		
 		public function load(refToGameplay:GameplayState):void
 		{

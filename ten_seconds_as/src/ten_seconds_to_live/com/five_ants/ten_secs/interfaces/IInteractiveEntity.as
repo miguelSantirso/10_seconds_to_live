@@ -1,7 +1,11 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.interfaces 
 {
 	import flash.events.IEventDispatcher;
+	import ten_seconds_to_live.com.five_ants.ten_secs.events.InventoryItemEvent;
+	import ten_seconds_to_live.com.five_ants.ten_secs.IPlayerInput;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ObjectActionBase;
+	import ten_seconds_to_live.com.five_ants.ten_secs.Player;
+	import ten_seconds_to_live.com.five_ants.ten_secs.RoomUtils;
 	
 	/**
 	 * ...
@@ -13,9 +17,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.interfaces
 		
 		function addAction(action:ObjectActionBase):void;
 		
-		function executeAllActions():void;
+		function executeAllActions(event:InventoryItemEvent = null):void;
 		
 		function set enableInteractions(value:Boolean):void;
+		
+		function set showRadius(value:Boolean):void;
+		
+		function checkPlayerCollision(player:Player, playerInput:IPlayerInput):void;
 	}
 	
 }

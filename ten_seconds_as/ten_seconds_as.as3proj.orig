@@ -53,10 +53,12 @@
   <libraryPaths>
     <element path="lib\sort_test.swc" />
 <<<<<<< HEAD
-    <element path="lib\sort_test_albert.swc" />
 =======
+    <element path="lib\sort_test_albert.swc" />
+>>>>>>> c3b21653b859839f018b858689e2b3dcc31f4cfa
     <element path="lib\animations_main_ch.swc" />
->>>>>>> e505e76aa69bedadc3b2dd1efe8dc970894ad2ed
+    <element path="lib\hud.swc" />
+    <element path="lib\greensock.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

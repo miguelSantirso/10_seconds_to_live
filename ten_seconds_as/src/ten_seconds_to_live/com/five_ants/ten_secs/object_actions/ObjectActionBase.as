@@ -9,7 +9,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 	{
 		protected var _gameplay:GameplayState;
 		
-		public function set gameplay(value:GameplayState):void
+		public function ObjectActionBase(value:GameplayState):void
 		{
 			_gameplay = value;
 		}

@@ -52,11 +52,11 @@
   <!-- SWC Libraries -->
   <libraryPaths>
     <element path="lib\sort_test.swc" />
-    <element path="lib\sort_test_albert.swc" />
     <element path="lib\animations_main_ch.swc" />
     <element path="lib\hud.swc" />
     <element path="lib\greensock.swc" />
     <element path="lib\sounds.swc" />
+    <element path="lib\item_icons.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

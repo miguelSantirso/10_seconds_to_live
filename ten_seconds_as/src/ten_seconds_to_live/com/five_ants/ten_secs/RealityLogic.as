@@ -21,7 +21,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_entitiesByName[name] = entity;
 		}
 		
-		public function findEntityByName(name:String):InteractiveObject
+		public function findEntityByName(name:String):IInteractiveEntity
 		{
 			if (!_entitiesByName[name])
 				throw new Error("RealityLogic: There is no entity with name: " + name);
@@ -36,7 +36,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public function set showInteractionRadiuses(value:Boolean):void
 		{
-			for each(var entity:InteractiveObject in _entitiesByName)
+			for each(var entity:IInteractiveEntity in _entitiesByName)
 			{
 				entity.showRadius = value;
 			}
@@ -44,17 +44,17 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public function set enableAllInteractions(value:Boolean):void
 		{
-			for each(var entity:InteractiveObject in _entitiesByName)
+			for each(var entity:IInteractiveEntity in _entitiesByName)
 			{
 				entity.enableInteractions = value;
 			}
 		}
 	
-		public function update(player:Player, roomUtils:RoomUtils, playerInput:IPlayerInput):void
+		public function update(player:Player, playerInput:IPlayerInput):void
 		{
-			for each(var entity:InteractiveObject in _entitiesByName)
+			for each(var entity:IInteractiveEntity in _entitiesByName)
 			{
-				entity.checkPlayerCollision(player, roomUtils, playerInput);
+				entity.checkPlayerCollision(player, playerInput);
 			}
 		}
 		

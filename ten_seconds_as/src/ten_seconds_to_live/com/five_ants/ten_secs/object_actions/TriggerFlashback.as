@@ -9,8 +9,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 	{
 		private var _flashbackName:String;
 		
-		public function TriggerFlashback(flashbackToTrigger:String)
+		public function TriggerFlashback(flashbackToTrigger:String, gamePlay:GameplayState)
 		{
+			super(gamePlay);
+			
 			_flashbackName = flashbackToTrigger;
 		}
 		

@@ -5,6 +5,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.Camera;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Entity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameMap;
+	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.AddItemToInventory;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.AlterKnowledge;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.StartSlowMotion;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Player;
 	import ten_seconds_to_live.com.five_ants.ten_secs.RealityLogic;
@@ -16,7 +19,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	 */
 	public class MainReality implements IRealityConfig
 	{
-		
 		public function constructHouseCollisions():Sprite
 		{
 			return new HouseCollisions();
@@ -40,9 +42,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		}
 		
 		
-		public function scriptEntities(logic:RealityLogic):void
+		public function scriptEntities(logic:RealityLogic, gamePlay:GameplayState):void
 		{
-			logic.findEntityByName("_bed").addAction(new StartSlowMotion(0.1, 5));
+			logic.findEntityByName("_bed").addAction(new StartSlowMotion(0.1, 5, gamePlay));
+			logic.findEntityByName("_bed").addAction(new AddItemToInventory("las bambas del jose", gamePlay));
 		}
 		
 	}
