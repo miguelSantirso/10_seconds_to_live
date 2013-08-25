@@ -32,13 +32,22 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			return _type;
 		}
 		
-		public function set type(value:String):void 
+		public function open(itemType:String):void
 		{
-			_type = value;
+			_type = itemType;
 			
 			// show the right item icon and description
 			coreComponent.title.text = type + " title";
 			coreComponent.caption.text = type + " description";
+		}
+		
+		public function close():void
+		{
+			_type = null;
+			
+			// show the right item icon and description
+			coreComponent.title.text = "";
+			coreComponent.caption.text = "";
 		}
 	}
 

@@ -73,8 +73,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			// test
 			if (!_gameTime.slowmoActive && _playerInput.testPressed){
 				_gameTime.startSlowmo();
-				_hud.inventory.addItem("pistola");
-				_hud.openItemPopUp("pistola");
+				_hud.openKnowledgeList(null);
 			}
 		}
 		
@@ -131,8 +130,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			_hud.slowmo = false;
 			
-			_hud.inventory.removeItem("pistola");
-			_hud.closeItemPopUp();
+			_hud.closeKnowledgeList();
 		}
 		
 		// Temp
