@@ -91,6 +91,26 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			if (_gameplay.playerInput.downPressed)
 				_movement.y += 1;
 			
+			
+			var collisions:WallCollisions = _gameplay.currentReality.collisions;
+			
+			var tentativeMovement:int = _movement.x * SPEED_HORIZONTAL;
+			while (tentativeMovement != 0 && !collisions.isPositionNavigable(x + tentativeMovement, y))
+			{
+				tentativeMovement /= 2;
+			}
+			_movement.x = tentativeMovement;
+			x += tentativeMovement;
+			
+			tentativeMovement = _movement.y * SPEED_VERTICAL;
+			while (tentativeMovement != 0 && !collisions.isPositionNavigable(x, y + tentativeMovement))
+			{
+				tentativeMovement /= 2;
+			}
+			_movement.y = tentativeMovement;
+			y += tentativeMovement;
+			
+			
 			if (_movement.x == 0 && _movement.y == 0)
 			{
 				if (_prevMovement.y > 0)
@@ -110,26 +130,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			{
 				
 			}*/
-			
-			/*_movement.x *= SPEED_HORIZONTAL;
-			_movement.y *= SPEED_VERTICAL;*/
-			
-			var collisions:WallCollisions = _gameplay.currentReality.collisions;
-			
-			var tentativeMovement:int = _movement.x * SPEED_HORIZONTAL;
-			while (tentativeMovement != 0 && !collisions.isPositionNavigable(x + tentativeMovement, y))
-			{
-				tentativeMovement /= 2;
-			}
-			x += tentativeMovement;
-			
-			tentativeMovement = _movement.y * SPEED_VERTICAL;
-			while (tentativeMovement != 0 && !collisions.isPositionNavigable(x, y + tentativeMovement))
-			{
-				tentativeMovement /= 2;
-			}
-			y += tentativeMovement;
-			
 		}
 		
 		
