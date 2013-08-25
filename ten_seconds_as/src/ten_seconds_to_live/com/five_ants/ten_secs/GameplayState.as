@@ -87,20 +87,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			}
 			_currentRoom = newRoom;
 				
-<<<<<<< HEAD
 				/*var testKnowledge:Vector.<String> = new Vector.<String>();
 				testKnowledge.push("kung fu.");
 				testKnowledge.push("Ubuntu.");
 				testKnowledge.push("I just had sex.");
 				_hud.openKnowledgeList(testKnowledge);*/
-			}
-=======
-			var testKnowledge:Vector.<String> = new Vector.<String>();
-			testKnowledge.push("kung fu.");
-			testKnowledge.push("Ubuntu.");
-			testKnowledge.push("I just had sex.");
-			_hud.openKnowledgeList(testKnowledge);
->>>>>>> bb74c6dd8f7ee5165ea581d4af06bc6a3e52cf3d
 		}
 		
 		public override function dispose():void 
