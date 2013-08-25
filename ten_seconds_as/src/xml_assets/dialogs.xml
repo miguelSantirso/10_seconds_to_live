@@ -1,9 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <view name="dialogs">
-	<dialog id="test_dialog_0">
-		<line speecher="Me" text="This is me" color="0xffffff"/>
-		<line speecher="You" text="This is you" color="0xff0000"/>
-		<line speecher="You" text="Come on man stop talking already" color="0xffffff"/>
+	<dialog id="intro_dialog">
+		<line speecher="Me" text="What did just happen...?" color="0xffffff"/>
+		<line speecher="Me" text="I feel a terrible headache... hHow did I end up this way?" color="0xffffff"/>
 	</dialog>
 	
 	<dialog id="test_dialog_1">

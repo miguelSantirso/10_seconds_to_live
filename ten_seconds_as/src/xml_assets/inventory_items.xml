@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <view name="popup_texts">
-	<item id="note_and_watch" title="Piece Of Paper" caption="This note reads: 'A lethal poison is spreading through your body. You’ll die at 15:00. You'll never find the antidote. -A. B.'"/>
+	<item id="note_and_watch" title="Piece Of Paper" caption="This note reads: 'A lethal poison is spreading through your body. You’ll die at 15:00. You'll never find the antidote. - signed: A. B. -'"/>
 	
-	<item id="adrenaline_pills" title="Adrenaline Pills" caption="After taking the paracetamol I feel a little better... I think I have more of these in the trunk of my car."/>
+	<item id="adrenaline_pills" title="Adrenaline Pills" caption="After taking this pills I feel crazy, they probably mixed with the poison. There are more in the trunk of my car."/>
 	
-	<item id="gun" title="Gun" caption="I don’t know why I bought this gun... But it may be useful."/>
+	<item id="window_noI_noK" title="Window" caption="I can't remember opening the window" />
 	
 	<item id="car_noI_noK" title="My Car" caption="The nearest hospital is too far away"/>
 	<item id="car" title="My Car" caption="There’s some more medication here! It’ll give me a little more time. "/>
 	
 	<item id="book_shelf_noI_noK" title="Shelf" caption="This shelf is filled with my books. All these bring too many memories to me.. But there’s one book missing."/>
-	<item id="book_shelf_noI" title="Shelf" caption="There's one book missing! Now I remember, I need that book to access the panic room!"/>
+	<item id="book_shelf_noI" title="Shelf" caption="There's one book missing! I now remember, I need that book to access the panic room!"/>
 	<item id="book_shelf" title="My Books" caption="The book fits perfectly in the gap...  Now the door to the panic room is visible. But I still need the combination! "/>
 	
 	<item id="secretdoor" title="Secret Door" caption="It worked, the code is our anyversary! Now I can enter the Panic Room" />
@@ -18,8 +18,8 @@
 	<item id="statue_noI_noK" title="Statue" caption="This is the statue I sent carving for our anniversary. There’s a date written on the foot. “February 16th.” Wasn’t she beautiful...?"/>
 	<item id="statue" title="Statue" caption="“February 16th.” Now I remember... The date of our anniversary was the combination to open the panic room."/>
 	
-	<item id="locked_door_noI" title="Locked Door" caption="I can’t open the door, it's locked."/>
-	<item id="locked_door" title="Locked Door" caption="After shooting down the lock, the door wide opens. I didn’t remember to be as good with weapons..."/>
+	<item id="locked_door_noI" title="Locked Door" caption="The door is locked and I can't open it with my bare hands."/>
+	<item id="locked_door" title="Locked Door" caption="After shooting down the lock, the door wide opens and I show to have a pretty good aiming."/>
 		
 	<item id="book_noI_noK" title="A Book" caption="I wonder how many pages I could read before the poison kills me"/>
 	<item id="book" title="A Book" caption="I'm sure this is the book missing in the book shelf"/>
@@ -30,21 +30,21 @@
 	<item id="cat_noK" title="That cat" caption=""/>
 	<item id="cat" title="That cat" caption=""/>
 	
-	<item id="picture" title="Photograph" caption="This cat only would obey her..."/>
+	<item id="picture" title="Photograph" caption="The cat would only obey her."/>
 	
-	<item id="security_camera" title="Security Camera" caption="A security camera...? I should go to the panic room and check out the security camera recordings. Maybe I’d find out where the antidote is. "/>
+	<item id="security_camera" title="Security Camera" caption="That security camera...the panic room! If just remember where it is and check the recordings I might find out where the antidote is hidden."/>
 	
 	<item id="fireplace" title="Fireplace" caption="I used it to warm up the place when she went away." />
 	
-	<item id="bathtub" title="Bathtub" caption="Why is this hot? Was I going to have a bath?" />
+	<item id="bathtub" title="Bathtub" caption="The water is hot...I probably was about to take a bath." />
 	
 	<item id="bed" title="Bed" caption="It feels lonely here. But I'm getting used to it." />
 	
 	<item id="kitchen" title="Kitchen" caption="Ok, I'll prepare something when I know I’m going to live more than just 10 seconds." />
 	
-	<item id="clock" title="Clock" caption="Time is running out." />
+	<item id="clock" title="Clock" caption="I'm running out of time." />
 	
 	<item id="kitchen_table" title="Dining Table" caption="Nothing remarkable here..." />
 	
-	<item id="video_wall" title="Security Video" caption="" />
+	<item id="video_wall" title="Security Video" caption="I can see it in the video! The cat has a small box attached to its collar. There’s a capsule inside it." />
 </view>

@@ -19,10 +19,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public static const SECRET_DOOR:int = registerItem(Item_SecretDoor, "SecretDoor");
 		public static const STATUE:int = registerItem(Item_Statue, "Statue");
 		public static const CAMERA:int = registerItem(Item_Camera, "Camera");
-
-		public static const DORM_DOOR:int = registerItem(Item_Placeholder, "x");
-		public static const BOOKSHELF:int = registerItem(Item_Placeholder, "y");
-		public static const CAR:int = registerItem(Item_Placeholder, "z");
+		public static const DORM_DOOR:int = registerItem(Item_LockedDoor, "x");
+		public static const BOOKSHELF:int = registerItem(Item_Bookshelf, "y");
+		public static const CAR:int = registerItem(Item_Car, "z");
+		public static const VIDEO_WALL:int = registerItem(Item_VideoWall, "VideoWall");
 		
 		public static const NONE:int = registerItem(MovieClip, "None");
 		
@@ -34,6 +34,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			return new _itemsById[id]() as MovieClip;
 		}
+		
 		public static function getItemByName(name:String):MovieClip
 		{
 			if (_itemsByName[name] == null)
