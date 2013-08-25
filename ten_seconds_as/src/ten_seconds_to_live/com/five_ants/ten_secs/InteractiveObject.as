@@ -60,8 +60,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			_visualInteractionPointer.stop();
 			_visualInteractionPointer.visible = false;
-			
-			FrameScriptInjector.injectFunctionToLabel(_visualInteractionPointer, LABEL_POINTER_END, unglowInteractionPointer);
 		}
 		
 		public override function update():void
@@ -169,6 +167,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					{
 						action.action.execute();
 						action.repeated = true;
+						unglowInteractionPointer();
 					}
 				}
 			}
@@ -193,6 +192,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					{
 						action.action.execute();
 						action.repeated = true;
+						unglowInteractionPointer();
 					}
 				}
 			}
@@ -229,6 +229,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function unglowInteractionPointer():void
 		{
 			_visualInteractionPointer.visible = false;
+			_visualInteractionPointer.stop();
 		}
 	}
 
