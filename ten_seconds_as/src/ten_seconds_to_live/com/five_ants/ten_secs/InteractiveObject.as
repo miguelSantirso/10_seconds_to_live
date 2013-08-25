@@ -50,7 +50,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public override function update():void
 		{
 			_roomName = _roomUtils.getRoomByPosition(_visualObject.x, _visualObject.y);
-			enableInteractions = !_gameplay.hud.popupOpened;
+			enableInteractions = _interactionEnabled && !_gameplay.hud.popupOpened;
 		}
 		
 		public function checkPlayerCollision(player:Player, playerInput:IPlayerInput):void
@@ -158,6 +158,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				{
 					action.execute();
 				}
+				
+				enableInteractions = false;
 			}
 		}
 		

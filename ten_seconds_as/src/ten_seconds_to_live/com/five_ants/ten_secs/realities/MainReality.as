@@ -70,19 +70,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			object("_chair").addActionSuccess(new AddItemToInventory(Items.GUN));
 			object("_chair").addActionSuccess(new ShowPopUp(Items.FAN, "pistola", "pistola regalada"));
-			
-			/*// _interactive1
-			object("_interactive1").setItemDependency("angry bird");
-			object("_interactive1").addConsecuence(new AddItemToInventory("las bambas del jose", gamePlay));
-			object("_interactive1").addConsecuence(new AlterKnowledge("flex", gamePlay));
-			
-			object("_interactive0").addConsecuence(new AddItemToInventory("angry bird", gamePlay));
-			
-			//object("_interactive1").setKnowledgeDependency("flex");
-			//object("_bed").addActionNoItemNoKnowledge(new StartSlowMotion(0.1, 5, gamePlay));
-			logic.findEntityByName("_bed").addAction(new PlayerCinematic(Player.ANIM_SHOOTING, gamePlay));*/
 		}
-		
 	}
 
 }

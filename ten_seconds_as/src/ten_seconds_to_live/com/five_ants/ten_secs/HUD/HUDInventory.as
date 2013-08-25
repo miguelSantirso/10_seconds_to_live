@@ -32,7 +32,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			for (var i:int = 0; i < _items.length ; i++) {
 				removeChild(_items[i]);
 			}
-			_items.splice(0, _items.length);
 			_items = null;
 		}
 		
