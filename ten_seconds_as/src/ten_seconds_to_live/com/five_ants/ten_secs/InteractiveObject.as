@@ -6,6 +6,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.geom.Point;
 	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUD;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.InteractiveObjectEvent;
+	import ten_seconds_to_live.com.five_ants.ten_secs.events.InventoryItemEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInteractiveEntity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ObjectActionBase;
 	/**
@@ -14,41 +15,48 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	 */
 	public class InteractiveObject extends Entity implements IInteractiveEntity
 	{
-		private var _name:String;
-		private var _interactionRadius:Number;
+		protected var _name:String;
+		protected var _roomName:String;
+		protected var _roomUtils:RoomUtils;
+		protected var _interactionRadius:Number;
 		
-		private var _interactionEnabled:Boolean = true;
+		protected var _interactionEnabled:Boolean = true;
 		
-		private var _visualObject:MovieClip = new MovieClip();
+		protected var _visualObject:MovieClip = new MovieClip();
 		
-		private var _actions:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
+		protected var _actions:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
 		
-		private static const STD_INTERACTION_RADIUS:Number = 100;
+		protected static const STD_INTERACTION_RADIUS:Number = 100;
 		
-		private static const LABEL_FAR:String = "far";
-		private static const LABEL_NEAR:String = "near";
-		private static const LABEL_PRESSED:String = "pressed";
+		protected static const LABEL_FAR:String = "far";
+		protected static const LABEL_NEAR:String = "near";
+		protected static const LABEL_PRESSED:String = "pressed";
 		
-		public function InteractiveObject(visualObject:MovieClip, interactionRadius:Number = STD_INTERACTION_RADIUS)
+		public function InteractiveObject(visualObject:MovieClip, roomUtils:RoomUtils, interactionRadius:Number = STD_INTERACTION_RADIUS)
 		{
 			super();
 			
 			_visualObject = visualObject;
 			_name = visualObject.name;
 			_interactionRadius = interactionRadius;
+			_roomUtils = roomUtils;
 		}
 		
 		public override function update():void
 		{
+			_roomName = _roomUtils.getRoomByPosition(_visualObject.x, _visualObject.y);
 			enableInteractions = !_gameplay.hud.popupOpened;
 		}
 		
-		public function checkPlayerCollision(player:Player, roomUtils:RoomUtils, playerInput:IPlayerInput):void
+		public function checkPlayerCollision(player:Player, playerInput:IPlayerInput):void
 		{
 			var interactionEvent:InteractiveObjectEvent;
 			
+			trace(">> PLAYER ROOM: " + _roomUtils.getRoomByPosition(player.x, player.y));
+			trace(">> OBJECT " + _name + " ROOM: " + _roomUtils.getRoomByPosition(player.x, player.y));
+			
 			if (_interactionEnabled && 
-				(roomUtils.getRoomByPosition(player.x, player.y) == roomUtils.getRoomByPosition(x, y)))
+				(_roomUtils.getRoomByPosition(player.x, player.y) == _roomUtils.getRoomByPosition(x, y)))
 			{
 				var p1:Point = new Point(player.x, player.y);
 				var p2:Point = new Point(x, y);
@@ -62,7 +70,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 						_visualObject.gotoAndStop(LABEL_PRESSED);
 						
 						_gameplay.hud.openItemPopUp(getName());
-						_gameplay.addEventListener(InteractiveObjectEvent.DO_ACTION, executeAllActions);
+						_gameplay.hud.addEventListener(HUD.POPUP_CLOSED_EVENT, executeAllActions, false, 0, true);
 					}
 					else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);
 				}
@@ -90,10 +98,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_actions.push(action);
 		}
 		
-		public function executeAllActions():void
+		public function executeAllActions(event:InventoryItemEvent = null):void
 		{
-			trace("execute");
-			
 			for each(var action:ObjectActionBase in _actions)
 				action.execute();
 		}

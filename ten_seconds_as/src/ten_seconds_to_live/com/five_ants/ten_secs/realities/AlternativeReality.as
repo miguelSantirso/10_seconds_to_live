@@ -21,11 +21,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	public class AlternativeReality extends Sprite
 	{
 		private var _config:IRealityConfig;
-		private var _gameplay:GameplayState;
 		
 		private var _player:Player;
 		//private var _cat:Cat; // TEMP ALBERT
 		private var _entities:Vector.<Entity> = new Vector.<Entity>();
+		private var _gameplay:GameplayState;
 		private var _camera:Camera;
 		private var _gameMap:GameMap;
 		private var _collisions:WallCollisions;
@@ -42,9 +42,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		
 		public function init(refToGameplay:GameplayState):void
 		{
-			_gameplay = refToGameplay;
-			
 			_camera = new Camera();
+			
+			_gameplay = refToGameplay;
 			
 			_collisions = new WallCollisions();
 			var collisionsSprite:Sprite = _config.constructHouseCollisions();
@@ -71,13 +71,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			initInteractiveObjects();
 			
-			/*_cat = new Cat();
-			_entities.push(_cat);
-			_gameMap.addChild(_cat);
-			_cat.x = 300;
-			_cat.y = 400;*/
-			
-			_config.scriptEntities(_realityLogic);
+			_config.scriptEntities(_realityLogic, _gameplay);
 			
 			// muestra los radios de todos los objetos interactivos:
 			_realityLogic.showInteractionRadiuses = true;
@@ -110,10 +104,17 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 					{
 						if (child.name.indexOf("$") >= 0)
 						{
-							forcedRadius = int(child.name.substr(child.name.indexOf("$") + 1));
-							interactiveObject = new InteractiveObject(child, forcedRadius);
+							if (child.name.substr(child.name.indexOf("$") + 1) == "cat")
+							{
+								interactiveObject = new Cat(child, _roomUtils) as InteractiveObject;
+							}
+							else
+							{
+								forcedRadius = int(child.name.substr(child.name.indexOf("$") + 1));
+								interactiveObject = new InteractiveObject(child, _roomUtils, forcedRadius);
+							}
 						}
-						else interactiveObject = new InteractiveObject(child);
+						else interactiveObject = new InteractiveObject(child, _roomUtils);
 						
 						_realityLogic.registerInteractiveEntity(child.name, interactiveObject);
 						
@@ -134,7 +135,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			_camera.update();
 			
-			_realityLogic.update(_player, _roomUtils, _gameplay.playerInput);
+			_realityLogic.update(_player, _gameplay.playerInput);
 		}
 		
 		public function dispose():void
