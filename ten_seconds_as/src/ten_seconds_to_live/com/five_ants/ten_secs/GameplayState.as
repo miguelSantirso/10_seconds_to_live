@@ -236,6 +236,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected function onKnowledgeClosed(event:Event):void
 		{
 			paused = false;
+			stage.focus = this;
 		}
 		
 		protected function onPauseMenuOpened(event:Event):void
@@ -246,6 +247,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected function onPauseMenuClosed(event:Event):void
 		{
 			paused = false;
+			stage.focus = this;
 		}
 		
 		protected function onHUDResume(event:Event):void

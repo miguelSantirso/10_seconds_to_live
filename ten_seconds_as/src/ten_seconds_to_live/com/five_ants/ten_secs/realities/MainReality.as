@@ -12,8 +12,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.AlterKnowledge;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ChangeCollision;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlayerCinematic;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowDialog;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowPopUp;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.StartSlowMotion;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.TriggerFlashback;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Player;
 	import ten_seconds_to_live.com.five_ants.ten_secs.RealityLogic;
 	import ten_seconds_to_live.com.five_ants.ten_secs.RoomUtils;
@@ -71,11 +73,25 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_gun").addActionSuccess(new ShowPopUp(Items.GUN, "My Gun", "bla bla bla"));
 			object("_gun").addActionSuccess(new AddItemToInventory(Items.GUN));
 			
-			object("_door").setItemDependency(Items.GUN);
+			//object("_door").setItemDependency(Items.GUN);
 			object("_door").addActionNoItem(new ShowPopUp(Items.GUN, "Locked Door", "Argh! The door is locked, I need something to open it!"));
 			object("_door").addActionSuccess(new ShowPopUp(Items.GUN, "Door Open!", "I opened the door with the gun"));
 			object("_door").addActionSuccess(new ChangeCollision("door", false));
 			object("_door").addActionSuccess(new PlayerCinematic(Player.ANIM_SHOOTING));
+			
+			object("_car").setKnowledgeDependency("there_are_pills_in_car");
+			object("_car").addActionNoItemNoKnowledge(new ShowPopUp(Items.CAT, "My Car", "My car. The nearest hospital is too far away"));
+			object("_car").addActionSuccess(new ShowPopUp(Items.MEDICATION, "Adrenaline Pills", "These pills help me move a lot faster!"));
+			object("_car").addActionSuccess(new StartSlowMotion(0.2, 10));
+			
+			object("_statue").setKnowledgeDependency("i_need_the_secret_code");
+			object("_statue").addActionNoItemNoKnowledge(new ShowPopUp(Items.STATUE, "My Wife", "This is my wife, a long time ago"));
+			object("_statue").addActionSuccess(new ShowPopUp(Items.SECRET_KEY, "1234", "1234! That's the code"));
+			object("_statue").addActionSuccess(new AlterKnowledge("the_secret_code_is_1234"));
+			
+			object("_pills").setKnowledgeDependency("going_to_die");
+			object("_pills").addActionSuccess(new ShowPopUp(Items.MEDICATION, "Adrenaline Pills", "These pills help me move a lot faster"));
+			object("_pills").addActionSuccess(new StartSlowMotion(0.2, 10));
 		}
 	}
 
