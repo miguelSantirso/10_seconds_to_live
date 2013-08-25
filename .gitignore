@@ -3,4 +3,6 @@
 */bin-debug/
 */bin-release/
 
+*.orig
+
 ten_seconds_as/obj/*
