@@ -2,7 +2,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.geom.Point;
+	import flash.utils.Dictionary;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.ICameraTarget;
 	
 	/**
@@ -19,32 +21,41 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private static const ANIM_WALK_RIGHT:int = 2;
 		private static const ANIM_WALK_DOWN:int = 3;
 		private static const ANIM_WALK_LEFT:int = 4;
-		
+		private static const ANIM_JUMP_WINDOW:int = 5;
 		
 		private var _movement:Point = new Point();
 		
 		private var _animations:Vector.<MovieClip> = new Vector.<MovieClip>();
 		private var _currentAnimation:int = -1;
 		
+		private var _cinematicAnimations:Vector.<int> = new Vector.<int>();
+		private var _offsetsAfterCinematics:Dictionary = new Dictionary();
+		private var _inCinematic:Boolean;
+		
 		public function Player()
 		{
 			super();
 			
+			// Movement
 			_animations[ANIM_IDLE] = new MainCharacterIdle();
-			
 			_animations[ANIM_WALK_UP] = new MainCharacterRunUp();
-			
 			_animations[ANIM_WALK_RIGHT] = new MainCharacterRunRight();
-			
 			_animations[ANIM_WALK_DOWN] = new MainCharacterRunDown();
-			
 			_animations[ANIM_WALK_LEFT] = new MainCharacterRunLeft();
+			// Cinematic
+			registerCinematic(ANIM_JUMP_WINDOW, new MainCharacterJumpWindow(), new Point(0, -35));
 			
 			setAnimation(ANIM_IDLE);
 		}
 		
 		public override function update():void
 		{
+			if (_currentAnimation == ANIM_IDLE && _gameplay.playerInput.testPressed)
+				playCinematic (ANIM_JUMP_WINDOW);
+			
+			if (_inCinematic)
+				return;
+			
 			_movement.x = 0;
 			_movement.y = 0;
 			
@@ -92,7 +103,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		private function setAnimation(newAnimation:int):void
 		{
-			if (newAnimation == _currentAnimation)
+  			if (newAnimation == _currentAnimation)
 				return;
 			
 			if (_currentAnimation >= 0)
@@ -106,6 +117,34 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			addChild(_animations[_currentAnimation]);
 			_animations[_currentAnimation].gotoAndPlay(1);
 		}
+		
+		private function playCinematic(id:int):void
+		{
+			setAnimation(id);
+			_inCinematic = true;
+		}
+		
+		private function registerCinematic(id:int, mc:MovieClip, offset:Point):void
+		{
+			mc.stop();
+			
+			_animations[id] = mc;
+			FrameScriptInjector.injectStopAtEnd(mc);
+			FrameScriptInjector.injectFunction(mc, mc.totalFrames, onCinematicComplete);
+			_offsetsAfterCinematics[id] = offset;
+		}
+		
+		private function onCinematicComplete():void
+		{
+			_inCinematic = false;
+			
+			var offset:Point = _offsetsAfterCinematics[_currentAnimation];
+			x += offset.x;
+			y += offset.y;
+			
+			setAnimation(ANIM_IDLE);
+		}
+		
 	}
 
 }

@@ -10,6 +10,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	public class GameTime extends EventDispatcher implements IUpdateable
 	{
 		public static const TIMEUP_EVENT:String = "timeupEvent";
+		public static const SLOWMO_START_EVENT:String = "slowmoStartEvent";
+		public static const SLOWMO_END_EVENT:String = "slowmoEndEvent";
 		
 		protected var _time:Number;
 		protected var _timeDefault:Number;
@@ -61,6 +63,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				if (_slowmoTime <= 0) {
 					_slowmoTime = 0;
 					_timeSpeed = _timeSpeedDefault;
+					dispatchEvent(new Event(SLOWMO_END_EVENT));
 				}
 			}
 			
@@ -73,14 +76,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function startSlowmo():void
 		{
 			_slowmoTime = _slowmoDefault;
+			dispatchEvent(new Event(SLOWMO_START_EVENT));
 		}
 		
 		public function get seconds():String
 		{
-			if(!slowmoActive)
-				return "normal " + _time.toPrecision(2);
-			else
-				return "slowmo " + _time.toPrecision(2);
+			return _time.toPrecision(2);
 		}
 		
 		public function get slowmoActive():Boolean
