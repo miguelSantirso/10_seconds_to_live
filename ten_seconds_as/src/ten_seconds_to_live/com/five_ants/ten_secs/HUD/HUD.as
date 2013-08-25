@@ -22,6 +22,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		protected var _hudKnowledgeList:HUDKnowledgeList;
 		
 		protected var _enabled:Boolean;
+		protected var _popupOpened:Boolean = false;
 		
 		public function HUD() 
 		{
@@ -84,6 +85,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			return _enabled;
 		}
 		
+		public function get popupOpened():Boolean
+		{
+			return _popupOpened;
+		}
+		
 		public function set enabled(value:Boolean):void 
 		{
 			if (value && !_enabled) {
@@ -109,6 +115,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			addChild(_hudItemPopUp);
 			
+			_popupOpened = true;
+			
 			dispatchEvent(new Event(POPUP_OPENED_EVENT));
 		}
 		
@@ -117,6 +125,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudItemPopUp.close();
 			
 			removeChild(_hudItemPopUp);
+			
+			_popupOpened = false;
 			
 			dispatchEvent(new Event(POPUP_CLOSED_EVENT));
 		}

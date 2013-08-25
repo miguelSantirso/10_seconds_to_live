@@ -2,6 +2,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Camera;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Entity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameMap;
@@ -11,6 +12,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.RealityLogic;
 	import ten_seconds_to_live.com.five_ants.ten_secs.RoomUtils;
 	import ten_seconds_to_live.com.five_ants.ten_secs.WallCollisions;
+	import ten_seconds_to_live.com.five_ants.ten_secs.events.InteractiveObjectEvent;
 	/**
 	 * ...
 	 * @author Miguel Santirso
@@ -61,30 +63,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			_realityLogic = new RealityLogic();
 			
-			/*/// ALBERT TEST:
-			var testObject:InteractiveObject;
-			for (var i:int = 0; i < 10; ++i)
-			{
-				testObject = new InteractiveObject("paco" + i, 100 * (i+1));
-				
-				_realityLogic.registerInteractiveEntity(testObject.getName(), testObject);
-				_entities.push(testObject);
-			}
-			// FIN ALBERT TEST*/
-			
 			_gameMap = new GameMap(_config.constructVisualGameMap());
 			_gameMap.init();
 			_gameMap.addChild(_player);
 			
 			initInteractiveObjects();
-			
-			/*// TEST ALBERT:
-			_gameMap.addChild(_realityLogic.findEntityByName("paco0"));
-			_realityLogic.findEntityByName("paco0").x = 75;
-			_realityLogic.findEntityByName("paco0").y = 250;
-			_gameMap.addChild(_realityLogic.findEntityByName("paco1"));
-			_realityLogic.findEntityByName("paco1").x = 1200;
-			_realityLogic.findEntityByName("paco1").y = 450;*/
 			
 			// muestra los radios de todos los objetos interactivos:
 			_realityLogic.showInteractionRadiuses = true;
@@ -105,6 +88,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		{
 			var child:MovieClip;
 			var interactiveObject:InteractiveObject;
+			var forcedRadius:Number;
 			
 			for (var i:int = 0; i < _gameMap.world.numChildren; i++)
 			{
@@ -114,12 +98,18 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 				{
 					if (child.name.charAt(0) == "_")
 					{
-						interactiveObject = new InteractiveObject(child, 100);
+						if (child.name.indexOf("$") >= 0)
+						{
+							forcedRadius = int(child.name.substr(child.name.indexOf("$") + 1));
+							interactiveObject = new InteractiveObject(child, forcedRadius);
+						}
+						else interactiveObject = new InteractiveObject(child);
+						
 						_realityLogic.registerInteractiveEntity(child.name, interactiveObject);
 						
 						_entities.push(interactiveObject);
 						
-						trace("ADDED INTERACTIVE OBJECT: " + child.name);
+						trace(">> ADDED INTERACTIVE OBJECT: " + child.name);
 					}
 				}
 			}
