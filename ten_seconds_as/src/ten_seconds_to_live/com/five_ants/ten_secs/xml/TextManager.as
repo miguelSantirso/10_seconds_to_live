@@ -4,7 +4,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.xml
 	import ten_seconds_to_live.com.five_ants.ten_secs.Dialog;
 	import ten_seconds_to_live.com.five_ants.ten_secs.DialogItem;
 	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUDInventoryItem;
-	import ten_seconds_to_live.com.five_ants.ten_secs.InventoryItem;
+	import ten_seconds_to_live.com.five_ants.ten_secs.ItemPopUpData;
 	/**
 	 * ...
 	 * @author 10 2  Live Team
@@ -79,16 +79,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs.xml
 		
 		protected function createInventoryItemsDictionary(xmlList:XMLList):void
 		{
-			var inventoryItem:InventoryItem;
+			var itemData:ItemPopUpData;
 			
 			for (var i:int = 0; i <  xmlList.length(); i ++)
 			{	
-				inventoryItem = new InventoryItem();
-				inventoryItem.id =  xmlList[i].@id;
-				inventoryItem.title =  xmlList[i].@title;
-				inventoryItem.id =  xmlList[i].@caption;
+				itemData = new ItemPopUpData();
+				itemData.title =  xmlList[i].@title;
+				itemData.caption =  xmlList[i].@caption;
 				
-				_inventoryItemDictionary[xmlList[i].@id] = inventoryItem;
+				_inventoryItemDictionary[xmlList[i].@id] = itemData;
 			}
 		}
 		
@@ -102,9 +101,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.xml
 			return _dialogsDictionary[id] as Dialog;
 		}
 		
-		public function getInventoryItemById(id:int):InventoryItem
+		public function getInventoryItemById(id:String):ItemPopUpData
 		{
-			return _inventoryItemDictionary[id] as InventoryItem;
+			return _inventoryItemDictionary[id] as ItemPopUpData;
 		}
 	}
 

@@ -1,6 +1,35 @@
 <?xml version='1.0' encoding='utf-8'?>
-<view name="iventory_items">
-	<item id="0" title="Title for item 0" caption="Text for item 0"/>
-	<item id="1" title="Title for item 1" caption="Text for item 1"/>
-	<item id="2" title="Title for item 2" caption="Text for item 2"/>
+<view name="popup_texts">
+	<item id="note_and_watch" title="Piece Of Paper" caption="This note reads: \'A lethal poison is spreading through your body. You’ll die at 15:00. You'll never find the antidote. -A. B.\'"/>
+	
+	<item id="adrenaline_pills" title="Adrenaline Pills" caption="These pills help me move a lot faster!"/>
+	
+	<item id="gun" title="My gun" caption=""/>
+	
+	<item id="car_noI_noK" title="My Car" caption="The nearest hospital is too far away"/>
+	<item id="car" title="My Car" caption=""/>
+	
+	<item id="book_shelf_noI_noK" title="My Books" caption="A lot of books. I can't use them now..."/>
+	<item id="book_shelf_noI" title="My Books" caption="There's a book missing! That's how the bookshelf opens"/>
+	<item id="book_shelf" title="My Books" caption="Yes, the book opened the secret door"/>
+	
+	<item id="statue_noI_noK" title="Statue of my wife" caption="This is her, a long time ago"/>
+	<item id="statue" title="Statue of my wife" caption=""/>
+	
+	<item id="locked_door_noI" title="Locked Door" caption="Damn it! The door is locked, I need something to open it!"/>
+	<item id="locked_door" title="Locked Door" caption="That shot broke the lock. It's opened now"/>
+		
+	<item id="book_noI_noK" title="A Book" caption="I wonder how many pages I could read before the poison kills me"/>
+	<item id="book" title="A Book" caption="I'm sure this is the book missing in the book shelf"/>
+	
+	<item id="catnip" title="Catnip" caption=""/>
+	
+	<item id="cat_noI_noK" title="That cat" caption=""/>
+	<item id="cat_noK" title="That cat" caption=""/>
+	<item id="cat" title="That cat" caption=""/>
+	
+	<item id="picture" title="" caption=""/>
+	
+	<item id="security_camera" title="" caption=""/>
 </view>
+		
