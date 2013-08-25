@@ -62,7 +62,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 						_visualObject.gotoAndStop(LABEL_PRESSED);
 						
 						_gameplay.hud.openItemPopUp(getName());
-						_gameplay.addEventListener(HUD.POPUP_CLOSED_EVENT, closeActionPopup);
+						_gameplay.addEventListener(InteractiveObjectEvent.DO_ACTION, executeAllActions);
 					}
 					else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);
 				}
@@ -92,6 +92,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public function executeAllActions():void
 		{
+			trace("execute");
+			
 			for each(var action:ObjectActionBase in _actions)
 				action.execute();
 		}
@@ -113,11 +115,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function set enableInteractions(value:Boolean):void
 		{
 			_interactionEnabled = value;
-		}
-		
-		private function closeActionPopup(event:Event):void
-		{
-			trace("TODAVIA NO CIERRA GUEVON!");
 		}
 	}
 
