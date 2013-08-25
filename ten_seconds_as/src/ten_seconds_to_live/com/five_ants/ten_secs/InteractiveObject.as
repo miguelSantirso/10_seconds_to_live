@@ -203,6 +203,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			_interactionEnabled = value;
 		}
+		
+		public function get visualObject():MovieClip 
+		{
+			return _visualObject;
+		}
 	}
 
 }

@@ -28,6 +28,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			return _entitiesByName[name];
 		}
+		public function removeEntityByName(name:String):IInteractiveEntity
+		{
+			var entity:IInteractiveEntity = findEntityByName(name);
+			
+			delete _entitiesByName[name];
+			
+			return entity;
+		}
 		
 		public function onEntityInteraction(entityName:String):void
 		{

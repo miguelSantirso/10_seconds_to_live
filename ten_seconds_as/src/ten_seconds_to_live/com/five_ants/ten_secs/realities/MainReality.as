@@ -12,6 +12,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.AlterKnowledge;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ChangeCollision;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlayerCinematic;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.RemoveInteractiveObject;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.RemoveItemFromInventory;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowDialog;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowPopUp;
@@ -81,6 +82,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_door").addActionSuccess(new ChangeCollision("door", false));
 			object("_door").addActionSuccess(new PlayerCinematic(Player.ANIM_SHOOTING));
 			object("_door").addActionSuccess(new RemoveItemFromInventory(Items.GUN));
+			object("_door").addActionSuccess(new RemoveInteractiveObject("_door"));
 			
 			object("_car").setKnowledgeDependency("there_are_pills_in_car");
 			object("_car").addActionNoItemNoKnowledge(new ShowPopUp(Items.CAR, "car_noI_noK"));
@@ -104,10 +106,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_bookshelf").addActionSuccess(new ShowPopUp(Items.BOOKSHELF, "book_shelf"));
 			object("_bookshelf").addActionSuccess(new RemoveItemFromInventory(Items.BOOK));
 			object("_bookshelf").addActionSuccess(new AlterKnowledge("i_need_the_secret_code"));
+			object("_bookshelf").addActionSuccess(new RemoveInteractiveObject("_bookshelf"));
 			
 			object("_secretDoor").setKnowledgeDependency("the_secret_code_is_1234");
 			object("_secretDoor").addActionSuccess(new ShowPopUp(Items.SECRET_DOOR, "secretdoor"));
 			object("_secretDoor").addActionSuccess(new ChangeCollision("library_secret_door", false));
+			object("_secretDoor").addActionSuccess(new RemoveInteractiveObject("_secretDoor"));
 			
 			object("_picture$80").addActionSuccess(new ShowPopUp(Items.PICTURE, "picture"));
 			object("_picture$80").addActionSuccess(new AlterKnowledge("catnip_attracts_cat"));
