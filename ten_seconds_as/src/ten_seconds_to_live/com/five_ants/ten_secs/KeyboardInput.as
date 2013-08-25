@@ -31,22 +31,22 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public function get upPressed():Boolean 
 		{
-			return _keysState[38];
+			return _keysState[38] || _keysState[87];
 		}
 		
 		public function get downPressed():Boolean 
 		{
-			return _keysState[40];
+			return _keysState[40] || _keysState[83];
 		}
 		
 		public function get leftPressed():Boolean 
 		{
-			return _keysState[37];
+			return _keysState[37] || _keysState[65];
 		}
 		
 		public function get rightPressed():Boolean 
 		{
-			return _keysState[39];
+			return _keysState[39] || _keysState[68];
 		}
 		
 		public function get ePressed():Boolean
