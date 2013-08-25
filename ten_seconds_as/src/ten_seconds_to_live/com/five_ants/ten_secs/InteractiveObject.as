@@ -57,6 +57,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			var interactionEvent:InteractiveObjectEvent;
 			
+			_interactionEnabled = true;
+			
 			if (_interactionEnabled && 
 				(_roomUtils.getRoomByPosition(player.x, player.y) == _roomUtils.getRoomByPosition(x, y)))
 			{
@@ -67,7 +69,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				
 				if (distance <= _interactionRadius)
 				{	
-					if (_interactionEnabled && playerInput.ePressed)
+					if (playerInput.ePressed)
 					{
 						_visualObject.gotoAndStop(LABEL_PRESSED);
 						
@@ -159,7 +161,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					action.execute();
 				}
 				
-				enableInteractions = false;
+				//enableInteractions = false;
 			}
 		}
 		
