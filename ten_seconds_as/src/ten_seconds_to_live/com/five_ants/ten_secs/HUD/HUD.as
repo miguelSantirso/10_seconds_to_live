@@ -43,7 +43,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			_hudItemPopUp.x = (800 - _hudItemPopUp.width) * 0.5;
 			_hudItemPopUp.y = (600 - _hudItemPopUp.height) * 0.5;
-			_hudItemPopUp.addEventListener(InventoryItemEvent.ITEM_EVENT, closeItemPopUp, false, 0, true);
+			_hudItemPopUp.addEventListener(HUDItemPopUp.CLOSE_REQUEST_EVENT, closeItemPopUp, false, 0, true);
 			
 			_hudKnowledgeList.x = (800 - _hudKnowledgeList.width) * 0.5;
 			_hudKnowledgeList.y = 600 - _hudKnowledgeList.height;
@@ -61,7 +61,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudInventory.dispose();
 			_hudInventory = null;
 			
-			_hudItemPopUp.removeEventListener(InventoryItemEvent.ITEM_EVENT, closeItemPopUp);
+			_hudItemPopUp.removeEventListener(HUDItemPopUp.CLOSE_REQUEST_EVENT, closeItemPopUp);
 			_hudItemPopUp.dispose();
 			_hudItemPopUp = null;
 			

@@ -8,6 +8,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 	 */
 	public class HUDItemPopUp extends HUDComponent 
 	{
+		public static const CLOSE_REQUEST_EVENT:String = "closePopupRequestEvent";
+		
 		protected var _type:String;
 		
 		public function HUDItemPopUp() 
@@ -61,7 +63,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		public function onCloseClick(event:MouseEvent):void
 		{
-			dispatchEvent(new InventoryItemEvent(_type,InventoryItemEvent.ITEM_EVENT));
+			dispatchEvent(new InventoryItemEvent(_type,CLOSE_REQUEST_EVENT));
 		}
 	}
 
