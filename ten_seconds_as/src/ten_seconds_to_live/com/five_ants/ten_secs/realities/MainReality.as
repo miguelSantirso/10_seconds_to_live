@@ -5,7 +5,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.Camera;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Entity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameMap;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.StartSlowMotion;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Player;
+	import ten_seconds_to_live.com.five_ants.ten_secs.RealityLogic;
 	import ten_seconds_to_live.com.five_ants.ten_secs.RoomUtils;
 	import ten_seconds_to_live.com.five_ants.ten_secs.WallCollisions;
 	/**
@@ -35,6 +37,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		public function constructVisualGameMap():MovieClip
 		{
 			return new VisualGameMap();
+		}
+		
+		
+		public function scriptEntities(logic:RealityLogic):void
+		{
+			logic.findEntityByName("_bed").addAction(new StartSlowMotion(0.1, 5));
 		}
 		
 	}
