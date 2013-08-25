@@ -1,5 +1,7 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.HUD 
 {
+	import flash.events.MouseEvent;
+	import ten_seconds_to_live.com.five_ants.ten_secs.events.InventoryItemEvent;
 	/**
 	 * ...
 	 * @author 10 2  Live Team
@@ -15,11 +17,19 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			super(_coreComponent);
 		}
 		
-		public override function dispose():void
+		public override function init():void
 		{
-			super.dispose();
+			super.init();
 			
+			coreComponent.addEventListener(MouseEvent.CLICK, onCloseClick, false, 0, true);
+		}
+		
+		public override function dispose():void
+		{			
+			coreComponent.closeEventListener(MouseEvent.CLICK, onCloseClick);	
 			_type = null;
+			
+			super.dispose();
 		}
 		
 		public function get coreComponent():CoreItemPopUp
@@ -45,9 +55,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		{
 			_type = null;
 			
-			// show the right item icon and description
 			coreComponent.title.text = "";
 			coreComponent.caption.text = "";
+		}
+		
+		public function onCloseClick(event:MouseEvent):void
+		{
+			dispatchEvent(new InventoryItemEvent(_type,InventoryItemEvent.ITEM_EVENT));
 		}
 	}
 

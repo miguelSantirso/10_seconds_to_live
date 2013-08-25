@@ -4,7 +4,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Camera;
-	import ten_seconds_to_live.com.five_ants.ten_secs.Cat;
+	import ten_seconds_to_live.com.five_ants.ten_secs.events.Cat;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Entity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameMap;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
