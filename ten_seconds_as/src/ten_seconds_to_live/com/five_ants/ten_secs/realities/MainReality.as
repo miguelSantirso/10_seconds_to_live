@@ -64,7 +64,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		{
 			_logic = logic;
 			
-			object("_roomTable").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "Note from A.B.", "You are going to die. A.B."));
+			object("_roomTable").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "Piece Of Paper", "This note reads: \"A lethal poison is spreading through your body. You’ll die at 15:00. You'll never find the antidote. -A. B.\""));
 			object("_roomTable").addActionSuccess(new AlterKnowledge("going_to_die"));
 			
 			object("_window").addActionSuccess(new PlayerCinematic(Player.ANIM_JUMP_WINDOW));
