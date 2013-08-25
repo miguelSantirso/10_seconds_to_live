@@ -19,7 +19,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public static const SECRET_DOOR:int = registerItem(Item_Placeholder, "SecretDoor");
 		public static const STATUE:int = registerItem(Item_Placeholder, "Statue");
 		public static const CAMERA:int = registerItem(Item_Placeholder, "Camera");
-		public static const BED:int = registerItem(Item_Placeholder, "_bed");
+
+		public static const DORM_DOOR:int = registerItem(Item_Placeholder, "x");
+		public static const BOOKSHELF:int = registerItem(Item_Placeholder, "y");
+		public static const CAR:int = registerItem(Item_Placeholder, "z");
 		
 		private static var _itemsById:Vector.<Class>;
 		private static var _itemsByName:Dictionary;

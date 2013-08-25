@@ -1,30 +1,35 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.object_actions 
 {
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
+	import ten_seconds_to_live.com.five_ants.ten_secs.ItemPopUpData;
 	import ten_seconds_to_live.com.five_ants.ten_secs.realities.AlternativeReality;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.InventoryItemEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUD;
+	import ten_seconds_to_live.com.five_ants.ten_secs.xml.TextManager;
+	
 	/**
 	 * ...
 	 * @author Miguel Santirso
 	 */
 	public class ShowPopUp extends ObjectActionBase 
 	{
-		private var _description:String;
-		private var _item:int;
-		private var _title:String;
+		protected var _itemId:int;
+		protected var _itemData:ItemPopUpData;
 		
-		public function ShowPopUp(itemId:int, title:String, description:String) 
+		public function ShowPopUp(itemId:int, itemTag:String) 
 		{
-			_item = itemId;
-			_title = title;
-			_description = description;
+			_itemId = itemId;
+			
+			if(itemTag)
+				_itemData = TextManager.get().getInventoryItemById(itemTag);
+			else
+				_itemData = new ItemPopUpData();
 		}
 		
 		
 		public override function execute():void
 		{
-			AlternativeReality._gameplay.hud.openItemPopUp(_item, _title, _description);
+			AlternativeReality._gameplay.hud.openItemPopUp(_itemId, _itemData.title, _itemData.caption);
 			AlternativeReality._gameplay.playerInput.enabled = false;
 			AlternativeReality._gameplay.hud.addEventListener(HUD.POPUP_CLOSED_EVENT, onClosePopup, false, 0, true);
 		}

@@ -4,25 +4,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	 * ...
 	 * @author 10 2  Live Team
 	 */
-	public class InventoryItem
+	public class ItemPopUpData
 	{
-		protected var _id:int;
 		protected var _title:String;
 		protected var _caption:String;
 		
-		public function InventoryItem() 
+		public function ItemPopUpData() 
 		{
-			
-		}
-		
-		public function get id():int 
-		{
-			return _id;
-		}
-		
-		public function set id(value:int):void 
-		{
-			_id = value;
+			_title = "no title";
+			_caption = "no caption";
 		}
 		
 		public function get title():String 
@@ -44,7 +34,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			_caption = value;
 		}
-		
 	}
 
 }
