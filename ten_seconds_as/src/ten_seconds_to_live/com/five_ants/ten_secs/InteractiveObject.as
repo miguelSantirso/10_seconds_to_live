@@ -180,6 +180,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					{
 						action.action.execute();
 						action.repeated = true;
+						unglowInteractionPointer();
 					}
 				}
 			}
