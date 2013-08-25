@@ -4,6 +4,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 	import flash.events.MouseEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.InventoryItemEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Items;
+	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
 	
 	/**
 	 * ...
@@ -15,6 +16,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		protected var _itemId:String;
 		
+		protected var _ePressed:Boolean = true;
+		
 		public function HUDItemPopUp() 
 		{
 			_coreComponent = new CoreItemPopUp();
@@ -25,16 +28,24 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public override function init():void
 		{
 			super.init();
-			
-			coreComponent.addEventListener(MouseEvent.CLICK, onCloseClick, false, 0, true);
 		}
 		
 		public override function dispose():void
 		{
-			coreComponent.removeEventListener(MouseEvent.CLICK, onCloseClick);	
 			_itemId = null;
 			
 			super.dispose();
+		}
+		
+		public override function update():void
+		{
+			super.update();
+			
+			if (!_ePressed && GameplayState.playerInput.ePressed) {
+				onClose();
+				_ePressed = true;
+			}else if (!GameplayState.playerInput.ePressed)
+				_ePressed = false;
 		}
 		
 		public function get coreComponent():CoreItemPopUp
@@ -65,7 +76,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_coreComponent.caption.text = value;
 		}
 		
-		public function onCloseClick(event:MouseEvent):void
+		public function onClose():void
 		{
 			dispatchEvent(new InventoryItemEvent(_itemId, CLOSE_REQUEST_EVENT));
 		}

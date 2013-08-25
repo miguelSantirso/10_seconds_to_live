@@ -30,14 +30,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 		public override function execute():void
 		{
 			AlternativeReality._gameplay.hud.openItemPopUp(_itemId, _itemData.title, _itemData.caption);
-			AlternativeReality._gameplay.playerInput.enabled = false;
-			AlternativeReality._gameplay.hud.addEventListener(HUD.POPUP_CLOSED_EVENT, onClosePopup, false, 0, true);
+			//AlternativeReality._gameplay.hud.addEventListener(HUD.POPUP_CLOSED_EVENT, onClosePopup, false, 0, true);
 		}
 		
-		private function onClosePopup(event:InventoryItemEvent):void
+		/*private function onClosePopup(event:InventoryItemEvent):void
 		{
 			AlternativeReality._gameplay.playerInput.enabled = true;
-		}
+		}*/
 		
 	}
 

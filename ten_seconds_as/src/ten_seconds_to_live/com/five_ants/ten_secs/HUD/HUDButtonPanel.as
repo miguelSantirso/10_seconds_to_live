@@ -2,6 +2,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
 	/**
 	 * ...
 	 * @author 10 2  Live Team
@@ -10,6 +11,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 	{
 		public static const PAUSE_REQUEST_EVENT:String = "pauseEventRequest";
 		public static const KNOWLEDGE_REQUEST_EVENT:String = "knowledgeEventRequest";
+		
+		protected var _pPressed:Boolean = false;
+		protected var _fPressed:Boolean = false;
 		
 		public function HUDButtonPanel() 
 		{
@@ -21,17 +25,31 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public override function init():void
 		{
 			super.init();
-			
-			coreComponent.pauseButton.addEventListener(MouseEvent.CLICK, onPauseClick, false, 0, true);
-			coreComponent.knowledgeButton.addEventListener(MouseEvent.CLICK, onKnowledgeClick, false, 0, true);
 		}
 		
 		public override function dispose():void
 		{
-			coreComponent.pauseButton.removeEventListener(MouseEvent.CLICK, onPauseClick);
-			coreComponent.knowledgeButton.removeEventListener(MouseEvent.CLICK, onKnowledgeClick);
-			
 			super.dispose();
+		}
+		
+		
+		public override function update():void
+		{
+			super.update();
+			
+			if (!_pPressed && GameplayState.playerInput.pPressed) {
+				onPause();
+				_pPressed = true;
+			}else if (!_fPressed && GameplayState.playerInput.fPressed) {
+				onKnowledge();
+				_fPressed = true;
+			} 
+			
+			if (_pPressed && !GameplayState.playerInput.pPressed)
+				_pPressed = false;
+						
+			if (_fPressed && !GameplayState.playerInput.fPressed)
+				_fPressed = false;
 		}
 		
 		public function get coreComponent():CoreActionButtons
@@ -39,12 +57,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			return _coreComponent as CoreActionButtons;
 		}
 		
-		protected function onPauseClick(event:MouseEvent):void
+		protected function onPause():void
 		{
 			dispatchEvent(new Event(PAUSE_REQUEST_EVENT));
 		}
 		
-		protected function onKnowledgeClick(event:MouseEvent):void
+		protected function onKnowledge():void
 		{
 			dispatchEvent(new Event(KNOWLEDGE_REQUEST_EVENT));
 		}

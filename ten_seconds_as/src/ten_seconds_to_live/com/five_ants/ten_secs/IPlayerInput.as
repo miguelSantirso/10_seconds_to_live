@@ -17,6 +17,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		function get rightPressed():Boolean;
 		function get ePressed():Boolean;
 		function get spacebarPressed():Boolean;
+		function get cPressed():Boolean;
+		function get fPressed():Boolean;
+		function get pPressed():Boolean;
+		function get escapePressed():Boolean;
 		
 		function get testPressed():Boolean;
 		
