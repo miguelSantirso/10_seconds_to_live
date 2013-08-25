@@ -6,12 +6,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 	 */
 	
 	import flash.events.Event;
-	import flash.events.MouseEvent;
+	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
 	
 	public class HUDCreditsPopUp extends HUDComponent 
 	{	
 		public static const CLOSE_REQUEST_EVENT:String = "closeCreditsRequestEvent";
 
+		protected var _ePressed:Boolean = false;
+		
 		public function HUDCreditsPopUp() 
 		{
 			_coreComponent = new CoreCreditsPopUp();
@@ -22,15 +24,22 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public override function init():void
 		{
 			super.init();
-			
-			coreComponent.closeButton.addEventListener(MouseEvent.CLICK, onCloseClick, false, 0, true);
 		}
 		
 		public override function dispose():void
 		{
-			coreComponent.closeButton.removeEventListener(MouseEvent.CLICK, onCloseClick);
-			
 			super.dispose();
+		}
+		
+		public override function update():void
+		{
+			super.update();
+			
+			if (!_ePressed && GameplayState.playerInput.ePressed) {
+				onClose();
+				_ePressed = true;
+			}else if (!GameplayState.playerInput.ePressed)
+				_ePressed = false;
 		}
 		
 		protected function get coreComponent():CoreCreditsPopUp
@@ -38,7 +47,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			return _coreComponent as CoreCreditsPopUp;
 		}
 		
-		public function onCloseClick(event:MouseEvent):void
+		public function onClose():void
 		{
 			dispatchEvent(new Event(CLOSE_REQUEST_EVENT));
 		}
