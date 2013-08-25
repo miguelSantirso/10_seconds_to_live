@@ -66,7 +66,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				_previousPlayerY = _player.y;
 				return _world.addChildAt(child,initPlayerIndex);
 			}else
+			{
 				return _world.addChild(child);
+			}
 		}
 		
 		protected function sortMapElementOnY(a:MovieClip, b:MovieClip):int

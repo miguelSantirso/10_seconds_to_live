@@ -26,17 +26,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private static const LABEL_NEAR:String = "near";
 		private static const LABEL_PRESSED:String = "pressed";
 		
-		public function InteractiveObject(name:String, interactionRadius:Number = STD_INTERACTION_RADIUS)
+		public function InteractiveObject(visualObject:MovieClip, interactionRadius:Number = STD_INTERACTION_RADIUS)
 		{
 			super();
 			
-			_visualObject = new Object1_interactive();
-			_visualObject.stop();
-			
-			_name = name;
+			_visualObject = visualObject;
+			_name = visualObject.name;
 			_interactionRadius = interactionRadius;
 			
-			addChild(_visualObject);
+			//addChild(_visualObject);
 			
 			_visualRadius.graphics.beginFill(0xffff00, 0.2);
 			_visualRadius.graphics.drawCircle(0, 0, _interactionRadius);
@@ -65,7 +63,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					{
 						_visualObject.gotoAndStop(LABEL_PRESSED);
 						
-						interactionEvent = new InteractiveObjectEvent(InteractiveObjectEvent.DO_ACTION);
+						interactionEvent = new InteractiveObjectEvent(InteractiveObjectEvent.DO_ACTION, true);
+						interactionEvent.actionType = "gatico"; // poner el tipo correcto
+						
 						dispatchEvent(interactionEvent);
 					}
 					else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);

@@ -1,7 +1,10 @@
 package ten_seconds_to_live.com.five_ants.ten_secs 
 {
+	import flash.events.Event;
 	import flash.utils.Dictionary;
+	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUDItemPopUp;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInteractiveEntity;
+	import ten_seconds_to_live.com.five_ants.ten_secs.events.InteractiveObjectEvent;
 	/**
 	 * ...
 	 * @author Miguel Santirso

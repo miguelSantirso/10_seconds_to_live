@@ -9,11 +9,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.events
 	{
 		public static const DO_ACTION:String = "do_action";
 		
+		public var actionType:String;
+		
 		public function InteractiveObjectEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false):void
 		{
 			super(type, bubbles, cancelable);
 			
-			
+			actionType = "";
 		}
 		
 	}
