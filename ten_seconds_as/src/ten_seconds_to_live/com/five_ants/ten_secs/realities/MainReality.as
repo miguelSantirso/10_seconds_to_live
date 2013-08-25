@@ -76,7 +76,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			//object("_door").setItemDependency(Items.GUN);
 			object("_door").addActionNoItem(new ShowPopUp(Items.GUN, "Locked Door", "Argh! The door is locked, I need something to open it!"));
 			object("_door").addActionSuccess(new ShowPopUp(Items.GUN, "Door Open!", "I opened the door with the gun"));
-			object("_door").addActionSuccess(new ChangeCollision("door", false));
+			object("_door").addActionSuccess(new ChangeCollision("_door", false));
 			object("_door").addActionSuccess(new PlayerCinematic(Player.ANIM_SHOOTING));
 			
 			object("_car").setKnowledgeDependency("there_are_pills_in_car");
