@@ -32,6 +32,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public static const CREDITS_OPENED_EVENT:String = "creditsOpenedEvent";
 		public static const CREDITS_CLOSED_EVENT:String = "creditsClosedEvent";
 		
+		public static const WELCOME_OPENED_EVENT:String = "welcomeOpenedEvent";
+		public static const WELCOME_CLOSED_EVENT:String = "welcomeClosedEvent";
+		
 		protected var _hudClock:HUDClock;
 		protected var _hudButtonPanel:HUDButtonPanel;
 		protected var _hudInventory:HUDInventory;
@@ -39,6 +42,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		protected var _hudKnowledgeList:HUDKnowledgeList;
 		protected var _hudPauseMenu:HUDPauseMenu;
 		protected var _hudCreditsPopUp:HUDCreditsPopUp;
+		protected var _hudWelcomePopUp:HUDWelcomePopUp;
 		protected var _hudDialog:HUDDialog;
 		
 		protected var _enabled:Boolean;
@@ -46,6 +50,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		protected var _knowledgeListOpened:Boolean = false;
 		protected var _pauseMenuOpened:Boolean = false;
 		protected var _creditsPopUpOpened:Boolean = false;
+		protected var _welcomePopUpOpened:Boolean = false;
 		protected var _dialogOpened:Boolean = false;
 		
 		public function HUD() 
@@ -57,6 +62,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudKnowledgeList = new HUDKnowledgeList();
 			_hudPauseMenu = new HUDPauseMenu();
 			_hudCreditsPopUp = new HUDCreditsPopUp();
+			_hudWelcomePopUp = new HUDWelcomePopUp();
 			_hudDialog = new HUDDialog();
 			
 			_enabled = true;
@@ -66,7 +72,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		{
 			_hudClock.x = _hudClock.y = 6;
 			
-			_hudButtonPanel.x = 582;
+			_hudButtonPanel.x = 170;
 			_hudButtonPanel.y = 6;
 			_hudButtonPanel.addEventListener(HUDButtonPanel.PAUSE_REQUEST_EVENT, onPauseRequest, false, 0, true);
 			_hudButtonPanel.addEventListener(HUDButtonPanel.KNOWLEDGE_REQUEST_EVENT, onKnowledgeRequest, false, 0, true);
@@ -90,6 +96,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudCreditsPopUp.x = (800 - _hudCreditsPopUp.width) * 0.5;
 			_hudCreditsPopUp.y = (600 - _hudCreditsPopUp.height) * 0.5;
 			_hudCreditsPopUp.addEventListener(HUDCreditsPopUp.CLOSE_REQUEST_EVENT, closeCreditsPopUp, false, 0, true);
+			
+			_hudWelcomePopUp.x = (800 - _hudWelcomePopUp.width) * 0.5;
+			_hudWelcomePopUp.y = (600 - _hudWelcomePopUp.height) * 0.5;
+			_hudWelcomePopUp.addEventListener(HUDWelcomePopUp.CLOSE_REQUEST_EVENT, closeWelcomePopUp, false, 0, true);
 			
 			_hudDialog.x = (800 - _hudDialog.width) * 0.5;
 			_hudDialog.y = 456;
@@ -150,7 +160,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 				_hudPauseMenu.update();
 			if(_creditsPopUpOpened)
 				_hudCreditsPopUp.update();
-			
+			if(_welcomePopUpOpened)
+				_hudWelcomePopUp.update();
 		}
 		
 		public function set slowmo(isActive:Boolean):void
@@ -186,12 +197,21 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 				_hudInventory.visible = true;
 				_hudItemPopUp.visible = true;
 				_hudKnowledgeList.visible = true;
+				
+				_hudButtonPanel.visible = true;
+				_hudCreditsPopUp.visible = true;
+				_hudWelcomePopUp.visible = true;
+				
 			}else if (!value && _enabled) {
 				// disable
 				_hudClock.visible = false;
 				_hudInventory.visible = false;
 				_hudItemPopUp.visible = false;
 				_hudKnowledgeList.visible = false;
+				
+				_hudButtonPanel.visible = false;
+				_hudCreditsPopUp.visible = false;
+				_hudWelcomePopUp.visible = false;
 			}
 			
 			_enabled = value;
@@ -322,6 +342,28 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			dispatchEvent(new Event(CREDITS_CLOSED_EVENT));
 		}
+		
+		public function openWelcomePopUp():void
+		{
+			_welcomePopUpOpened = true;
+			
+			addChild(_hudWelcomePopUp);
+			
+			dispatchEvent(new Event(WELCOME_OPENED_EVENT));
+		}
+		
+		public function closeWelcomePopUp(e:Event = null):void
+		{
+			if (!_welcomePopUpOpened)
+				return;
+			
+			_welcomePopUpOpened = false;
+			
+			removeChild(_hudWelcomePopUp);
+			
+			dispatchEvent(new Event(WELCOME_CLOSED_EVENT));
+		}
+		
 		
 		public function onPauseRequest(event:Event):void
 		{
