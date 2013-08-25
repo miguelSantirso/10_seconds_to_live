@@ -51,6 +51,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			var floors:Sprite = _config.constructFloors();
 			_roomUtils = new RoomUtils();
 			_roomUtils.setRoomShapes(floors);
+			floors.visible = false;
+			addChild(floors);
 			
 			_player = _config.constructPlayer();
 			_player.x = 300; _player.y = 400;
@@ -95,7 +97,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			addChild(_sceneContainer);
 			_camera.sceneContainer = _sceneContainer;
 			
-			_sceneContainer.addChild(floors);
+			_sceneContainer.addChild(_config.constructFloors());
 			_sceneContainer.addChild(_gameMap.world);
 		}
 		

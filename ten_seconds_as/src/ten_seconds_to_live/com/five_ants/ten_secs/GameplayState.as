@@ -36,6 +36,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _interactiveObjects:Vector.<InteractiveObject> = new Vector.<InteractiveObject>();
 		
 		private var _realityLogic:RealityLogic;
+		private var _currentRoom:String;
+		private var newRoom:String;
 		
 		protected override function init():void 
 		{
@@ -69,6 +71,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			_hud.time = _gameTime.seconds;
 			_hud.update();
+			
+			newRoom = currentReality.roomUtils.getRoomByPosition(currentReality.player.x, currentReality.player.y);
+			if (newRoom != _currentRoom)
+			{
+				trace("** room: " + newRoom);
+			}
+			_currentRoom = newRoom;
 			
 			// test
 			if (!_gameTime.slowmoActive && _playerInput.testPressed){
