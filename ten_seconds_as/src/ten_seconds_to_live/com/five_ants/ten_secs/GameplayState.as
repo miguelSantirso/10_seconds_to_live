@@ -71,6 +71,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			addChild(_hud);
 			
 			currentReality.collisions.removeCollisionBlock("door");
+			
+			Sounds.playSoundById(Sounds.SOUND_GIRL_LAUGH_REVERB);
 		}
 		
 		public override function update():void 
