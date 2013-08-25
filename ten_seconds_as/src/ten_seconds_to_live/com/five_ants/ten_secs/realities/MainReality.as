@@ -12,6 +12,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.AlterKnowledge;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ChangeCollision;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlayerCinematic;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.RemoveItemFromInventory;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowDialog;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowPopUp;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.StartSlowMotion;
@@ -78,6 +79,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_door").addActionSuccess(new ShowPopUp(Items.GUN, "Door Open!", "I opened the door with the gun"));
 			object("_door").addActionSuccess(new ChangeCollision("door", false));
 			object("_door").addActionSuccess(new PlayerCinematic(Player.ANIM_SHOOTING));
+			object("_door").addActionSuccess(new RemoveItemFromInventory(Items.GUN));
 			
 			object("_car").setKnowledgeDependency("there_are_pills_in_car");
 			object("_car").addActionNoItemNoKnowledge(new ShowPopUp(Items.CAT, "My Car", "My car. The nearest hospital is too far away"));
@@ -90,7 +92,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_statue").addActionSuccess(new AlterKnowledge("the_secret_code_is_1234"));
 			
 			object("_pills").setKnowledgeDependency("going_to_die");
-			object("_pills").addActionSuccess(new ShowPopUp(Items.MEDICATION, "Adrenaline Pills", "These pills help me move a lot faster"));
+			object("_pills").addActionSuccess(new ShowPopUp(Items.MEDICATION, "Adrenaline Pills", "These pills help me move a lot faster. I think I have more in the trunk of my car!"));
+			object("_pills").addActionSuccess(new AlterKnowledge("there_are_pills_in_car"));
 			object("_pills").addActionSuccess(new StartSlowMotion(0.2, 10));
 			
 			object("_bookshelf").setKnowledgeDependency("there_is_a_panic_room");
@@ -98,6 +101,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_bookshelf").addActionNoItemNoKnowledge(new ShowPopUp(Items.BOOK, "My Books", "A lot of books. I can't use them now..."));
 			object("_bookshelf").addActionNoItem(new ShowPopUp(Items.BOOK, "My Books", "There's a book left! That's how the bookshelf opens"));
 			object("_bookshelf").addActionSuccess(new ShowPopUp(Items.BOOK, "My Books", "Yes, the book opened the secret door"));
+			object("_bookshelf").addActionSuccess(new RemoveItemFromInventory(Items.BOOK));
+			
+			object("_picture").addActionSuccess(new ShowPopUp(Items.PICTURE, "Family Photo", "There is catnip somewhere... The cat loves it"));
+			object("_picture").addActionSuccess(new AlterKnowledge("catnip_attracts_cat"));
+			
+			object("_book").setKnowledgeDependency("there_is_a_panic_room");
+			object("_book").addActionSuccess(new ShowPopUp(Items.BOOK, "Book", "Aha! This book opens the entrance to the panic room"));
+			object("_book").addActionSuccess(new AddItemToInventory(Items.BOOK));
 			
 		}
 	}
