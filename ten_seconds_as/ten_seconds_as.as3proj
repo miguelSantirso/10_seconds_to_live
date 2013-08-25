@@ -57,6 +57,7 @@
     <element path="lib\greensock.swc" />
     <element path="lib\sounds.swc" />
     <element path="lib\item_icons.swc" />
+    <element path="lib\sort_test.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
