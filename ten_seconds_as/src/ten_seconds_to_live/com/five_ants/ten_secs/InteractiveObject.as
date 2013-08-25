@@ -2,7 +2,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.geom.Point;
+	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUD;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.InteractiveObjectEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInteractiveEntity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ObjectActionBase;
@@ -18,6 +20,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _interactionEnabled:Boolean = true;
 		
 		private var _visualObject:MovieClip = new MovieClip();
+		
+		private var _actions:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
 		
 		private static const STD_INTERACTION_RADIUS:Number = 100;
 		
@@ -57,12 +61,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					{
 						_visualObject.gotoAndStop(LABEL_PRESSED);
 						
-						interactionEvent = new InteractiveObjectEvent(InteractiveObjectEvent.DO_ACTION, true);
-						interactionEvent.actionType = "gatico"; // poner el tipo correcto
-						
-						dispatchEvent(interactionEvent);
-						
-						_gameplay.hud.openItemPopUp(interactionEvent.actionType);
+						_gameplay.hud.openItemPopUp(getName());
+						_gameplay.addEventListener(HUD.POPUP_CLOSED_EVENT, closeActionPopup);
 					}
 					else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);
 				}
@@ -87,12 +87,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public function addAction(action:ObjectActionBase):void
 		{
-			
+			_actions.push(action);
 		}
 		
 		public function executeAllActions():void
 		{
-			
+			for each(var action:ObjectActionBase in _actions)
+				action.execute();
 		}
 		
 		public function set showRadius(value:Boolean):void
@@ -112,6 +113,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function set enableInteractions(value:Boolean):void
 		{
 			_interactionEnabled = value;
+		}
+		
+		private function closeActionPopup(event:Event):void
+		{
+			trace("TODAVIA NO CIERRA GUEVON!");
 		}
 	}
 

@@ -4,6 +4,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Camera;
+	import ten_seconds_to_live.com.five_ants.ten_secs.Cat;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Entity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameMap;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
@@ -23,6 +24,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		private var _gameplay:GameplayState;
 		
 		private var _player:Player;
+		//private var _cat:Cat; // TEMP ALBERT
 		private var _entities:Vector.<Entity> = new Vector.<Entity>();
 		private var _camera:Camera;
 		private var _gameMap:GameMap;
@@ -68,6 +70,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_gameMap.addChild(_player);
 			
 			initInteractiveObjects();
+			
+			/*_cat = new Cat();
+			_entities.push(_cat);
+			_gameMap.addChild(_cat);
+			_cat.x = 300;
+			_cat.y = 400;*/
 			
 			_config.scriptEntities(_realityLogic);
 			
