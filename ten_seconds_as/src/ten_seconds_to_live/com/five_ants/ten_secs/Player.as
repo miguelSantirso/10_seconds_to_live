@@ -29,6 +29,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public static const ANIM_IDLE_UP:int = 8;
 		public static const ANIM_IDLE_RIGHT:int = 9;
 		public static const ANIM_IDLE_LEFT:int = 10;
+		public static const ANIM_SHOOTING:int = 11;
 		
 		private var _movement:Point = new Point();
 		private var _prevMovement:Point = new Point();
@@ -60,6 +61,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			registerCinematic(ANIM_JUMP_WINDOW, new MainCharacterJumpWindow(), new Point(0, -35));
 			registerCinematic(ANIM_DIE, new MainCharacterDies(), new Point(0, 0));
 			registerCinematic(ANIM_WAKE_UP, new MainCharacterWakesUp(), new Point(0, 0));
+			registerCinematic(ANIM_SHOOTING, new MainCharacterShooting(), new Point( -20, 0));
 			
 			
 			setAnimation(ANIM_IDLE_DOWN);

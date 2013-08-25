@@ -35,7 +35,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		{
 			if(value){
 				_dialogItem = value;
-				coreComponent.label.text = _dialogItem.text;
+				coreComponent.label.text = _dialogItem.speecher + ": "+_dialogItem.text+".";
 				coreComponent.label.textColor = _dialogItem.color;
 			}
 		}
