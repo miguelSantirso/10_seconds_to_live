@@ -1,0 +1,111 @@
+package ten_seconds_to_live.com.five_ants.ten_secs.xml 
+{
+	import flash.utils.Dictionary;
+	import ten_seconds_to_live.com.five_ants.ten_secs.Dialog;
+	import ten_seconds_to_live.com.five_ants.ten_secs.DialogItem;
+	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUDInventoryItem;
+	import ten_seconds_to_live.com.five_ants.ten_secs.InventoryItem;
+	/**
+	 * ...
+	 * @author 10 2  Live Team
+	 */
+	public class TextManager 
+	{
+		[Embed("/xml_assets/knowledge.xml", mimeType="application/octet-stream")]
+		private const XMLKnowledge:Class;
+		
+		[Embed("/xml_assets/dialogs.xml", mimeType="application/octet-stream")]
+		private const XMLDialogs:Class;
+		
+		[Embed("/xml_assets/inventory_items.xml", mimeType="application/octet-stream")]
+		private const XMLInventoryItems:Class;
+		
+		private static var _instance:TextManager;
+		
+		protected var _knowledgeDictionary:Dictionary;
+		protected var _dialogsDictionary:Dictionary;
+		protected var _inventoryItemDictionary:Dictionary;
+		
+		public function TextManager() 
+		{
+			_knowledgeDictionary = new Dictionary();
+			_dialogsDictionary = new Dictionary();
+			_inventoryItemDictionary = new Dictionary();
+			
+			var knowledge:XML = XML(new XMLKnowledge());
+			createKnowledgeDictionary(knowledge.fact)
+			//setGroup(scenes.group);
+			
+			var dialogs:XML = XML(new XMLDialogs());
+			createDialogsDictionary(dialogs.dialog)
+			
+			var inventoryItems:XML = XML(new XMLInventoryItems());
+			createInventoryItemsDictionary(inventoryItems.item);
+		}
+		
+		public static function get():TextManager
+		{
+			if (!_instance)
+				_instance = new TextManager();
+				
+			return _instance;
+		}
+		
+		protected function createKnowledgeDictionary(xmlList:XMLList):void
+		{
+			for (var i:int = 0; i <  xmlList.length(); i ++)
+			{	
+				_knowledgeDictionary[xmlList[i].@id] = xmlList[i].@text;
+			}
+		}
+		
+		protected function createDialogsDictionary(xmlList:XMLList):void
+		{
+			var lineList:XMLList;
+			var dialog:Dialog;
+			var dialogItem:DialogItem;
+			
+			for (var i:int = 0; i <  xmlList.length(); i ++) {
+				dialog = new Dialog();
+				lineList =  xmlList[i].line;
+				
+				for (var j:int = 0; j < lineList.length(); j++) {
+					dialogItem = new DialogItem(lineList[j].@speecher, lineList[j].@text, uint(lineList[j].@color));
+					dialog.addDialogItem(dialogItem);
+				}
+				_dialogsDictionary[xmlList[i].@id] = dialog;
+			}
+		}
+		
+		protected function createInventoryItemsDictionary(xmlList:XMLList):void
+		{
+			var inventoryItem:InventoryItem;
+			
+			for (var i:int = 0; i <  xmlList.length(); i ++)
+			{	
+				inventoryItem = new InventoryItem();
+				inventoryItem.id =  xmlList[i].@id;
+				inventoryItem.title =  xmlList[i].@title;
+				inventoryItem.id =  xmlList[i].@caption;
+				
+				_inventoryItemDictionary[xmlList[i].@id] = inventoryItem;
+			}
+		}
+		
+		public function getKnowledgeTextById(id:int):String
+		{
+			return _knowledgeDictionary[id] as String;
+		}
+		
+		public function getDialogById(id:int):Dialog
+		{
+			return _dialogsDictionary[id] as Dialog;
+		}
+		
+		public function getInventoryItemById(id:int):InventoryItem
+		{
+			return _inventoryItemDictionary[id] as InventoryItem;
+		}
+	}
+
+}

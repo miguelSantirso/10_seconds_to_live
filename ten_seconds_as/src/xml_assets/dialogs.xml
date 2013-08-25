@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<view name="dialogs">
+	<dialog id="test_dialog_0">
+		<line speecher="Me" text="This is me" color="0xffffff"/>
+		<line speecher="You" text="This is you" color="0xff0000"/>
+		<line speecher="You" text="Come on man stop talking already" color="0xffffff"/>
+	</dialog>
+	
+	<dialog id="test_dialog_1">
+		<line speecher="Albert" text="My name is Albert" color="0x0000ff"/>
+		<line speecher="Miguel" text="My name is Miguel" color="0x00ff00"/>
+		<line speecher="Luis" text="My name is Luis" color="0x00ffff"/>
+	</dialog>
+</view>
