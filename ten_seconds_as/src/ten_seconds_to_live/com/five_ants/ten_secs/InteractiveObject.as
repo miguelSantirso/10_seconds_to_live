@@ -24,7 +24,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		protected var _visualObject:MovieClip = new MovieClip();
 		
-		protected var _actions:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
+		protected var _itemDependency:String = null;
+		protected var _knowledgeDependency:String = null;
+		
+		protected var _actionsNoItemNoKnowledge:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
+		protected var _actionsNoItem:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
+		protected var _actionsSuccess:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
+		
+		protected var _consecuences:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
 		
 		protected static const STD_INTERACTION_RADIUS:Number = 100;
 		
@@ -66,8 +73,45 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					{
 						_visualObject.gotoAndStop(LABEL_PRESSED);
 						
-						_gameplay.hud.openItemPopUp(getName());
-						_gameplay.hud.addEventListener(HUD.POPUP_CLOSED_EVENT, executeAllActions, false, 0, true);
+						
+						
+						/*if (!_itemDependency && !_knowledgeDependency)
+						{
+							_gameplay.hud.openItemPopUp(getName() + "Success");
+							_gameplay.hud.addEventListener(HUD.POPUP_CLOSED_EVENT, executeAllConsecuences, false, 0, true);
+							
+							return;
+						}
+						
+						if (_itemDependency && _knowledgeDependency)
+						{
+							if (!_gameplay.hud.inventory.getItemByType(_itemDependency)
+							  && !PlayerKnowledge.getKnowledge(_knowledgeDependency))
+							{
+								_gameplay.hud.openItemPopUp(getName() + "_NoItemNoKnowledge");
+							}
+						}
+						
+						if (_itemDependency)
+						{
+							if (!_gameplay.hud.inventory.getItemByType(_itemDependency)
+							  && PlayerKnowledge.getKnowledge(_knowledgeDependency))
+							{
+								_gameplay.hud.openItemPopUp(getName() + "_NoItem");
+							}
+						}
+						
+						if (_itemDependency && _knowledgeDependency)
+						{
+							if (_gameplay.hud.inventory.getItemByType(_itemDependency)
+							  && PlayerKnowledge.getKnowledge(_knowledgeDependency))
+							{
+								_gameplay.hud.openItemPopUp(getName() + "Success");
+								_gameplay.hud.addEventListener(HUD.POPUP_CLOSED_EVENT, executeAllConsecuences, false, 0, true);
+							}
+						}
+						
+						executeAllActions();*/
 					}
 					else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);
 				}
@@ -90,15 +134,76 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			return _visualObject.y;
 		}
 		
-		public function addAction(action:ObjectActionBase):void
+		public function setKnowledgeDependency(knowledge:String):void
 		{
-			_actions.push(action);
+			_knowledgeDependency = knowledge;
 		}
 		
-		public function executeAllActions(event:InventoryItemEvent = null):void
+		public function setItemDependency(item:String):void
 		{
-			for each(var action:ObjectActionBase in _actions)
-				action.execute();
+			_itemDependency = item;
+		}
+		
+		public function addActionNoItemNoKnowledge(action:ObjectActionBase):void
+		{
+			_actionsNoItemNoKnowledge.push(action);
+		}
+		
+		public function addActionNoItem(action:ObjectActionBase):void
+		{
+			_actionsNoItem.push(action);
+		}
+		
+		public function addActionSuccess(action:ObjectActionBase):void
+		{
+			_actionsSuccess.push(action);
+		}
+		
+		public function addConsecuence(consecuence:ObjectActionBase):void
+		{
+			_consecuences.push(consecuence);
+		}
+		
+		public function executeAllActions():void
+		{
+			var action:ObjectActionBase;
+
+			if (!_gameplay.hud.inventory.getItemByType(_itemDependency)
+			  && !PlayerKnowledge.getKnowledge(_knowledgeDependency))
+			{
+				for each(action in _actionsNoItemNoKnowledge)
+				{
+					action.execute();
+				}
+			}
+			
+			if (!_gameplay.hud.inventory.getItemByType(_itemDependency)
+			  && PlayerKnowledge.getKnowledge(_knowledgeDependency))
+			{
+				for each(action in _actionsNoItem)
+				{
+					action.execute();
+				}
+			}
+			
+			if (_gameplay.hud.inventory.getItemByType(_itemDependency)
+			  && PlayerKnowledge.getKnowledge(_knowledgeDependency))
+			{
+				for each(action in _actionsSuccess)
+				{
+					action.execute();
+				}
+			}
+		}
+		
+		public function executeAllConsecuences(event:InventoryItemEvent = null):void
+		{
+			_gameplay.hud.removeEventListener(HUD.POPUP_CLOSED_EVENT, executeAllConsecuences);
+			
+			for each(var consecuence:ObjectActionBase in _consecuences)
+			{
+				consecuence.execute();
+			}
 		}
 		
 		public function set showRadius(value:Boolean):void

@@ -15,9 +15,17 @@ package ten_seconds_to_live.com.five_ants.ten_secs.interfaces
 	{
 		function getName():String;
 		
-		function addAction(action:ObjectActionBase):void;
+		function setKnowledgeDependency(dependency:String):void;
+		function setItemDependency(item:String):void;
 		
-		function executeAllActions(event:InventoryItemEvent = null):void;
+		function addActionNoItemNoKnowledge(action:ObjectActionBase):void;
+		function addActionNoItem(action:ObjectActionBase):void;
+		function addActionSuccess(action:ObjectActionBase):void;
+		
+		function addConsecuence(consecuence:ObjectActionBase):void;
+		
+		function executeAllActions():void;
+		function executeAllConsecuences(event:InventoryItemEvent = null):void;
 		
 		function set enableInteractions(value:Boolean):void;
 		
