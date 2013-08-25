@@ -12,6 +12,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.AlterKnowledge;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ChangeCollision;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlayerCinematic;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.RemoveItemFromInventory;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowDialog;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowPopUp;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.StartSlowMotion;
@@ -21,7 +22,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.RoomUtils;
 	import ten_seconds_to_live.com.five_ants.ten_secs.WallCollisions;
 	import ten_seconds_to_live.com.five_ants.ten_secs.PlayerKnowledge;
-	import ten_seconds_to_live.com.five_ants.ten_secs.xml.TextManager;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Items;
 	
 	/**
@@ -65,53 +65,59 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		{
 			_logic = logic;
 			
-			//object("_roomTable").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "Piece Of Paper", "This note reads: \"A lethal poison is spreading through your body. You’ll die at 15:00. You'll never find the antidote. -A. B.\""));
-			object("_roomTable").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, TextManager.get().getInventoryItemById("note_and_watch")));
+			object("_roomTable").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "note_and_watch"));
+
 			object("_roomTable").addActionSuccess(new AlterKnowledge("going_to_die"));
 			
-			object("_window").addActionSuccess(new PlayerCinematic(Player.ANIM_JUMP_WINDOW));
+			object("_window$30").addActionSuccess(new PlayerCinematic(Player.ANIM_JUMP_WINDOW), true);
 			
 			object("_gun").setKnowledgeDependency("going_to_die");
-			//object("_gun").addActionSuccess(new ShowPopUp(Items.GUN, "My Gun", "bla bla bla"));
-			object("_gun").addActionSuccess(new ShowPopUp(Items.GUN, TextManager.get().getInventoryItemById("gun")));
+			object("_gun").addActionSuccess(new ShowPopUp(Items.GUN, "gun"));
 			object("_gun").addActionSuccess(new AddItemToInventory(Items.GUN));
 			
 			object("_door").setItemDependency(Items.GUN);
-			//object("_door").addActionNoItem(new ShowPopUp(Items.GUN, "Locked Door", "Argh! The door is locked, I need something to open it!"));
-			//object("_door").addActionSuccess(new ShowPopUp(Items.GUN, "Door Open!", "I opened the door with the gun"));
-			object("_door").addActionNoItem(new ShowPopUp(Items.DORM_DOOR, TextManager.get().getInventoryItemById("locked_door_noI")));
-			object("_door").addActionSuccess(new ShowPopUp(Items.DORM_DOOR, TextManager.get().getInventoryItemById("locked_door")));
+			object("_door").addActionNoItem(new ShowPopUp(Items.DORM_DOOR, "locked_door_noI"));
+			object("_door").addActionSuccess(new ShowPopUp(Items.DORM_DOOR, "locked_door"));
 			object("_door").addActionSuccess(new ChangeCollision("door", false));
 			object("_door").addActionSuccess(new PlayerCinematic(Player.ANIM_SHOOTING));
+			object("_door").addActionSuccess(new RemoveItemFromInventory(Items.GUN));
 			
 			object("_car").setKnowledgeDependency("there_are_pills_in_car");
-			//object("_car").addActionNoItemNoKnowledge(new ShowPopUp(Items.CAT, "My Car", "My car. The nearest hospital is too far away"));
-			//object("_car").addActionSuccess(new ShowPopUp(Items.MEDICATION, "Adrenaline Pills", "These pills help me move a lot faster!"));
-			object("_car").addActionNoItemNoKnowledge(new ShowPopUp(Items.CAR, TextManager.get().getInventoryItemById("car_noI_noK")));
-			object("_car").addActionSuccess(new ShowPopUp(Items.CAR, TextManager.get().getInventoryItemById("car")));
+			object("_car").addActionNoItemNoKnowledge(new ShowPopUp(Items.CAR, "car_noI_noK"));
+			object("_car").addActionSuccess(new ShowPopUp(Items.CAR, "car"));
 			object("_car").addActionSuccess(new StartSlowMotion(0.2, 10));
 			
 			object("_statue").setKnowledgeDependency("i_need_the_secret_code");
-			//object("_statue").addActionNoItemNoKnowledge(new ShowPopUp(Items.STATUE, "My Wife", "This is my wife, a long time ago"));
-			//object("_statue").addActionSuccess(new ShowPopUp(Items.SECRET_KEY, "1234", "1234! That's the code"));
-			object("_statue").addActionNoItemNoKnowledge(new ShowPopUp(Items.STATUE, TextManager.get().getInventoryItemById("statue_noI_noK")));
-			object("_statue").addActionSuccess(new ShowPopUp(Items.STATUE, TextManager.get().getInventoryItemById("statue")));
+			object("_statue").addActionNoItemNoKnowledge(new ShowPopUp(Items.STATUE, "statue_noI_noK"));
+			object("_statue").addActionSuccess(new ShowPopUp(Items.STATUE, "statue"));
 			object("_statue").addActionSuccess(new AlterKnowledge("the_secret_code_is_1234"));
 			
 			object("_pills").setKnowledgeDependency("going_to_die");
-			//object("_pills").addActionSuccess(new ShowPopUp(Items.MEDICATION, "Adrenaline Pills", "These pills help me move a lot faster"));
-			object("_pills").addActionSuccess(new ShowPopUp(Items.MEDICATION, TextManager.get().getInventoryItemById("adrenaline_pills")));
+			object("_pills").addActionSuccess(new ShowPopUp(Items.MEDICATION, "adrenaline_pills"));
+			object("_pills").addActionSuccess(new AlterKnowledge("there_are_pills_in_car"));
 			object("_pills").addActionSuccess(new StartSlowMotion(0.2, 10));
 			
 			object("_bookshelf").setKnowledgeDependency("there_is_a_panic_room");
 			object("_bookshelf").setItemDependency(Items.BOOK);
-			//object("_bookshelf").addActionNoItemNoKnowledge(new ShowPopUp(Items.BOOK, "My Books", "A lot of books. I can't use them now..."));
-			//object("_bookshelf").addActionNoItem(new ShowPopUp(Items.BOOK, "My Books", "There's a book left! That's how the bookshelf opens"));
-			//object("_bookshelf").addActionSuccess(new ShowPopUp(Items.BOOK, "My Books", "Yes, the book opened the secret door"));
-			object("_bookshelf").addActionNoItemNoKnowledge(new ShowPopUp(Items.BOOKSHELF, TextManager.get().getInventoryItemById("book_shelf_noI_noK")));
-			object("_bookshelf").addActionNoItem(new ShowPopUp(Items.BOOKSHELF, TextManager.get().getInventoryItemById("book_shelf_noI")));
-			object("_bookshelf").addActionSuccess(new ShowPopUp(Items.BOOKSHELF, TextManager.get().getInventoryItemById("book_shelf")));
+			object("_bookshelf").addActionNoItemNoKnowledge(new ShowPopUp(Items.BOOKSHELF, "book_shelf_noI_noK"));
+			object("_bookshelf").addActionNoItem(new ShowPopUp(Items.BOOKSHELF, "book_shelf_noI"));
+			object("_bookshelf").addActionSuccess(new ShowPopUp(Items.BOOKSHELF, "book_shelf"));
+			object("_bookshelf").addActionSuccess(new RemoveItemFromInventory(Items.BOOK));
 			
+			object("_picture").addActionSuccess(new ShowPopUp(Items.PICTURE, "picture"));
+			object("_picture").addActionSuccess(new AlterKnowledge("catnip_attracts_cat"));
+			
+			object("_book").setKnowledgeDependency("there_is_a_panic_room");
+			object("_book").addActionNoItemNoKnowledge(new ShowPopUp(Items.BOOK, "book_noI_noK"));
+			object("_book").addActionSuccess(new ShowPopUp(Items.BOOK, "book"));
+			object("_book").addActionSuccess(new AddItemToInventory(Items.BOOK));
+			
+			object("_catfood").setKnowledgeDependency("catnip_attracts_cat");
+			object("_catfood").addActionSuccess(new ShowPopUp(Items.CATNIP, "catnip"));
+			object("_catfood").addActionSuccess(new AddItemToInventory(Items.CATNIP));
+			
+			object("_camera1").addActionSuccess(new ShowPopUp(Items.CAMERA, "security_camera"));
+			object("_camera1").addActionSuccess(new AlterKnowledge("there_is_a_panic_room"));
 		}
 	}
 

@@ -53,9 +53,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.xml
 		
 		protected function createKnowledgeDictionary(xmlList:XMLList):void
 		{
+			var id:int;
 			for (var i:int = 0; i <  xmlList.length(); i ++)
 			{	
-				_knowledgeDictionary[xmlList[i].@id] = xmlList[i].@text;
+				id = xmlList[i].@id;
+				_knowledgeDictionary[id] = xmlList[i].@text;
 			}
 		}
 		
@@ -64,7 +66,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.xml
 			var lineList:XMLList;
 			var dialog:Dialog;
 			var dialogItem:DialogItem;
-			
+			var id:String;
 			for (var i:int = 0; i <  xmlList.length(); i ++) {
 				dialog = new Dialog();
 				lineList =  xmlList[i].line;
@@ -73,21 +75,23 @@ package ten_seconds_to_live.com.five_ants.ten_secs.xml
 					dialogItem = new DialogItem(lineList[j].@speecher, lineList[j].@text, uint(lineList[j].@color));
 					dialog.addDialogItem(dialogItem);
 				}
-				_dialogsDictionary[xmlList[i].@id] = dialog;
+				
+				id = xmlList[i].@id;
+				_dialogsDictionary[id] = dialog;
 			}
 		}
 		
 		protected function createInventoryItemsDictionary(xmlList:XMLList):void
 		{
 			var itemData:ItemPopUpData;
-			
+			var id:String;
 			for (var i:int = 0; i <  xmlList.length(); i ++)
 			{	
 				itemData = new ItemPopUpData();
 				itemData.title =  xmlList[i].@title;
 				itemData.caption =  xmlList[i].@caption;
-				
-				_inventoryItemDictionary[xmlList[i].@id] = itemData;
+				id = xmlList[i].@id;
+				_inventoryItemDictionary[id] = itemData;
 			}
 		}
 		
@@ -96,7 +100,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.xml
 			return _knowledgeDictionary[id] as String;
 		}
 		
-		public function getDialogById(id:int):Dialog
+		public function getDialogById(id:String):Dialog
 		{
 			return _dialogsDictionary[id] as Dialog;
 		}

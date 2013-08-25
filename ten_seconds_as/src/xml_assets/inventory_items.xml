@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <view name="popup_texts">
-	<item id="note_and_watch" title="Piece Of Paper" caption="This note reads: \'A lethal poison is spreading through your body. You’ll die at 15:00. You'll never find the antidote. -A. B.\'"/>
+	<item id="note_and_watch" title="Piece Of Paper" caption="This note reads: 'A lethal poison is spreading through your body. You’ll die at 15:00. You'll never find the antidote. -A. B.'"/>
 	
 	<item id="adrenaline_pills" title="Adrenaline Pills" caption="These pills help me move a lot faster!"/>
 	
