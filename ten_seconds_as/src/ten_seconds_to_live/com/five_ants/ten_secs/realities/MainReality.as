@@ -10,6 +10,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInteractiveEntity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.AddItemToInventory;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.AlterKnowledge;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlayerCinematic;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowPopUp;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.StartSlowMotion;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Player;
@@ -72,6 +73,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			//object("_interactive1").setKnowledgeDependency("flex");
 			//object("_bed").addActionNoItemNoKnowledge(new StartSlowMotion(0.1, 5, gamePlay));
+			logic.findEntityByName("_bed").addAction(new PlayerCinematic(Player.ANIM_SHOOTING, gamePlay));
 		}
 		
 	}

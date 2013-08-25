@@ -1,16 +1,18 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.object_actions 
 {
+	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
 	/**
 	 * ...
 	 * @author Miguel Santirso
 	 */
-	public class PlayerCinematic extends ObjectActionBase 
+	public class PlayerCinematic extends ObjectActionBase
 	{
-		private var _animation:String;
+		private var _animation:int;
 		
-		public function PlayerCinematic(animationName:String) 
+		public function PlayerCinematic(animationId:int, gameplay:GameplayState) 
 		{
-			_animation = animationName;
+			super(gameplay);
+			_animation = animationId;
 		}
 		
 		
