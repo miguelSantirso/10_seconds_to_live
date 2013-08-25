@@ -63,8 +63,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud = new HUD();
 			_hud.init();
 			addChild(_hud);
-			
-			currentReality.addEventListener(InteractiveObjectEvent.DO_ACTION, openActionPopup);
 		}
 		
 		public override function update():void 
@@ -83,11 +81,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			}
 			_currentRoom = newRoom;
 			
-			// test
+			/*// test
 			if (!_gameTime.slowmoActive && _playerInput.testPressed){
 				_gameTime.startSlowmo();
 				_hud.openKnowledgeList(null);
-			}
+			}*/
 		}
 		
 		public override function dispose():void 
@@ -154,11 +152,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud.slowmo = false;
 			
 			_hud.closeKnowledgeList();
-		}
-		
-		private function openActionPopup(event:InteractiveObjectEvent):void
-		{
-			_hud.openItemPopUp(event.actionType);
 		}
 		
 		// Temp
