@@ -95,9 +95,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			object("_bookshelf").setKnowledgeDependency("there_is_a_panic_room");
 			object("_bookshelf").setItemDependency(Items.BOOK);
-			object("_bookshelf").addActionNoItemNoKnowledge(Items.BOOK, "My Books", "A lot of books. I can't use them now...");
-			object("_bookshelf").addActionNoItem(Items.BOOK, "My Books", "There's a book left! That's how the bookshelf opens");
-			object("_bookshelf").addActionSuccess(Items.BOOK, "My Books", "Yes, the book opened the secret door");
+			object("_bookshelf").addActionNoItemNoKnowledge(new ShowPopUp(Items.BOOK, "My Books", "A lot of books. I can't use them now..."));
+			object("_bookshelf").addActionNoItem(new ShowPopUp(Items.BOOK, "My Books", "There's a book left! That's how the bookshelf opens"));
+			object("_bookshelf").addActionSuccess(new ShowPopUp(Items.BOOK, "My Books", "Yes, the book opened the secret door"));
 			
 		}
 	}
