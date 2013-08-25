@@ -1,7 +1,10 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.HUD 
 {
+	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.InventoryItemEvent;
+	import ten_seconds_to_live.com.five_ants.ten_secs.Items;
+	
 	/**
 	 * ...
 	 * @author 10 2  Live Team
@@ -10,7 +13,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 	{
 		public static const CLOSE_REQUEST_EVENT:String = "closePopupRequestEvent";
 		
-		protected var _type:String;
+		protected var _itemId:String;
 		
 		public function HUDItemPopUp() 
 		{
@@ -29,7 +32,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public override function dispose():void
 		{
 			coreComponent.removeEventListener(MouseEvent.CLICK, onCloseClick);	
-			_type = null;
+			_itemId = null;
 			
 			super.dispose();
 		}
@@ -41,29 +44,30 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		public function get type():String 
 		{
-			return _type;
+			return _itemId;
 		}
 		
-		public function open(itemType:String):void
+		public function set item(itemName:String):void
 		{
-			_type = itemType;
+			var iconContainer:MovieClip = _coreComponent.iconContainer;
+			while (iconContainer.numChildren > 0)
+				iconContainer.removeChildAt(0);
 			
-			// show the right item icon and description
-			coreComponent.title.text = type + " title";
-			coreComponent.caption.text = type + " description";
+			var itemMc:MovieClip = Items.getItemByName(itemName);
+			iconContainer.addChild(itemMc);
 		}
-		
-		public function close():void
+		public function set title(value:String):void
 		{
-			_type = null;
-			
-			coreComponent.title.text = "";
-			coreComponent.caption.text = "";
+			_coreComponent.title.text = value;
+		}
+		public function set description(value:String):void
+		{
+			_coreComponent.caption.text = value;
 		}
 		
 		public function onCloseClick(event:MouseEvent):void
 		{
-			dispatchEvent(new InventoryItemEvent(_type,CLOSE_REQUEST_EVENT));
+			dispatchEvent(new InventoryItemEvent(_itemId,CLOSE_REQUEST_EVENT));
 		}
 	}
 

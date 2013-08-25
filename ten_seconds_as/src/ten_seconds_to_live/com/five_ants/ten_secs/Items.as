@@ -19,6 +19,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public static const SECRET_DOOR:int = registerItem(Item_Placeholder, "SecretDoor");
 		public static const STATUE:int = registerItem(Item_Placeholder, "Statue");
 		public static const CAMERA:int = registerItem(Item_Placeholder, "Camera");
+		public static const BED:int = registerItem(Item_Placeholder, "_bed");
 		
 		private static var _itemsById:Vector.<Class>;
 		private static var _itemsByName:Dictionary;
@@ -40,12 +41,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private static function registerItem(mcClass:Class, name:String):int
 		{
 			if (!_itemsByName) _itemsByName = new Dictionary();
-			if (!_itemsById) _itemsById = new Vector.<MovieClip>();
+			if (!_itemsById) _itemsById = new Vector.<Class>();
 			
 			if (_itemsByName[name])
 				throw new Error("InventoryItems: More than one inventory item with the same name: " + name);
 			
-			_itemsById[_itemsById.length] = item;
+			_itemsById[_itemsById.length] = mcClass;
 			_itemsByName[name] = mcClass;
 			
 			return _itemsById.length - 1;

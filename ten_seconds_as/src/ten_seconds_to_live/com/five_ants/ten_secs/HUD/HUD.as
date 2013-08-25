@@ -172,9 +172,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			return _pauseMenuOpened;
 		}
 		
-		public function openItemPopUp(itemType:String):void
+		public function openItemPopUp(itemId:String, title:String, description:String):void
 		{
-			_hudItemPopUp.open(itemType);
+			_hudItemPopUp.item = itemId;
+			_hudItemPopUp.title = title;
+			_hudItemPopUp.description = description;
 			
 			_popupOpened = true;
 			
@@ -185,8 +187,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		public function closeItemPopUp(event:InventoryItemEvent):void
 		{
-			_hudItemPopUp.close();
-			
 			_popupOpened = false;
 			
 			removeChild(_hudItemPopUp);

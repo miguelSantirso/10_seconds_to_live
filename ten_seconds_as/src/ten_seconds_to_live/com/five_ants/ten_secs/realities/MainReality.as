@@ -8,6 +8,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.AddItemToInventory;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.AlterKnowledge;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowPopUp;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.StartSlowMotion;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Player;
 	import ten_seconds_to_live.com.five_ants.ten_secs.RealityLogic;
