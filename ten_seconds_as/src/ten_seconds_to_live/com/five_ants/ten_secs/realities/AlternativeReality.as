@@ -3,6 +3,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.utils.Dictionary;
 	import org.osflash.signals.OnceSignal;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Camera;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.Cat;
@@ -26,6 +27,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		private var _player:Player;
 		//private var _cat:Cat; // TEMP ALBERT
 		private var _entities:Vector.<Entity> = new Vector.<Entity>();
+		private var _interactiveObjects:Dictionary = new Dictionary();
 		public static var _gameplay:GameplayState;
 		private var _camera:Camera;
 		private var _gameMap:GameMap;
@@ -149,6 +151,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			for each (var entity:Entity in _entities)
 				entity.dispose();
+		}
+		
+		
+		public function findInteractiveObject(name:String):InteractiveObject
+		{
+			if (!_interactiveObjects[name])
+				throw new Error("AlternativeReality: Can't find interactive object with name " + name);
+			
+			return _interactiveObjects[name];
 		}
 		
 		public function get roomUtils():RoomUtils 

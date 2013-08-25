@@ -7,16 +7,18 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 	 */
 	public class TriggerFlashback extends ObjectActionBase
 	{
-		private var _flashbackName:String;
+		private var _flashbackId:int;
 		
-		public function TriggerFlashback(flashbackToTrigger:String)
+		public function TriggerFlashback(flashbackToTrigger:int, gamePlay:GameplayState)
 		{
-			_flashbackName = flashbackToTrigger;
+			super(gamePlay);
+			
+			_flashbackId = flashbackToTrigger;
 		}
 		
 		public override function execute():void 
 		{
-			//_gameplay.changeToRealityWithName(_flashbackName);
+			_gameplay.changeToReality(_flashbackName);
 		}
 		
 	}
