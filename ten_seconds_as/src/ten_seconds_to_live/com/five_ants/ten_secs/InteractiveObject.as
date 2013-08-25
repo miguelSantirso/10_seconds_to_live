@@ -40,7 +40,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected static const LABEL_PRESSED:String = "pressed";
 		
 		protected static const LABEL_POINTER_BEGIN:String = "begin";
-		protected static const LABEL
+		protected static const LABEL_POINTER_END:String = "end";
 		
 		public function InteractiveObject(visualObject:MovieClip, roomUtils:RoomUtils, interactionRadius:Number = STD_INTERACTION_RADIUS)
 		{
@@ -58,9 +58,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_visualInteractionPointer.x = 0;
 			_visualInteractionPointer.y = 0;
 			
-			_visualInteractionPointer.visible = true;
+			_visualInteractionPointer.stop();
+			_visualInteractionPointer.visible = false;
 			
-			//_visualInteractionPointer.gotoAndPlay("
+			FrameScriptInjector.injectFunctionToLabel(_visualInteractionPointer, LABEL_POINTER_END, unglowInteractionPointer);
 		}
 		
 		public override function update():void
@@ -219,6 +220,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function glowInteractionPointer():void
 		{
 			_visualInteractionPointer.visible = true;
+			_visualInteractionPointer.gotoAndPlay(LABEL_POINTER_BEGIN);
+		}
+		
+		public function unglowInteractionPointer():void
+		{
+			_visualInteractionPointer.visible = false;
 		}
 	}
 
