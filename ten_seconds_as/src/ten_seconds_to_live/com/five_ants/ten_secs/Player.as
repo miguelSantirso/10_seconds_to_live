@@ -142,8 +142,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			if (_newRoom != _currentRoom)
 			{
 				dispatchEvent(new PlayerEvent(PlayerEvent.CHANGED_ROOM, true));
-				
-				_currentRoom = _newRoom;
 			}
 		}
 		
@@ -167,6 +165,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public function playCinematic(id:int, loop:Boolean = false):void
 		{
+			if (_inCinematic)
+				return;
+			
 			_animationBeforeCinematic = _currentAnimation;
 			setAnimation(id);
 			_inCinematic = true;

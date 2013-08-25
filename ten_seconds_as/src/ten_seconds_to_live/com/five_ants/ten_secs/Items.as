@@ -21,8 +21,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public static const CAMERA:int = registerItem(Item_Camera, "Camera");
 
 		public static const DORM_DOOR:int = registerItem(Item_Placeholder, "x");
-		public static const BOOKSHELF:int = registerItem(Item_Placeholder, "y");
-		public static const CAR:int = registerItem(Item_Placeholder, "z");
+		public static const BOOKSHELF:int = registerItem(Item_Bookshelf, "y");
+		public static const CAR:int = registerItem(Item_Car, "z");
 		
 		public static const NONE:int = registerItem(MovieClip, "None");
 		

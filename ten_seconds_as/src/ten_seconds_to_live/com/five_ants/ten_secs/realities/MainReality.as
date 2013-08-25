@@ -70,6 +70,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 
 			object("_roomTable").addActionSuccess(new AlterKnowledge("going_to_die"));
 			
+			object("_window$30").setKnowledgeDependency("going_to_die");
+			object("_window$30").addActionNoItemNoKnowledge(new ShowPopUp(Items.NONE, "window_noI_noK"));
 			object("_window$30").addActionSuccess(new PlayerCinematic(Player.ANIM_JUMP_WINDOW), true);
 			
 			object("_gun").setKnowledgeDependency("going_to_die");
