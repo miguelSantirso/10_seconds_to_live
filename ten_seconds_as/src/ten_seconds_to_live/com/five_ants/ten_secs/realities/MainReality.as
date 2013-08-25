@@ -65,10 +65,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		{
 			_logic = logic;
 			
-			object("_roomTable").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "Piece Of Paper", "This note reads: \"A lethal poison is spreading through your body. You’ll die at 15:00. You'll never find the antidote. -A. B.\""));
+			object("_roomTable").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "Piece Of Paper", "\"There’s a lethal poison spreading in your body. You’ll die at 15:00 because you’ll never find the antidote.\" There’s only 10 seconds left!"));
 			object("_roomTable").addActionSuccess(new AlterKnowledge("going_to_die"));
 			
-			object("_window").addActionSuccess(new PlayerCinematic(Player.ANIM_JUMP_WINDOW));
+			object("_window$30").addActionSuccess(new PlayerCinematic(Player.ANIM_JUMP_WINDOW), true);
 			
 			object("_gun").setKnowledgeDependency("going_to_die");
 			object("_gun").addActionSuccess(new ShowPopUp(Items.GUN, "My Gun", "bla bla bla"));
@@ -110,6 +110,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_book").addActionSuccess(new ShowPopUp(Items.BOOK, "Book", "Aha! This book opens the entrance to the panic room"));
 			object("_book").addActionSuccess(new AddItemToInventory(Items.BOOK));
 			
+			object("_catfood").setKnowledgeDependency("catnip_attracts_cat");
+			object("_catfood").addActionSuccess(new ShowPopUp(Items.CATNIP, "Catnip", "Here’s the Catnip!"));
+			object("_catfood").addActionSuccess(new AddItemToInventory(Items.CATNIP));
+			
+			object("_camera1").addActionSuccess(new ShowPopUp(Items.CAMERA, "Camera", "Cameras! I remember now, we have a Panic Room behind the bookshelf in the living room... That will give me the answer!"));
+			object("_camera1").addActionSuccess(new AlterKnowledge("there_is_a_panic_room"));
 		}
 	}
 
