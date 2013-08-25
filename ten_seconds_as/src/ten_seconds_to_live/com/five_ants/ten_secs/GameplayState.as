@@ -104,7 +104,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				//_hud.openItemPopUp("kitty");
 				if(!_hud.dialogOpened){
 					var dialog:Dialog = new Dialog();
-					dialog.populate(new Object());
+					//dialog.populate(new Object());
 					_hud.openDialog(dialog);
 				}
 			}

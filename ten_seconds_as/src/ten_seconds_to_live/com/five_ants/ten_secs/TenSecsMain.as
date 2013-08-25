@@ -3,6 +3,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	
+	import ten_seconds_to_live.com.five_ants.ten_secs.xml.TextManager
+	
 	/**
 	 * @author Miguel Santirso
 	 */
@@ -16,6 +18,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function TenSecsMain(stage:Stage):void
 		{
 			_stage = stage;
+			
+			TextManager.get();
 		}
 		
 		public function update():void

@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<view name="iventory_items">
+	<item id="0" title="Title for item 0" caption="Text for item 0"/>
+	<item id="1" title="Title for item 1" caption="Text for item 1"/>
+	<item id="2" title="Title for item 2" caption="Text for item 2"/>
+</view>
