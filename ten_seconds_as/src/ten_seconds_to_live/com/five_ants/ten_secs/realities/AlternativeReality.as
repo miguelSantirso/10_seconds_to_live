@@ -166,6 +166,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 					entity.visualObject.visible = true;
 				}
 			}
+			
+			for each(var interactive:InteractiveObject in _interactiveObjects)
+			{
+				
+			}
 		}
 		
 		protected function updateRooms():void
