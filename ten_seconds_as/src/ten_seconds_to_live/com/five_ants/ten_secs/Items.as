@@ -9,6 +9,16 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	public class Items 
 	{
 		public static const NOTE_AND_WATCH:int = registerItem(Item_NoteAndWatch, "NoteAndWatch");
+		public static const MEDICATION:int = registerItem(Item_Placeholder, "Medication");
+		public static const GUN:int = registerItem(Item_Placeholder, "Gun");
+		public static const BOOK:int = registerItem(Item_Placeholder, "Book");
+		public static const SECRET_KEY:int = registerItem(Item_Placeholder, "SecretKey");
+		public static const CATNIP:int = registerItem(Item_Placeholder, "Catnip");
+		public static const CAT:int = registerItem(Item_Placeholder, "Cat");
+		public static const PICTURE:int = registerItem(Item_Placeholder, "Picture");
+		public static const SECRET_DOOR:int = registerItem(Item_Placeholder, "SecretDoor");
+		public static const STATUE:int = registerItem(Item_Placeholder, "Statue");
+		public static const CAMERA:int = registerItem(Item_Placeholder, "Camera");
 		
 		private static var _itemsById:Vector.<Class>;
 		private static var _itemsByName:Dictionary;
