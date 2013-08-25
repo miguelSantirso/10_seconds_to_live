@@ -11,7 +11,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.interfaces
 	 * ...
 	 * @author Miguel Santirso
 	 */
-	public interface IInteractiveEntity extends IEventDispatcher
+	public interface IInteractiveEntity extends IEventDispatcher, IDisposable
 	{
 		function getName():String;
 		
