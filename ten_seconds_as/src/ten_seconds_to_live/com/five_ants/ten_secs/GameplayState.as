@@ -66,8 +66,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud = new HUD();
 			_hud.init();
 			addChild(_hud);
-			
-			currentReality.collisions.removeCollisionBlock("door");
 		}
 		
 		public override function update():void 
