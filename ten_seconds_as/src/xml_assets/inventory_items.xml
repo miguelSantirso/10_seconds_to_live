@@ -2,12 +2,12 @@
 <view name="popup_texts">
 	<item id="note_and_watch" title="Piece Of Paper" caption="This note reads: 'A lethal poison is spreading through your body. You’ll die at 15:00. You'll never find the antidote. -A. B.'"/>
 	
-	<item id="adrenaline_pills" title="Adrenaline Pills" caption="These pills help me move a lot faster!"/>
+	<item id="adrenaline_pills" title="Adrenaline Pills" caption="After taking the paracetamol I feel a little better... I think I have more of these in the trunk of my car."/>
 	
 	<item id="gun" title="Gun" caption="I don’t know why I bought this gun... But it may be useful."/>
 	
 	<item id="car_noI_noK" title="My Car" caption="The nearest hospital is too far away"/>
-	<item id="car" title="My Car" caption="These pills help me move a lot faster!"/>
+	<item id="car" title="My Car" caption="There’s some more medication here! It’ll give me a little more time. "/>
 	
 	<item id="book_shelf_noI_noK" title="Shelf" caption="This shelf is filled with my books. All these bring too many memories to me.. But there’s one book missing."/>
 	<item id="book_shelf_noI" title="Shelf" caption="There's one book missing! Now I remember, I need that book to access the panic room!"/>
@@ -18,8 +18,8 @@
 	<item id="statue_noI_noK" title="Statue" caption="This is the statue I sent carving for our anniversary. There’s a date written on the foot. “February 16th.” Wasn’t she beautiful...?"/>
 	<item id="statue" title="Statue" caption="“February 16th.” Now I remember... The date of our anniversary was the combination to open the panic room."/>
 	
-	<item id="locked_door_noI" title="Locked Door" caption="Damn it! The door is locked, I need something to open it!"/>
-	<item id="locked_door" title="Locked Door" caption="That shot broke the lock. It's opened now"/>
+	<item id="locked_door_noI" title="Locked Door" caption="I can’t open the door, it's locked."/>
+	<item id="locked_door" title="Locked Door" caption="After shooting down the lock, the door wide opens. I didn’t remember to be as good with weapons..."/>
 		
 	<item id="book_noI_noK" title="A Book" caption="I wonder how many pages I could read before the poison kills me"/>
 	<item id="book" title="A Book" caption="I'm sure this is the book missing in the book shelf"/>
@@ -45,4 +45,6 @@
 	<item id="clock" title="Clock" caption="Time is running out." />
 	
 	<item id="kitchen_table" title="Dining Table" caption="Nothing remarkable here..." />
+	
+	<item id="video_wall" title="Security Video" caption="" />
 </view>

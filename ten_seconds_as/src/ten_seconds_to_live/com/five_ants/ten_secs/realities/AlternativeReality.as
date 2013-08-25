@@ -67,7 +67,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_player = _config.constructPlayer();
 			_player.x = 285; _player.y = 1000;
 			_camera.target = _player;
-			_player.playCinematic(Player.ANIM_WAKE_UP);
 			_player.animationComplete.addOnce(function(anim:int):void { _playerWokeUp.dispatch(); } );
 			_player.addEventListener(PlayerEvent.CHANGED_ROOM, onPlayerChangedRoom, false, 0, true);
 			_entities.push(_player);

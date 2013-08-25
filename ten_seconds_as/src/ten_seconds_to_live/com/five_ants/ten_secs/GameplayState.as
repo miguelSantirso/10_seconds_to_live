@@ -59,7 +59,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			// Set up realities, push in order to vector
 			var initialReality:AlternativeReality = new AlternativeReality(new MainReality());
-			initialReality.playerWokeUp.addOnce(function ():void { _wakingUp = false; } );
 			_realities.push(initialReality);
 			
 			for each (var reality:AlternativeReality in _realities)
@@ -76,6 +75,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud.addEventListener(HUD.TOGGLE_KNOWLEDGE_EVENT, onKnowledgeToggle, false, 0, true);
 			_hud.addEventListener(HUD.KNOWLEDGE_OPENED_EVENT, onKnowledgeOpened, false, 0, true);
 			_hud.addEventListener(HUD.KNOWLEDGE_CLOSED_EVENT, onKnowledgeClosed, false, 0, true);
+			_hud.addEventListener(HUD.WELCOME_OPENED_EVENT, onWelcomeOpened, false, 0, true);
+			_hud.addEventListener(HUD.WELCOME_CLOSED_EVENT, onWelcomeClosed, false, 0, true);
 			_hud.addEventListener(HUD.PAUSEMENU_OPENED_EVENT, onPauseMenuOpened, false, 0, true);
 			_hud.addEventListener(HUD.PAUSEMENU_CLOSED_EVENT, onPauseMenuClosed, false, 0, true);
 			_hud.addEventListener(HUDPauseMenu.RESUME_REQUEST_EVENT, onHUDResume, false, 0, true);
@@ -86,7 +87,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			/*currentReality.collisions.removeCollisionBlock("door");
 			currentReality.collisions.removeCollisionBlock("library_secret_door");*/
 			
+			update();
+			
 			Sounds.playSoundById(Sounds.GIRL_LAUGH_REVERB);
+			onKnowledgeToggle(null);
 		}
 		
 		public override function update():void 
@@ -98,8 +102,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			currentReality.update();
 			
-			/*if (!_wakingUp)
-				_gameTime.update();*/
+			if (!_wakingUp)
+				_gameTime.update();
 			
 			_hud.time = _gameTime.seconds;
 		}
@@ -117,6 +121,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud.removeEventListener(HUD.TOGGLE_KNOWLEDGE_EVENT, onKnowledgeToggle);
 			_hud.removeEventListener(HUD.KNOWLEDGE_OPENED_EVENT, onKnowledgeOpened);
 			_hud.removeEventListener(HUD.KNOWLEDGE_CLOSED_EVENT, onKnowledgeClosed);
+			_hud.removeEventListener(HUD.WELCOME_OPENED_EVENT, onWelcomeOpened);
+			_hud.removeEventListener(HUD.WELCOME_CLOSED_EVENT, onWelcomeClosed);
 			_hud.removeEventListener(HUD.PAUSEMENU_OPENED_EVENT, onPauseMenuOpened);
 			_hud.removeEventListener(HUD.PAUSEMENU_CLOSED_EVENT, onPauseMenuClosed);
 			_hud.removeEventListener(HUDPauseMenu.RESUME_REQUEST_EVENT, onHUDResume);
@@ -240,6 +246,22 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		}
 		
 		protected function onKnowledgeClosed(event:Event):void
+		{
+			if (_wakingUp)
+			{
+				currentReality.playerWokeUp.addOnce(function ():void { _wakingUp = false; } );
+				currentReality.player.playCinematic(Player.ANIM_WAKE_UP);
+			}
+			
+			paused = false;
+		}
+		
+		protected function onWelcomeOpened(event:Event):void
+		{
+			paused = true;
+		}
+		
+		protected function onWelcomeClosed(event:Event):void
 		{
 			paused = false;
 		}
