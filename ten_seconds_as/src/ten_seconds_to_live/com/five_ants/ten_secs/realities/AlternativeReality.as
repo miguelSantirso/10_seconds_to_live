@@ -32,7 +32,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		private var _camera:Camera;
 		private var _gameMap:GameMap;
 		private var _collisions:WallCollisions;
-		private var _roomUtils:RoomUtils;
+		public static var _roomUtils:RoomUtils;
 		
 		private var _sceneContainer:Sprite;
 		

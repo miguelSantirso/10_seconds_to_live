@@ -31,6 +31,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected var _actionsNoItem:Vector.<ObjectActionTuple> = new Vector.<ObjectActionTuple>();
 		protected var _actionsSuccess:Vector.<ObjectActionTuple> = new Vector.<ObjectActionTuple>();
 		
+		protected var _visualInteractionPointer:MovieClip = new InteractionPointer();
+		
 		protected static const STD_INTERACTION_RADIUS:Number = 100;
 		
 		protected static const LABEL_FAR:String = "far";
@@ -47,6 +49,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			x = _visualObject.x;
 			y = _visualObject.y;
+			
+			_visualObject.addChild(_visualInteractionPointer);
+			
+			_visualInteractionPointer.x = 0;
+			_visualInteractionPointer.y = 0;
+			
+			_visualInteractionPointer.visible = true;
 		}
 		
 		public override function update():void
@@ -180,8 +189,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 						action.repeated = true;
 					}
 				}
-				
-				//enableInteractions = false;
 			}
 		}
 		
@@ -202,6 +209,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function set enableInteractions(value:Boolean):void
 		{
 			_interactionEnabled = value;
+		}
+		
+		public function glowInteractionPointer():void
+		{
+			_visualInteractionPointer.visible = true;
 		}
 	}
 

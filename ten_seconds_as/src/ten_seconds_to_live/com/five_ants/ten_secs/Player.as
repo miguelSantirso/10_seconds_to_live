@@ -8,6 +8,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import org.osflash.signals.Signal;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.ICameraTarget;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
+	import ten_seconds_to_live.com.five_ants.ten_secs.realities.AlternativeReality;
+	import ten_seconds_to_live.com.five_ants.ten_secs.events.PlayerEvent;
 	
 	/**
 	 * ...
@@ -44,6 +46,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _animationComplete:Signal = new Signal(int);
 		private var _loopCinematic:Boolean;
 		private var _animationBeforeCinematic:int;
+		
+		private var _currentRoom:String;
 		
 		public function Player()
 		{
@@ -133,6 +137,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			{
 				
 			}*/
+			
+			var _newRoom:String = AlternativeReality._roomUtils.getRoomByPosition(x, y);
+			if (_newRoom != _currentRoom)
+			{
+				dispatchEvent(new PlayerEvent(PlayerEvent.CHANGED_ROOM, true));
+			}
 		}
 		
 		
