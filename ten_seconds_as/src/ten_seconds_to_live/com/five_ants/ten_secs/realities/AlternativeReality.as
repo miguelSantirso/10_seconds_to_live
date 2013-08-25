@@ -129,6 +129,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 						
 						trace(">> ADDED INTERACTIVE OBJECT: " + child.name);
 					}
+					else
+					{
+						_entities.push(new Entity(child));
+					}
 				}
 			}
 		}
@@ -136,7 +140,18 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		public function update():void
 		{
 			for each (var entity:Entity in _entities)
+			{
 				entity.update();
+				
+				if (entity.getMyRoom(_roomUtils) != _player.getMyRoom(_roomUtils))
+				{
+					entity.visualObject.visible = false;
+				}
+				else if (entity.visualObject)
+				{
+					entity.visualObject.visible = true;
+				}
+			}
 			
 			_gameMap.update();
 			

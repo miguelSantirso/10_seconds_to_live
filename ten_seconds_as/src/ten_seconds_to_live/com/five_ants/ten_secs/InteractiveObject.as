@@ -24,8 +24,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		protected var _interactionEnabled:Boolean = true;
 		
-		protected var _visualObject:MovieClip = new MovieClip();
-		
 		protected var _itemDependency:int = -1;
 		protected var _knowledgeDependency:String = null;
 		
@@ -41,16 +39,20 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public function InteractiveObject(visualObject:MovieClip, roomUtils:RoomUtils, interactionRadius:Number = STD_INTERACTION_RADIUS)
 		{
-			super();
+			super(visualObject);
 			
-			_visualObject = visualObject;
 			_name = visualObject.name;
 			_interactionRadius = interactionRadius;
 			_roomUtils = roomUtils;
+			
+			x = _visualObject.x;
+			y = _visualObject.y;
 		}
 		
 		public override function update():void
 		{
+			super.update();
+			
 			_roomName = _roomUtils.getRoomByPosition(_visualObject.x, _visualObject.y);
 			enableInteractions = !_gameplay.hud.popupOpened;
 		}
@@ -58,8 +60,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function checkPlayerCollision(player:Player, playerInput:IPlayerInput):void
 		{
 			var interactionEvent:InteractiveObjectEvent;
-			
-			//_interactionEnabled = true;
 			
 			if (_interactionEnabled && 
 				(_roomUtils.getRoomByPosition(player.x, player.y) == _roomUtils.getRoomByPosition(x, y)))
