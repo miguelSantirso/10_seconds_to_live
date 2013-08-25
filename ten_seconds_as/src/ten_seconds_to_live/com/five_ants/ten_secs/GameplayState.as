@@ -59,7 +59,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			// Set up realities, push in order to vector
 			var initialReality:AlternativeReality = new AlternativeReality(new MainReality());
-			initialReality.playerWokeUp.addOnce(function ():void { _wakingUp = false; } );
 			_realities.push(initialReality);
 			
 			for each (var reality:AlternativeReality in _realities)
@@ -88,7 +87,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			/*currentReality.collisions.removeCollisionBlock("door");
 			currentReality.collisions.removeCollisionBlock("library_secret_door");*/
 			
+			update();
+			
 			Sounds.playSoundById(Sounds.GIRL_LAUGH_REVERB);
+			onKnowledgeToggle(null);
 		}
 		
 		public override function update():void 
@@ -100,8 +102,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			currentReality.update();
 			
-			/*if (!_wakingUp)
-				_gameTime.update();*/
+			if (!_wakingUp)
+				_gameTime.update();
 			
 			_hud.time = _gameTime.seconds;
 		}
@@ -245,6 +247,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		protected function onKnowledgeClosed(event:Event):void
 		{
+			if (_wakingUp)
+			{
+				currentReality.playerWokeUp.addOnce(function ():void { _wakingUp = false; } );
+				currentReality.player.playCinematic(Player.ANIM_WAKE_UP);
+			}
+			
 			paused = false;
 		}
 		

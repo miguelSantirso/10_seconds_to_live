@@ -35,6 +35,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			for (var i:int = 0; i < roomShapes.numChildren; ++i)
 			{
 				roomShape = roomShapes.getChildAt(i) as Sprite;
+				
+				if (roomShape == null)
+					return;
+				
 				roomName = roomShape.name;
 				
 				if (roomName)
