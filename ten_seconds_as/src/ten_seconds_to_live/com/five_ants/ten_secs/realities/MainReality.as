@@ -65,10 +65,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_bed").setItemDependency(Items.GUN);
 			object("_bed").addActionNoItem(new ShowPopUp(Items.CAT, "hola", "hola"));
 			object("_bed").addActionNoItem(new StartSlowMotion(0.2, 5));
+			object("_bed").addActionSuccess(new ShowPopUp(Items.CAT, "camara", "camara!"));
 			object("_bed").addActionSuccess(new AddItemToInventory(Items.CAMERA));
 			
-			object("_interaction1").addActionSuccess(new AddItemToInventory(Items.GUN));
-			object("_interaction1").addActionNoItem(new ShowPopUp(Items.GUN, "pistola", "pistola regalada"));
+			object("_chair").addActionSuccess(new AddItemToInventory(Items.GUN));
+			object("_chair").addActionSuccess(new ShowPopUp(Items.FAN, "pistola", "pistola regalada"));
 			
 			/*// _interactive1
 			object("_interactive1").setItemDependency("angry bird");

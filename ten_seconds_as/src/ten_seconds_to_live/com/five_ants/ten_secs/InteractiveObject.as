@@ -126,7 +126,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			var itemVerified:Boolean = true;
 			var knowledgeVerified:Boolean = true;
 			
-			if (_itemDependency)
+			if (_itemDependency > -1)
 			{
 				itemVerified = _gameplay.hud.inventory.checkItemByID(_itemDependency);
 			}
