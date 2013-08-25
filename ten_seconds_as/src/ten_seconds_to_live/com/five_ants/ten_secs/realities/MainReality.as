@@ -15,6 +15,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.RealityLogic;
 	import ten_seconds_to_live.com.five_ants.ten_secs.RoomUtils;
 	import ten_seconds_to_live.com.five_ants.ten_secs.WallCollisions;
+	import ten_seconds_to_live.com.five_ants.ten_secs.Items;
+	
 	/**
 	 * ...
 	 * @author Miguel Santirso
@@ -47,7 +49,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		public function scriptEntities(logic:RealityLogic, gamePlay:GameplayState):void
 		{
 			logic.findEntityByName("_bed").addAction(new StartSlowMotion(0.1, 5, gamePlay));
-			logic.findEntityByName("_bed").addAction(new AddItemToInventory("NoteAndWatch", gamePlay));
+			logic.findEntityByName("_bed").addAction(new AddItemToInventory(Items.NOTE_AND_WATCH, gamePlay));
 			logic.findEntityByName("_bed").addAction(new PlayerCinematic(Player.ANIM_SHOOTING, gamePlay));
 		}
 		

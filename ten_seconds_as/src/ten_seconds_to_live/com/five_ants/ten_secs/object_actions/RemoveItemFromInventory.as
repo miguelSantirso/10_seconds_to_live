@@ -7,13 +7,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 	 */
 	public class RemoveItemFromInventory extends ObjectActionBase 
 	{
-		private var _itemToRemove:String;
+		private var _itemToRemove:int;
 		
-		public function RemoveItemFromInventory(itemName:String, gamePlay:GameplayState) 
+		public function RemoveItemFromInventory(itemToRemove:int, gamePlay:GameplayState) 
 		{
 			super(gamePlay);
 			
-			_itemToRemove = itemName;
+			_itemToRemove = itemToRemove;
 		}
 		
 		

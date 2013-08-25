@@ -7,13 +7,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 	 */
 	public class HUDInventory extends HUDComponent 
 	{
-		protected var _items:Vector.<HUDInventoryItem>;
+		protected var _items:Dictionary;
 		
 		protected const _itemGap:int = 6;
 		
 		public function HUDInventory() 
 		{
-			_items = new Vector.<HUDInventoryItem>();
+			_items = new Dictionary();
 			
 			_coreComponent = new CoreInventory();
 			
@@ -41,41 +41,25 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			return _coreComponent as CoreInventory;
 		}
 		
-		public function addItem(itemType:String):void
+		public function addItem(itemId:int):void
 		{
-			if (getItemByType(itemType))
+			if (_items[itemId])
 				return;
 			
-			var inventoryItem:HUDInventoryItem = new HUDInventoryItem(itemType);
+			var inventoryItem:HUDInventoryItem = new HUDInventoryItem(itemId);
 			
 			inventoryItem.x = _itemGap + inventoryItem.width * 0.5 + (_itemGap + inventoryItem.width * 1.5)*_items.length;
 			inventoryItem.y = _itemGap + inventoryItem.height * 0.5;
 			inventoryItem.init();
 			
 			addChild(inventoryItem);
-			
-			_items.push(inventoryItem);
+			_items[itemId] = inventoryItem;
 		}
 		
-		public function removeItem(itemType:String):void
+		public function removeItem(itemId:int):void
 		{
-			for (var i:int = 0; i < _items.length ; i++){
-				if(_items[i].type == itemType){
-					removeChild(_items[i]);
-					_items.splice(i, 1);					
-					return;
-				}
-			}
-		}
-		
-		public function getItemByType(itemType:String):HUDInventoryItem
-		{
-			for each(var item:HUDInventoryItem in _items)
-			{
-				if(item.type == itemType)
-					return item;
-			}
-			return null;
+			removeChild(_items[itemId]);
+			_items[itemId] = null;
 		}
 	}
 

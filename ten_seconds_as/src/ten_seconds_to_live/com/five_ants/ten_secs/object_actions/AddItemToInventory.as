@@ -7,19 +7,19 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 	 */
 	public class AddItemToInventory extends ObjectActionBase 
 	{
-		private var _itemName:String;
+		private var _itemId:int;
 		
-		public function AddItemToInventory(itemToAdd:String, gamePlay:GameplayState):void
+		public function AddItemToInventory(itemToAdd:int, gamePlay:GameplayState):void
 		{
 			super(gamePlay);
 			
-			_itemName = itemToAdd;
+			_itemId = itemToAdd;
 		}
 		
 		
 		public override function execute():void
 		{
-			_gameplay.hud.inventory.addItem(_itemName);
+			_gameplay.hud.inventory.addItem(_itemId);
 		}
 		
 	}
