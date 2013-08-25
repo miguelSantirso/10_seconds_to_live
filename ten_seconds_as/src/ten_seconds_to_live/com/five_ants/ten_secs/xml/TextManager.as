@@ -53,7 +53,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.xml
 		
 		protected function createKnowledgeDictionary(xmlList:XMLList):void
 		{
-			var id:int;
+			var id:String;
 			for (var i:int = 0; i <  xmlList.length(); i ++)
 			{	
 				id = xmlList[i].@id;
