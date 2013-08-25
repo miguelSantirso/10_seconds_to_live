@@ -4,7 +4,7 @@
 	
 	<item id="adrenaline_pills" title="Adrenaline Pills" caption="After taking this pills I feel crazy, they probably mixed with the poison. There are more in the trunk of my car."/>
 	
-	<item id="gun" title="Gun" caption="I never thought of using this gun again."/>
+	<item id="window_noI_noK" title="Window" caption="I can't remember opening the window" />
 	
 	<item id="car_noI_noK" title="My Car" caption="The nearest hospital is too far away"/>
 	<item id="car" title="My Car" caption="There’s some more medication here! It’ll give me a little more time. "/>
@@ -46,5 +46,5 @@
 	
 	<item id="kitchen_table" title="Dining Table" caption="Nothing remarkable here..." />
 	
-	<item id="video_wall" title="Security Video" caption="" />
+	<item id="video_wall" title="Security Video" caption="I can see it in the video! The cat has a small box attached to its collar. There’s a capsule inside it." />
 </view>

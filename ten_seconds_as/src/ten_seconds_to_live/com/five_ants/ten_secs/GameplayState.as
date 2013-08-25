@@ -19,6 +19,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IUpdateable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.realities.MainReality;
 	
+	import ten_seconds_to_live.com.five_ants.ten_secs.xml.TextManager;
+	
 	import ten_seconds_to_live.com.five_ants.ten_secs.realities.AlternativeReality;
 	
 	/**
@@ -77,6 +79,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud.addEventListener(HUD.KNOWLEDGE_CLOSED_EVENT, onKnowledgeClosed, false, 0, true);
 			_hud.addEventListener(HUD.WELCOME_OPENED_EVENT, onWelcomeOpened, false, 0, true);
 			_hud.addEventListener(HUD.WELCOME_CLOSED_EVENT, onWelcomeClosed, false, 0, true);
+			_hud.addEventListener(HUD.DIALOG_OPENED_EVENT, onDialogOpened, false, 0, true);
+			_hud.addEventListener(HUD.DIALOG_CLOSED_EVENT, onDialogClosed, false, 0, true);
 			_hud.addEventListener(HUD.PAUSEMENU_OPENED_EVENT, onPauseMenuOpened, false, 0, true);
 			_hud.addEventListener(HUD.PAUSEMENU_CLOSED_EVENT, onPauseMenuClosed, false, 0, true);
 			_hud.addEventListener(HUDPauseMenu.RESUME_REQUEST_EVENT, onHUDResume, false, 0, true);
@@ -90,7 +94,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			update();
 			
 			Sounds.playSoundById(Sounds.GIRL_LAUGH_REVERB);
-			onKnowledgeToggle(null);
+			
+			if (PlayerKnowledge.getEverythingThePlayerKnows().length == 0)
+				hud.openWelcomePopUp();
+			else
+				onKnowledgeToggle(null);
 		}
 		
 		public override function update():void 
@@ -123,6 +131,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud.removeEventListener(HUD.KNOWLEDGE_CLOSED_EVENT, onKnowledgeClosed);
 			_hud.removeEventListener(HUD.WELCOME_OPENED_EVENT, onWelcomeOpened);
 			_hud.removeEventListener(HUD.WELCOME_CLOSED_EVENT, onWelcomeClosed);
+			_hud.removeEventListener(HUD.DIALOG_OPENED_EVENT, onDialogOpened);
+			_hud.removeEventListener(HUD.DIALOG_CLOSED_EVENT, onDialogClosed);
 			_hud.removeEventListener(HUD.PAUSEMENU_OPENED_EVENT, onPauseMenuOpened);
 			_hud.removeEventListener(HUD.PAUSEMENU_CLOSED_EVENT, onPauseMenuClosed);
 			_hud.removeEventListener(HUDPauseMenu.RESUME_REQUEST_EVENT, onHUDResume);
@@ -256,6 +266,16 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			paused = false;
 		}
 		
+		private function onDialogOpened(e:Event):void 
+		{
+			paused = true;
+		}
+		
+		private function onDialogClosed(e:Event):void 
+		{
+			paused = false;
+		}
+		
 		protected function onWelcomeOpened(event:Event):void
 		{
 			paused = true;
@@ -263,8 +283,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		protected function onWelcomeClosed(event:Event):void
 		{
+			if (_wakingUp)
+			{
+				currentReality.playerWokeUp.addOnce(function ():void { _wakingUp = false; hud.openDialog(TextManager.get().getDialogById("intro_dialog")); } );
+				currentReality.player.playCinematic(Player.ANIM_WAKE_UP);
+			}
+			
 			paused = false;
 		}
+		
 		
 		protected function onPauseMenuOpened(event:Event):void
 		{
