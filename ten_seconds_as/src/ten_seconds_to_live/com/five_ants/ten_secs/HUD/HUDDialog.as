@@ -41,13 +41,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		{
 			TweenLite.killTweensOf(this,true);
 			
-			for (var i = 0; i < _hudDialogItems.length; i++) {
+			for (var i:int = 0; i < _hudDialogItems.length; i++) {
 				if (contains(_hudDialogItems[i]))
 					removeChild(_hudDialogItems[i]);
 			}
 			_hudDialogItems.splice(0, _hudDialogItems.length);
 			
-			for (var j = 0; j < _currentItems.length; j++) {
+			for (var j:int = 0; j < _currentItems.length; j++) {
 				TweenLite.killTweensOf(_currentItems[j]);
 			}
 			_currentItems.splice(0, _currentItems.length);

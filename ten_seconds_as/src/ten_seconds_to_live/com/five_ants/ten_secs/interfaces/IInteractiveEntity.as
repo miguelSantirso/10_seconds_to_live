@@ -22,10 +22,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.interfaces
 		function addActionNoItem(action:ObjectActionBase):void;
 		function addActionSuccess(action:ObjectActionBase):void;
 		
-		function addConsecuence(consecuence:ObjectActionBase):void;
-		
 		function executeAllActions():void;
-		function executeAllConsecuences(event:InventoryItemEvent = null):void;
 		
 		function set enableInteractions(value:Boolean):void;
 		

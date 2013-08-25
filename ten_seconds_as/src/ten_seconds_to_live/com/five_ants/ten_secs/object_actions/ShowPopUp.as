@@ -1,5 +1,6 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.object_actions 
 {
+	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
 	/**
 	 * ...
 	 * @author Miguel Santirso
@@ -10,17 +11,19 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 		private var _item:String;
 		private var _title:String;
 		
-		public function ShowPopUp(itemId:String, title:String, description:String) 
+		public function ShowPopUp(itemId:String, title:String, description:String, gamePlayer:GameplayState) 
 		{
+			super(gamePlayer);
+			
 			_item = itemId;
 			_title = title;
 			_description = description;
 		}
 		
 		
-		public function execute():void
+		public override function execute():void
 		{
-			_gameplay.hud.openItemPopUp(itemId, title, description);
+			_gameplay.hud.openItemPopUp(_item, _title, _description);
 		}
 		
 	}

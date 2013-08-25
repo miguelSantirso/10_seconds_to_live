@@ -31,8 +31,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected var _actionsNoItem:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
 		protected var _actionsSuccess:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
 		
-		protected var _consecuences:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
-		
 		protected static const STD_INTERACTION_RADIUS:Number = 100;
 		
 		protected static const LABEL_FAR:String = "far";
@@ -73,45 +71,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					{
 						_visualObject.gotoAndStop(LABEL_PRESSED);
 						
-						
-						
-						/*if (!_itemDependency && !_knowledgeDependency)
-						{
-							_gameplay.hud.openItemPopUp(getName() + "Success");
-							_gameplay.hud.addEventListener(HUD.POPUP_CLOSED_EVENT, executeAllConsecuences, false, 0, true);
-							
-							return;
-						}
-						
-						if (_itemDependency && _knowledgeDependency)
-						{
-							if (!_gameplay.hud.inventory.getItemByType(_itemDependency)
-							  && !PlayerKnowledge.getKnowledge(_knowledgeDependency))
-							{
-								_gameplay.hud.openItemPopUp(getName() + "_NoItemNoKnowledge");
-							}
-						}
-						
-						if (_itemDependency)
-						{
-							if (!_gameplay.hud.inventory.getItemByType(_itemDependency)
-							  && PlayerKnowledge.getKnowledge(_knowledgeDependency))
-							{
-								_gameplay.hud.openItemPopUp(getName() + "_NoItem");
-							}
-						}
-						
-						if (_itemDependency && _knowledgeDependency)
-						{
-							if (_gameplay.hud.inventory.getItemByType(_itemDependency)
-							  && PlayerKnowledge.getKnowledge(_knowledgeDependency))
-							{
-								_gameplay.hud.openItemPopUp(getName() + "Success");
-								_gameplay.hud.addEventListener(HUD.POPUP_CLOSED_EVENT, executeAllConsecuences, false, 0, true);
-							}
-						}
-						
-						executeAllActions();*/
+						executeAllActions();
 					}
 					else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);
 				}
@@ -159,17 +119,24 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_actionsSuccess.push(action);
 		}
 		
-		public function addConsecuence(consecuence:ObjectActionBase):void
-		{
-			_consecuences.push(consecuence);
-		}
-		
 		public function executeAllActions():void
 		{
 			var action:ObjectActionBase;
-
-			if (!_gameplay.hud.inventory.getItemByType(_itemDependency)
-			  && !PlayerKnowledge.getKnowledge(_knowledgeDependency))
+			
+			var itemVerified:Boolean = true;
+			var knowledgeVerified:Boolean = true;
+			
+			if (_itemDependency)
+			{
+				itemVerified = _gameplay.hud.inventory.getItemByType(_itemDependency);
+			}
+			
+			if (_knowledgeDependency)
+			{
+				knowledgeVerified = PlayerKnowledge.getKnowledge(_knowledgeDependency);
+			}
+			
+			if (!itemVerified && !knowledgeVerified)
 			{
 				for each(action in _actionsNoItemNoKnowledge)
 				{
@@ -177,8 +144,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				}
 			}
 			
-			if (!_gameplay.hud.inventory.getItemByType(_itemDependency)
-			  && PlayerKnowledge.getKnowledge(_knowledgeDependency))
+			if (!itemVerified)
 			{
 				for each(action in _actionsNoItem)
 				{
@@ -186,23 +152,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				}
 			}
 			
-			if (_gameplay.hud.inventory.getItemByType(_itemDependency)
-			  && PlayerKnowledge.getKnowledge(_knowledgeDependency))
+			if (itemVerified && knowledgeVerified)
 			{
 				for each(action in _actionsSuccess)
 				{
 					action.execute();
 				}
-			}
-		}
-		
-		public function executeAllConsecuences(event:InventoryItemEvent = null):void
-		{
-			_gameplay.hud.removeEventListener(HUD.POPUP_CLOSED_EVENT, executeAllConsecuences);
-			
-			for each(var consecuence:ObjectActionBase in _consecuences)
-			{
-				consecuence.execute();
 			}
 		}
 		

@@ -60,11 +60,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_logic = logic;
 			
 			// _bed
-			object("_bed").setItemDependency("las bambas del jose");
-			object("_bed").setKnowledgeDependency("flex");
-			object("_bed").addConsecuence(new AddItemToInventory("TRIFORCE", gamePlay));
+			object("_bed").addActionSuccess(new ShowPopUp("Gun", "gun", "gun", gamePlay));
 			
-			// _interactive1
+			/*// _interactive1
 			object("_interactive1").setItemDependency("angry bird");
 			object("_interactive1").addConsecuence(new AddItemToInventory("las bambas del jose", gamePlay));
 			object("_interactive1").addConsecuence(new AlterKnowledge("flex", gamePlay));
@@ -73,7 +71,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			//object("_interactive1").setKnowledgeDependency("flex");
 			//object("_bed").addActionNoItemNoKnowledge(new StartSlowMotion(0.1, 5, gamePlay));
-			logic.findEntityByName("_bed").addAction(new PlayerCinematic(Player.ANIM_SHOOTING, gamePlay));
+			logic.findEntityByName("_bed").addAction(new PlayerCinematic(Player.ANIM_SHOOTING, gamePlay));*/
 		}
 		
 	}
