@@ -24,7 +24,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		protected var _visualObject:MovieClip = new MovieClip();
 		
-		protected var _actions:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
+		protected var _itemDependency:int = -1;
+		protected var _knowledgeDependency:String = null;
+		
+		protected var _actionsNoItemNoKnowledge:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
+		protected var _actionsNoItem:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
+		protected var _actionsSuccess:Vector.<ObjectActionBase> = new Vector.<ObjectActionBase>();
 		
 		protected static const STD_INTERACTION_RADIUS:Number = 100;
 		
@@ -45,7 +50,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public override function update():void
 		{
 			_roomName = _roomUtils.getRoomByPosition(_visualObject.x, _visualObject.y);
-			enableInteractions = !_gameplay.hud.popupOpened;
+			enableInteractions = _interactionEnabled && !_gameplay.hud.popupOpened;
 		}
 		
 		public function checkPlayerCollision(player:Player, playerInput:IPlayerInput):void
@@ -66,8 +71,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					{
 						_visualObject.gotoAndStop(LABEL_PRESSED);
 						
-						_gameplay.hud.openItemPopUp(Items.GUN, "test", "test");
-						_gameplay.hud.addEventListener(HUD.POPUP_CLOSED_EVENT, executeAllActions, false, 0, true);
+						executeAllActions();
 					}
 					else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);
 				}
@@ -90,15 +94,73 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			return _visualObject.y;
 		}
 		
-		public function addAction(action:ObjectActionBase):void
+		public function setKnowledgeDependency(knowledge:String):void
 		{
-			_actions.push(action);
+			_knowledgeDependency = knowledge;
 		}
 		
-		public function executeAllActions(event:InventoryItemEvent = null):void
+		public function setItemDependency(item:int):void
 		{
-			for each(var action:ObjectActionBase in _actions)
-				action.execute();
+			_itemDependency = item;
+		}
+		
+		public function addActionNoItemNoKnowledge(action:ObjectActionBase):void
+		{
+			_actionsNoItemNoKnowledge.push(action);
+		}
+		
+		public function addActionNoItem(action:ObjectActionBase):void
+		{
+			_actionsNoItem.push(action);
+		}
+		
+		public function addActionSuccess(action:ObjectActionBase):void
+		{
+			_actionsSuccess.push(action);
+		}
+		
+		public function executeAllActions():void
+		{
+			var action:ObjectActionBase;
+			
+			var itemVerified:Boolean = true;
+			var knowledgeVerified:Boolean = true;
+			
+			if (_itemDependency > -1)
+			{
+				itemVerified = _gameplay.hud.inventory.checkItemByID(_itemDependency);
+			}
+			
+			if (_knowledgeDependency)
+			{
+				knowledgeVerified = PlayerKnowledge.getKnowledge(_knowledgeDependency);
+			}
+			
+			if (!itemVerified && !knowledgeVerified)
+			{
+				for each(action in _actionsNoItemNoKnowledge)
+				{
+					action.execute();
+				}
+			}
+			
+			if (!itemVerified)
+			{
+				for each(action in _actionsNoItem)
+				{
+					action.execute();
+				}
+			}
+			
+			if (itemVerified && knowledgeVerified)
+			{
+				for each(action in _actionsSuccess)
+				{
+					action.execute();
+				}
+				
+				enableInteractions = false;
+			}
 		}
 		
 		public function set showRadius(value:Boolean):void

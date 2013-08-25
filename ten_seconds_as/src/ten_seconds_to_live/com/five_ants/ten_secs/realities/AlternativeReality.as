@@ -28,7 +28,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		//private var _cat:Cat; // TEMP ALBERT
 		private var _entities:Vector.<Entity> = new Vector.<Entity>();
 		private var _interactiveObjects:Dictionary = new Dictionary();
-		private var _gameplay:GameplayState;
+		public static var _gameplay:GameplayState;
 		private var _camera:Camera;
 		private var _gameMap:GameMap;
 		private var _collisions:WallCollisions;
@@ -78,7 +78,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			initInteractiveObjects();
 			
-			_config.scriptEntities(_realityLogic, _gameplay);
+			_config.scriptEntities(_realityLogic);
 			
 			// muestra los radios de todos los objetos interactivos:
 			_realityLogic.showInteractionRadiuses = true;

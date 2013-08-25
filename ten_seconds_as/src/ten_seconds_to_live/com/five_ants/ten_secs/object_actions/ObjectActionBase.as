@@ -7,11 +7,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 	 */
 	public class ObjectActionBase
 	{
-		protected var _gameplay:GameplayState;
+		//protected var _gameplay:GameplayState;
 		
-		public function ObjectActionBase(value:GameplayState):void
+		public function ObjectActionBase():void
 		{
-			_gameplay = value;
+			//_gameplay = value;
 		}
 		
 		public function execute():void {}

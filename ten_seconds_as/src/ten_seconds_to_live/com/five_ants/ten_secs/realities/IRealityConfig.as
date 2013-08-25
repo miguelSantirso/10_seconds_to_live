@@ -17,7 +17,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		function constructPlayer():Player;
 		function constructVisualGameMap():MovieClip;
 		
-		function scriptEntities(realityLogic:RealityLogic, gamePlay:GameplayState):void;
+		function scriptEntities(realityLogic:RealityLogic):void;
 	}
 	
 }
