@@ -43,6 +43,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _interactiveObjects:Vector.<InteractiveObject> = new Vector.<InteractiveObject>();
 		
 		private var _realityLogic:RealityLogic;
+		private var _wakingUp = true;
 		
 		protected override function init():void 
 		{
@@ -56,7 +57,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_playerInput.init(_stage);
 			
 			// Set up realities, push in order to vector
-			_realities.push(new AlternativeReality(new MainReality()));
+			var initialReality:AlternativeReality = new AlternativeReality(new MainReality());
+			initialReality.playerWokeUp.addOnce(function ():void { _wakingUp = false; } );
+			_realities.push(initialReality);
 			
 			for each (var reality:AlternativeReality in _realities)
 				reality.init(this);
@@ -75,7 +78,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			currentReality.update();
 			
-			_gameTime.update();
+			if (!_wakingUp)
+				_gameTime.update();
 			
 			_hud.time = _gameTime.seconds;
 			

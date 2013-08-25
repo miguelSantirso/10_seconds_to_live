@@ -7,6 +7,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.utils.Dictionary;
 	import org.osflash.signals.Signal;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.ICameraTarget;
+	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
 	
 	/**
 	 * ...
@@ -54,6 +55,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			registerCinematic(ANIM_WAKE_UP, new MainCharacterWakesUp(), new Point(0, 0));
 			
 			setAnimation(ANIM_IDLE);
+		}
+		
+		public override function dispose():void
+		{
+			super.dispose();
+			
+			_animationComplete.removeAll();
 		}
 		
 		public override function update():void
