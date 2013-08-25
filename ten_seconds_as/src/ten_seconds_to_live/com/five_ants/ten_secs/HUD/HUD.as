@@ -6,11 +6,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.InventoryItemEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInitializable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
+	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IUpdateable;
+	
 	/**
 	 * ...
 	 * @author 10 2  Live Team
 	 */
-	public class HUD extends Sprite implements IInitializable, IDisposable
+	public class HUD extends Sprite implements IInitializable, IDisposable, IUpdateable
 	{
 		public static const TOGGLE_PAUSE_EVENT:String = "togglePauseEvent";
 		public static const TOGGLE_KNOWLEDGE_EVENT:String = "toggleKnowledgeEvent";
@@ -126,8 +128,18 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudCreditsPopUp.removeEventListener(HUDCreditsPopUp.CLOSE_REQUEST_EVENT, closeCreditsPopUp);
 			_hudCreditsPopUp.dispose();
 			_hudCreditsPopUp = null;
+			
+			_hudDialog.dispose();
+			_hudDialog = null;
 		}
 
+		public function update():void
+		{
+			if (_dialogOpened) {
+				_hudDialog.update();
+			}
+		}
+		
 		public function set slowmo(isActive:Boolean):void
 		{
 			_hudClock.slowmo = isActive;
@@ -180,6 +192,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public function get pauseMenuOpened():Boolean 
 		{
 			return _pauseMenuOpened;
+		}
+		
+		public function get dialogOpened():Boolean 
+		{
+			return _dialogOpened;
 		}
 		
 		public function openItemPopUp(itemType:String):void

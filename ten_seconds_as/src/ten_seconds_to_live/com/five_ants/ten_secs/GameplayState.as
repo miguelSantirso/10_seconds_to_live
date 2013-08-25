@@ -75,8 +75,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud.addEventListener(HUD.KNOWLEDGE_CLOSED_EVENT, onKnowledgeClosed, false, 0, true);
 			_hud.addEventListener(HUD.PAUSEMENU_OPENED_EVENT, onPauseMenuOpened, false, 0, true);
 			_hud.addEventListener(HUD.PAUSEMENU_CLOSED_EVENT, onPauseMenuClosed, false, 0, true);
-			//_hud.addEventListener(HUD.CREDITS_OPENED_EVENT, onCreditsOpened, false, 0, true);
-			//_hud.addEventListener(HUD.CREDITS_CLOSED_EVENT, onCreditsClosed, false, 0, true);
 			_hud.addEventListener(HUDPauseMenu.RESUME_REQUEST_EVENT, onHUDResume, false, 0, true);
 			_hud.addEventListener(HUDPauseMenu.CREDITS_REQUEST_EVENT, onHUDCredits, false, 0, true);
 			
@@ -103,6 +101,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			// temp
 			if(_playerInput.testPressed){
 				//_hud.openItemPopUp("kitty");
+				if(!_hud.dialogOpened){
+					var dialog:Dialog = new Dialog();
+					dialog.populate(new Object());
+					_hud.openDialog(dialog);
+				}
 			}
 		}
 		
@@ -119,8 +122,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud.removeEventListener(HUD.KNOWLEDGE_CLOSED_EVENT, onKnowledgeClosed);
 			_hud.removeEventListener(HUD.PAUSEMENU_OPENED_EVENT, onPauseMenuOpened);
 			_hud.removeEventListener(HUD.PAUSEMENU_CLOSED_EVENT, onPauseMenuClosed);
-			//_hud.removeEventListener(HUD.CREDITS_OPENED_EVENT, onCreditsOpened);
-			//_hud.removeEventListener(HUD.CREDITS_CLOSED_EVENT, onCreditsClosed);
 			_hud.removeEventListener(HUDPauseMenu.RESUME_REQUEST_EVENT, onHUDResume);
 			_hud.removeEventListener(HUDPauseMenu.CREDITS_REQUEST_EVENT, onHUDCredits);
 			_hud.dispose();

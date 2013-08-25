@@ -16,12 +16,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			super(_coreComponent);
 		}
 		
-		protected override function init():void
+		public override function init():void
 		{
 			super.init();
 		}
 		
-		protected override function dispose():void
+		public override function dispose():void
 		{
 			super.dispose();
 		}
