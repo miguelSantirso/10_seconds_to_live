@@ -1,12 +1,16 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.HUD 
 {
+	import flash.events.Event;
+	import flash.events.MouseEvent;
 	/**
 	 * ...
 	 * @author 10 2  Live Team
 	 */
 	public class HUDKnowledgeList extends HUDComponent 
 	{
-		protected var _knowledgeVector:Vector.<String>;
+		public static const CLOSE_REQUEST_EVENT:String = "closeKnowledgeListRequestEvent";
+		
+		protected var _knowledgeItems:Vector.<HUDKnowledgeItem>
 		
 		protected const _itemGap:int = 6;
 		
@@ -17,6 +21,33 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			super(_coreComponent);
 		}
 		
+		public override function init():void
+		{
+			super.init();
+			
+			coreComponent.closeButton.addEventListener(MouseEvent.CLICK, onCloseClick, false, 0, true);
+		}
+		
+		public override function dispose():void
+		{
+			disposeItems();			
+			coreComponent.closeButton.removeEventListener(MouseEvent.CLICK, onCloseClick);
+		
+			super.dispose();
+		}
+		
+		protected function disposeItems():void
+		{
+			if(_knowledgeItems){
+				for (var i:int = 0; i < _knowledgeItems.length; i++) {
+					if(contains(_knowledgeItems[i]))
+						removeChild(_knowledgeItems[i]);
+				}
+				_knowledgeItems.splice(0, _knowledgeItems.length);
+				_knowledgeItems = null;
+			}
+		}
+		
 		public function get coreComponent():CoreKnowledgeList
 		{
 			return _coreComponent as CoreKnowledgeList;
@@ -25,18 +56,19 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public function open(knowledgeVector:Vector.<String>):void
 		{
 			if (knowledgeVector) {
-				_knowledgeVector = knowledgeVector;
-				
-				var tempKnowledgeItem:CoreKnowledgeListItem;
-				
-				for (var i:int = 0; i < _knowledgeVector.length; i++) {
-					tempKnowledgeItem = new CoreKnowledgeListItem();
+				if (_knowledgeItems)
+					disposeItems();
 					
-					// set the right text
-					tempKnowledgeItem.label.text = "I know " + _knowledgeVector[i];
+				_knowledgeItems = new Vector.<HUDKnowledgeItem>();
+				
+				var tempKnowledgeItem:HUDKnowledgeItem;
+				
+				for (var i:int = 0; i < knowledgeVector.length; i++) {
+					tempKnowledgeItem = new HUDKnowledgeItem(knowledgeVector[i]);
 					tempKnowledgeItem.x = coreComponent.list_marker.x;
 					tempKnowledgeItem.y = coreComponent.list_marker.y + (tempKnowledgeItem.height + _itemGap) * i;
 					
+					_knowledgeItems.push(tempKnowledgeItem);
 					addChild(tempKnowledgeItem);
 				}				
 			}
@@ -44,9 +76,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		public function close():void
 		{
-			if(_knowledgeVector)
-				_knowledgeVector.splice(0, _knowledgeVector.length);
-			_knowledgeVector = null;
+			disposeItems();
+		}
+		
+		public function onCloseClick(event:MouseEvent):void
+		{
+			dispatchEvent(new Event(CLOSE_REQUEST_EVENT));
 		}
 	}
 

@@ -86,6 +86,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				testKnowledge.push("I just had sex.");
 				_hud.openKnowledgeList(testKnowledge);
 				//_hud.openKnowledgeList(PlayerKnowledge.getEverythingThePlayerKnows());
+				
+				_hud.openItemPopUp("kitty");
 			}
 		}
 		
@@ -144,8 +146,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			_paused = value;
 		}
-		
-		
 		
 		protected function onTimeUp(e:Event):void 
 		{
