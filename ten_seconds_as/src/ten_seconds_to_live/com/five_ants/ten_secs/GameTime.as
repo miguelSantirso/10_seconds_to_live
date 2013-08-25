@@ -24,7 +24,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected var _slowmoDefault:Number;
 		protected var _slowmoSpeed:Number;
 		
-		protected var _paused:Boolean;
+		protected var _over:Boolean;
 		
 		public function GameTime(timeDefault:Number = 10.0, slowmoRate:Number = 0.1, slowmoDefault:Number = 10.0) 
 		{
@@ -53,7 +53,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public function update():void
 		{
-			if (_paused)
+			if (_over)
 				return;
 			
 			if(_time > 0.0)
@@ -73,6 +73,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			}
 			
 			if (_time <= 0.0) {
+				_over = true;
 				_time = 0.0;
 				dispatchEvent(new Event(TIMEUP_EVENT));
 			}
@@ -104,15 +105,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			return _slowmoTime > 0.0;
 		}
 		
-		public function get paused():Boolean
-		{
-			return _paused;
-		}
-		
-		public function set paused(value:Boolean):void
-		{
-			_paused = value;
-		}
 	}
 
 }

@@ -5,6 +5,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
+	import org.osflash.signals.Signal;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.ICameraTarget;
 	
 	/**
@@ -16,13 +17,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private static const SPEED_HORIZONTAL:Number = 16;
 		private static const SPEED_VERTICAL:Number = 20;
 		
-		private static const ANIM_IDLE:int = 0;
-		private static const ANIM_WALK_UP:int = 1;
-		private static const ANIM_WALK_RIGHT:int = 2;
-		private static const ANIM_WALK_DOWN:int = 3;
-		private static const ANIM_WALK_LEFT:int = 4;
-		private static const ANIM_JUMP_WINDOW:int = 5;
-		private static const ANIM_DIE:int = 6;
+		public static const ANIM_IDLE:int = 0;
+		public static const ANIM_WALK_UP:int = 1;
+		public static const ANIM_WALK_RIGHT:int = 2;
+		public static const ANIM_WALK_DOWN:int = 3;
+		public static const ANIM_WALK_LEFT:int = 4;
+		public static const ANIM_JUMP_WINDOW:int = 5;
+		public static const ANIM_DIE:int = 6;
 		
 		private var _movement:Point = new Point();
 		
@@ -32,6 +33,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _cinematicAnimations:Vector.<int> = new Vector.<int>();
 		private var _offsetsAfterCinematics:Dictionary = new Dictionary();
 		private var _inCinematic:Boolean;
+		
+		private var _animationComplete:Signal = new Signal(int);
+		private var _loopCinematic:Boolean;
 		
 		public function Player()
 		{
@@ -120,10 +124,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_animations[_currentAnimation].gotoAndPlay(1);
 		}
 		
-		private function playCinematic(id:int):void
+		public function playCinematic(id:int, loop:Boolean = false):void
 		{
 			setAnimation(id);
 			_inCinematic = true;
+			_loopCinematic = loop;
 		}
 		
 		private function registerCinematic(id:int, mc:MovieClip, offset:Point):void
@@ -144,7 +149,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			x += offset.x;
 			y += offset.y;
 			
-			setAnimation(ANIM_IDLE);
+			_animationComplete.dispatch(_currentAnimation);
+			
+			if (!_loopCinematic)
+				setAnimation(ANIM_IDLE);
+		}
+		
+		public function get animationComplete():Signal
+		{
+			return _animationComplete;
 		}
 		
 	}

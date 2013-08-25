@@ -5,6 +5,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.events.Event;
 	import flash.text.TextField;
 	import flash.utils.Dictionary;
+	
+	import com.greensock.TweenMax;
+	
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.InteractiveObjectEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUD;
 	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUDClock;
@@ -148,7 +151,20 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		protected function onTimeUp(e:Event):void 
 		{
-			// game over
+			// Game Over
+			trace("time up");
+			currentReality.player.playCinematic(Player.ANIM_DIE, true);
+			
+			TweenMax.delayedCall(3.3, onDeathComplete);
+		}
+		private function onDeathComplete():void
+		{
+			trace("death complete");
+			TweenMax.to(this, 0.3, { "alpha": 0, onComplete: onFadeOutComplete } );
+		}
+		private function onFadeOutComplete():void
+		{
+			_main.changeState(new GameplayState());
 		}
 		
 		public function onSlowmoStart(e:Event):void
