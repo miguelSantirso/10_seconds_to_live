@@ -8,6 +8,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	public class PlayerKnowledge 
 	{
 		private static var _knownThings:Vector.<String> = new Vector.<String>();
+		private static var _interactedItems:Dictionary = new Dictionary();
+		
+		public static const ACTION_NOI_NOK:String = "noinok";
+		public static const ACTION_NO_ITEM:String = "noitem";
+		public static const ACTION_SUCCESS:String = "success";
+		
+		// -- Knowledge:
 		
 		public static function learnKnowledge(id:String):void
 		{
@@ -22,8 +29,20 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public static function getEverythingThePlayerKnows():Vector.<String>
 		{
-			return _knownThings
+			return _knownThings;
 		}
+		
+		// --- Successfully done actions:
+		public static function updateItemState(id:String, action:String):void
+		{
+			_interactedItems[id] = action;
+		}
+		
+		public static function getItemState(id:String):String
+		{
+			return _interactedItems[id];
+		}
+		
 	}
 
 }

@@ -29,6 +29,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.interfaces
 		function set showRadius(value:Boolean):void;
 		
 		function checkPlayerCollision(player:Player, playerInput:IPlayerInput):void;
+		
+		function get numActionsNoItemNoKnowledge():int;
+		function get numActionsNoItem():int;
+		function get numActionsSuccess():int;
 	}
 	
 }
