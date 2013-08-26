@@ -1,6 +1,7 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.object_actions 
 {
 	import ten_seconds_to_live.com.five_ants.ten_secs.Dialog;
+	import ten_seconds_to_live.com.five_ants.ten_secs.realities.AlternativeReality;
 	/**
 	 * ...
 	 * @author Miguel Santirso
@@ -16,7 +17,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 		
 		public override function execute():void
 		{
-			_gameplay.hud.openDialog(_dialog);
+			AlternativeReality._gameplay.hud.openDialog(_dialog);
 		}
 		
 	}
