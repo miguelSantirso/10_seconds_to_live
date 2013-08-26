@@ -30,21 +30,21 @@
 	<item id="catnip_noI_noK" title="Catnip" caption="I see a catnip can and some food leftovers."/>
 	<item id="catnip" title="Catnip" caption="I took the catnip, now the cat will let me grab it."/>
 	
-	<item id="cat_noI_noK" title="That cat" caption="Since she left the cat won't let me grab him"/>
+	<item id="cat_noI_noK" title="That cat" caption="The cat is very upsset, it looks like it won't let me grab it"/>
 	<item id="cat_noK" title="That cat" caption="I can grab the cat while it's distracted with the catnip."/>
-	<item id="cat" title="That cat" caption="I found it, the antidote! It was in it's necklace."/>
+	<item id="cat" title="That cat" caption="I found it, the antidote capsule! It was in a box attached to the cat's necklace."/>
 	
-	<item id="picture" title="Photograph" caption="The cat would only obey her."/>
+	<item id="picture" title="Photograph" caption="I remember that the used to give the cat some catnip to calm it down."/>
 	
-	<item id="security_camera" title="Security Camera" caption="That security camera...the panic room! If just remember where it is and check the recordings I might find out where the antidote is hidden."/>
+	<item id="security_camera" title="Security Camera" caption="This reminded me of the panic room I recently installed. The recordings in there might show me where she hid the antidote."/>
 	
-	<item id="fireplace" title="Fireplace" caption="I used it to warm up the place when she went away." />
+	<item id="fireplace" title="Fireplace" caption="Fire in the hole!" />
 	
 	<item id="bathtub" title="Bathtub" caption="The water is hot...I probably was about to take a bath." />
 	
-	<item id="bed" title="Bed" caption="It feels lonely here. But I'm getting used to it." />
+	<item id="bed" title="Bed" caption="I love when Al Pacino says 'en tu cama verde especial'." />
 	
-	<item id="kitchen" title="Kitchen" caption="Ok, I'll prepare something when I know I’m going to live more than just 10 seconds." />
+	<item id="kitchen" title="Kitchen" caption="Fast food would be the perfect choice right now...ba dum tss." />
 	
 	<item id="clock" title="Clock" caption="I'm running out of time." />
 	
