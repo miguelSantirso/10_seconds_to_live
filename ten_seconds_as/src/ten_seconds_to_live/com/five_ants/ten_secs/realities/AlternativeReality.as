@@ -38,7 +38,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		
 		private var _sceneContainer:Sprite;
 		
-		private var _realityLogic:RealityLogic;
+		public static var _realityLogic:RealityLogic;
 		
 		private var _playerWokeUp:OnceSignal = new OnceSignal();
 		
@@ -206,7 +206,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			{
 				if (entity.getMyRoom() != forceRoom)
 				{
-					entity.visualObject.visible = false;
+					if (entity.visualObject)
+						entity.visualObject.visible = false;
 				}
 				else if (entity.visualObject)
 				{

@@ -287,7 +287,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			removeChild(_hudItemPopUp);
 			
-			dispatchEvent(new InventoryItemEvent(event.type,POPUP_CLOSED_EVENT));
+			dispatchEvent(new InventoryItemEvent(event.type, POPUP_CLOSED_EVENT));
 		}
 		
 		public function openKnowledgeList(knowledgeVector:Vector.<String>):void

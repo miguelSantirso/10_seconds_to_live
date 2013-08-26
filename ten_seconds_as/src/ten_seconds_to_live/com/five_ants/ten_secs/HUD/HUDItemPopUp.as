@@ -41,10 +41,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		{
 			super.update();
 			
-			if (!_ePressed && GameplayState.playerInput.actionPressed) {
+			if (!_ePressed && GameplayState.playerInput.escapePressed) {
 				onClose();
 				_ePressed = true;
-			}else if (!GameplayState.playerInput.actionPressed)
+			}else if (!GameplayState.playerInput.escapePressed)
 				_ePressed = false;
 		}
 		
