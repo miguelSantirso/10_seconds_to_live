@@ -30,7 +30,7 @@
 	<item id="catnip_noI_noK" title="Catnip" caption="I see a catnip can and some food leftovers."/>
 	<item id="catnip" title="Catnip" caption="I took the catnip, now the cat will let me grab it."/>
 	
-	<item id="cat_noI_noK" title="That cat" caption="The cat is very upsset, it looks like it won't let me grab it"/>
+	<item id="cat_noI_noK" title="That cat" caption="The cat looks very upset, it looks like it won't let me grab it"/>
 	<item id="cat_noK" title="That cat" caption="I can grab the cat while it's distracted with the catnip."/>
 	<item id="cat" title="That cat" caption="I found it, the antidote capsule! It was in a box attached to the cat's necklace."/>
 	
