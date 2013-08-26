@@ -109,6 +109,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					{
 						_visualObject.gotoAndStop(LABEL_PRESSED);
 						
+						player.stopFootstepsSound();
+						
 						executeAllActions();
 					}
 					else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);

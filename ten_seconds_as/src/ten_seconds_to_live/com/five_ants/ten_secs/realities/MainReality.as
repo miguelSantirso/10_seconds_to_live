@@ -4,6 +4,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import flash.display.Sprite;
 	import flash.sensors.Accelerometer;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Camera;
+	import ten_seconds_to_live.com.five_ants.ten_secs.Dialog;
+	import ten_seconds_to_live.com.five_ants.ten_secs.DialogItem;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Entity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameMap;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
@@ -29,6 +31,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.Items;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Sounds;
 	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUD;
+	import ten_seconds_to_live.com.five_ants.ten_secs.xml.TextManager;
 	
 	/**
 	 * ...
@@ -70,7 +73,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		public function scriptEntities(logic:RealityLogic):void
 		{
 			_logic = logic;
-			
 			
 			//object("_roomTable$65").addActionSuccess(new PlayFlashbackCinematic(HUD.CINEMATIC_CAMERA_RECORDINGS));
 			
@@ -168,17 +170,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_videoWall").addActionSuccess(new AlterKnowledge("cat_has_antidote"));
 			object("_videoWall").addActionSuccess(new PlaySound(Sounds.TV_NOISE));
 			
-			object("_fireplace").addActionSuccess(new ShowPopUp(Items.NONE, "fireplace"));
-			
-			object("_bathtub$80").addActionSuccess(new ShowPopUp(Items.NONE, "bathtub"));
-			
-			object("_kitchen").addActionSuccess(new ShowPopUp(Items.NONE, "kitchen"));
-			
-			object("_clock$50").addActionSuccess(new ShowPopUp(Items.NONE, "clock"));
-			
-			object("_kitchenTable").addActionSuccess(new ShowPopUp(Items.NONE, "kitchen_table"));
-			
-			object("_chair").addActionSuccess(new ShowPopUp(Items.NONE, "library_chair"));
+			object("_fireplace").addActionSuccess(new ShowDialog(TextManager.get().getDialogById("_fireplace")));
+			object("_bathtub$80").addActionSuccess(new ShowDialog(TextManager.get().getDialogById("_bathtub$80")));
+			object("_kitchen").addActionSuccess(new ShowDialog(TextManager.get().getDialogById("_kitchen")));
+			object("_clock$50").addActionSuccess(new ShowDialog(TextManager.get().getDialogById("_clock$50")));
+			object("_kitchenTable").addActionSuccess(new ShowDialog(TextManager.get().getDialogById("_kitchenTable")));
+			object("_chair").addActionSuccess(new ShowDialog(TextManager.get().getDialogById("_chair")));
 		}
 	}
 

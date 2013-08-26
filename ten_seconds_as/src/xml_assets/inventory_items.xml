@@ -38,19 +38,7 @@
 	
 	<item id="security_camera" title="Security Camera" caption="This reminded me of the panic room I recently installed. The recordings in there might show me where she hid the antidote."/>
 	
-	<item id="fireplace" title="Fireplace" caption="Fire in the hole!" />
-	
-	<item id="bathtub" title="Bathtub" caption="The water is hot...I probably was about to take a bath." />
-	
 	<item id="bed" title="Bed" caption="I love when Al Pacino says 'en tu cama verde especial'." />
 	
-	<item id="kitchen" title="Kitchen" caption="Fast food would be the perfect choice right now...ba dum tss." />
-	
-	<item id="clock" title="Clock" caption="I'm running out of time." />
-	
-	<item id="kitchen_table" title="Dining Table" caption="Nothing remarkable here..." />
-	
 	<item id="video_wall" title="Security Video" caption="I can see it in the video! The cat has a small box attached to its collar. There's a capsule inside it." />
-	
-	<item id="library_chair" title="Confortable Chair" caption="No time to loosen up!" />
 </view>

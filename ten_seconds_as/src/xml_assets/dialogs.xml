@@ -14,4 +14,29 @@
 	<dialog id="death">
 		<line speecher="Me" text="Everything is getting dark suddenly. My time is up..." color="0xCD8141"/>
 	</dialog>
+	
+	<dialog id="_kitchenTable">
+		<line speecher="Me" text="Nothing remarkable here..." color="0xCD8141"/>
+	</dialog>
+	
+	<dialog id="_fireplace">
+		<line speecher="Me" text="Fire in the hole!" color="0xCD8141"/>
+	</dialog>
+	
+	<dialog id="_bathtub$80">
+		<line speecher="Me" text="The water is hot...I probably was about to take a bath." color="0xCD8141"/>
+	</dialog>
+	
+	<dialog id="_kitchen">
+		<line speecher="Me" text="Fast food would be the perfect choice right now...ba dum tss." color="0xCD8141"/>
+	</dialog>
+	
+	<dialog id="_clock$50">
+		<line speecher="Me" text="I'm running out of time." color="0xCD8141"/>
+	</dialog>
+	
+	<dialog id="_chair">
+		<line speecher="Me" text="No time to loosen up!" color="0xCD8141"/>
+	</dialog>
+
 </view>
