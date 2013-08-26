@@ -8,7 +8,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	public class PlayerKnowledge 
 	{
 		private static var _knownThings:Vector.<String> = new Vector.<String>();
-		private static var _interactedItems:Dictionary = new Dictionary();
+		private static var _previousActions:Dictionary = new Dictionary();
 		
 		public static const ACTION_NOI_NOK:String = "noinok";
 		public static const ACTION_NO_ITEM:String = "noitem";
@@ -32,8 +32,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			return _knownThings;
 		}
 		
-		// --- Successfully done actions:
-		public static function updateItemState(id:String, action:String):void
+		/*// --- Successfully done actions:
+		public static function updateAction(id:String, action:String):void
 		{
 			_interactedItems[id] = action;
 		}
@@ -41,7 +41,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public static function getItemState(id:String):String
 		{
 			return _interactedItems[id];
-		}
+		}*/
 		
 	}
 
