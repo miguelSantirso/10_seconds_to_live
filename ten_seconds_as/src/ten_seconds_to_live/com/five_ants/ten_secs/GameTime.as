@@ -56,8 +56,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			if (_over)
 				return;
 			
-			//if(_time > 0.0)
-			//	_time -= _timeSpeed;
+			if(_time > 0.0)
+				_time -= _timeSpeed;
 			
 			if (_slowmoTime > 0.0) {
 				if (_slowmoTime >= _slowmoDefault)
