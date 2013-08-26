@@ -132,11 +132,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_bookshelf").addActionNoItem(new AlterKnowledge("i_need_a_book"));
 			object("_bookshelf").addActionSuccess(new ShowPopUp(Items.BOOKSHELF, "book_shelf"));
 			object("_bookshelf").addActionSuccess(new PlaySound(Sounds.DOOR_IRON));
-			object("_bookshelf").addActionSuccess(new RemoveItemFromInventory(Items.BOOK));
 			object("_bookshelf").addActionSuccess(new AlterKnowledge("i_need_the_secret_code"));
 			object("_bookshelf").addActionSuccess(new RemoveInteractiveObject("_bookshelf"));
 			
 			object("_secretDoor").setKnowledgeDependency("the_secret_code_is_1234");
+			object("_secretDoor").setItemDependency(Items.BOOK);
+			object("_secretDoor").addActionSuccess(new RemoveItemFromInventory(Items.BOOK));
 			object("_secretDoor").addActionSuccess(new ShowPopUp(Items.SECRET_DOOR, "secretdoor"));
 			object("_secretDoor").addActionSuccess(new PlaySound(Sounds.DOOR_HEAVY));
 			object("_secretDoor").addActionSuccess(new ChangeCollision("library_secret_door", false));
