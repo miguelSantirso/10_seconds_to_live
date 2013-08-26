@@ -2,6 +2,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 {
 	import flash.display.MovieClip;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ObjectActionBase;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.RemoveItemFromInventory;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowDialog;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowPopUp;
 	
@@ -25,7 +26,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			if (_gameplay.hud.inventory.checkItemByID(Items.CATNIP) &&
 				PlayerKnowledge.getKnowledge("cat_has_antidote"))
 			{
-				(new ShowDialog(TextManager.get().getDialogById("final_dialog"))).execute();
+				(new ShowPopUp(Items.CAT, "cat")).execute();
+				(new RemoveItemFromInventory(Items.CATNIP)).execute();
 				_gameplay.disableTime();
 			}
 			else if (_gameplay.hud.inventory.checkItemByID(Items.CATNIP))

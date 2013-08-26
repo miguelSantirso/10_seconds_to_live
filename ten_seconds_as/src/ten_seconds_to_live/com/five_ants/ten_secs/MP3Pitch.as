@@ -36,6 +36,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 
 			_sound = new Sound();
 			_sound.addEventListener( SampleDataEvent.SAMPLE_DATA, sampleData );
+			_sound.play();
 		}
 
 		public function get rate(): Number
@@ -64,7 +65,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function play():void
 		{
 			_position = 0;
-			_sound.play();
 		}
 		
 		private function complete( event: Event ): void
@@ -130,10 +130,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				while( alpha >= 1.0 ) --alpha;
 			}
 			
-			var lastBlock:Boolean = (_position) >= 442368 - BLOCK_SIZE;
+			//var lastBlock:Boolean = (_position) >= 442368 - BLOCK_SIZE;
+			var lastBlock:Boolean = false;
 			//-- FILL REST OF STREAM WITH ZEROs
 			if( i < BLOCK_SIZE )
 			{
+				lastBlock = true;
 				while( i < BLOCK_SIZE )
 				{
  					data.writeFloat( 0.0 );

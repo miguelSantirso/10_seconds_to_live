@@ -121,8 +121,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			currentReality.update();
 			
-			//if (!_wakingUp)
-			//	_gameTime.update();
+			if (!_wakingUp)
+				_gameTime.update();
 			
 			_hud.time = _gameTime.seconds;
 		}
