@@ -6,6 +6,7 @@
 	
 	<item id="window_noI_noK" title="Window" caption="I can't remember opening the window" />
 	
+	<item id="gun_noI_noK" title="Closet" caption="Simply a closet." />
 	<item id="gun" title="Gun" caption="I don’t know why I bought this gun... But it may be useful." />
 	
 	<item id="car_noI_noK" title="My Car" caption="The nearest hospital is too far away"/>
