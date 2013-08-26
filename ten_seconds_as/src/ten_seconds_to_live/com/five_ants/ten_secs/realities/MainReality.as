@@ -4,6 +4,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import flash.display.Sprite;
 	import flash.sensors.Accelerometer;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Camera;
+	import ten_seconds_to_live.com.five_ants.ten_secs.Dialog;
+	import ten_seconds_to_live.com.five_ants.ten_secs.DialogItem;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Entity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameMap;
 	import ten_seconds_to_live.com.five_ants.ten_secs.GameplayState;
@@ -29,6 +31,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.Items;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Sounds;
 	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUD;
+	import ten_seconds_to_live.com.five_ants.ten_secs.xml.TextManager;
 	
 	/**
 	 * ...
@@ -127,11 +130,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_bookshelf").addActionNoItem(new AlterKnowledge("i_need_a_book"));
 			object("_bookshelf").addActionSuccess(new ShowPopUp(Items.BOOKSHELF, "book_shelf"));
 			object("_bookshelf").addActionSuccess(new PlaySound(Sounds.DOOR_IRON));
-			object("_bookshelf").addActionSuccess(new RemoveItemFromInventory(Items.BOOK));
 			object("_bookshelf").addActionSuccess(new AlterKnowledge("i_need_the_secret_code"));
 			object("_bookshelf").addActionSuccess(new RemoveInteractiveObject("_bookshelf"));
 			
 			object("_secretDoor").setKnowledgeDependency("the_secret_code_is_1234");
+			object("_secretDoor").setItemDependency(Items.BOOK);
+			object("_secretDoor").addActionSuccess(new RemoveItemFromInventory(Items.BOOK));
 			object("_secretDoor").addActionSuccess(new ShowPopUp(Items.SECRET_DOOR, "secretdoor"));
 			object("_secretDoor").addActionSuccess(new PlaySound(Sounds.DOOR_HEAVY));
 			object("_secretDoor").addActionSuccess(new ChangeCollision("library_secret_door", false));
@@ -165,17 +169,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_videoWall").addActionSuccess(new AlterKnowledge("cat_has_antidote"));
 			object("_videoWall").addActionSuccess(new PlaySound(Sounds.TV_NOISE));
 			
-			object("_fireplace").addActionSuccess(new ShowPopUp(Items.NONE, "fireplace"));
-			
-			object("_bathtub$80").addActionSuccess(new ShowPopUp(Items.NONE, "bathtub"));
-			
-			object("_kitchen").addActionSuccess(new ShowPopUp(Items.NONE, "kitchen"));
-			
-			object("_clock$50").addActionSuccess(new ShowPopUp(Items.NONE, "clock"));
-			
-			object("_kitchenTable").addActionSuccess(new ShowPopUp(Items.NONE, "kitchen_table"));
-			
-			object("_chair").addActionSuccess(new ShowPopUp(Items.NONE, "library_chair"));
+			object("_fireplace").addActionSuccess(new ShowDialog(TextManager.get().getDialogById("_fireplace")));
+			object("_bathtub$80").addActionSuccess(new ShowDialog(TextManager.get().getDialogById("_bathtub$80")));
+			object("_kitchen").addActionSuccess(new ShowDialog(TextManager.get().getDialogById("_kitchen")));
+			object("_clock$50").addActionSuccess(new ShowDialog(TextManager.get().getDialogById("_clock$50")));
+			object("_kitchenTable").addActionSuccess(new ShowDialog(TextManager.get().getDialogById("_kitchenTable")));
+			object("_chair").addActionSuccess(new ShowDialog(TextManager.get().getDialogById("_chair")));
 		}
 	}
 

@@ -261,6 +261,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				_hud.closeCreditsPopUp();
 				_hud.closePauseMenu();
 			}
+			
+			(_realities[_currentReality] as AlternativeReality).player.stopFootstepsSound();
 		}
 		
 		protected function onKnowledgeToggle(event:Event):void

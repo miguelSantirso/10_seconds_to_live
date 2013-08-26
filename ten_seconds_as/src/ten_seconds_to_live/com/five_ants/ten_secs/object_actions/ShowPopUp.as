@@ -7,6 +7,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUD;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Items;
 	import ten_seconds_to_live.com.five_ants.ten_secs.xml.TextManager;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlaySound;
+	import ten_seconds_to_live.com.five_ants.ten_secs.Sounds;
 	
 	/**
 	 * ...
@@ -32,12 +34,16 @@ package ten_seconds_to_live.com.five_ants.ten_secs.object_actions
 		{
 			AlternativeReality._gameplay.hud.openItemPopUp(_itemId, _itemData.title, _itemData.caption);
 			//AlternativeReality._gameplay.hud.addEventListener(HUD.POPUP_CLOSED_EVENT, onClosePopup, false, 0, true);
+			
+			//(new PlaySound(Sounds.AMBIENT_LOOP_2)).execute();
 		}
 		
-		/*private function onClosePopup(event:InventoryItemEvent):void
+		private function onClosePopup(event:InventoryItemEvent):void
 		{
-			AlternativeReality._gameplay.playerInput.enabled = true;
-		}*/
+			AlternativeReality._gameplay.hud.removeEventListener(HUD.POPUP_CLOSED_EVENT, onClosePopup);
+			
+			//(new StopSound(Sounds.AMBIENT_LOOP_2)).execute();
+		}
 		
 	}
 

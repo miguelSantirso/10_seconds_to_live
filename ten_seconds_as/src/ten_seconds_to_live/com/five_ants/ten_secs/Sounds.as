@@ -43,6 +43,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public static const PILLS:int = registerSound(Sound_Pills, "Pills");
 		public static const PILLS2:int = registerSound(Sound_Pills2, "Pills2");
 		public static const AMBIENT_LOOP:int = registerSound(Sound_AmbientLoop, "AmbientLoop");
+		public static const AMBIENT_LOOP_2:int = registerSound(Sound_AmbientLoop2, "AmbientLoop2");
 		public static const SWALLOW:int = registerSound(Sound_Swallow, "Swallow");
 		public static const TAKING_GUN:int = registerSound(Sound_TakingGun, "TakingGun");
 		public static const TAKING_THING:int = registerSound(Sound_TakingThing, "TakingThing");
@@ -59,6 +60,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		private static var _soundChannel:SoundChannel = new SoundChannel();
 		
+		private static const LOW_VOLUME:Number = 0.5;
+		private static const NORMAL_VOLUME:Number = 0.5;
+		
 		
 		public static function playSoundById(id:int, loops:int = 1):void
 		{
@@ -69,6 +73,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			if (_soundsByName[name] == null)
 				throw new Error("Sounds: Can't find sound with name " + name);
 			
+			_soundChannel = new SoundChannel();
 			_soundChannel = _soundsByName[name].play();
 		}
 		public static function stopSoundById(id:int):void

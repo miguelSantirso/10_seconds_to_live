@@ -27,30 +27,18 @@
 	<item id="book_noI_noK" title="A Book" caption="I wonder how many pages I could read before the poison kills me."/>
 	<item id="book" title="A Book" caption="I'm sure this is the book missing in the book shelf. I took it."/>
 	
-	<item id="catnip_noI_noK" title="Catnip" caption="I see a catnip can and some food leftovers."/>
-	<item id="catnip" title="Catnip" caption="I took the catnip, now the cat will let me grab it."/>
+	<item id="catnip_noI_noK" title="Olives" caption="I see a can of olives and some food leftovers."/>
+	<item id="catnip" title="Olives" caption="I took the olives, now the cat will let me grab him."/>
 	
 	<item id="cat_noI_noK" title="That cat" caption="The cat looks very upset, it looks like it won't let me grab it"/>
-	<item id="cat_noK" title="That cat" caption="I can grab the cat while it's distracted with the catnip."/>
+	<item id="cat_noK" title="That cat" caption="I can grab the cat while it's enjoying the olives."/>
 	<item id="cat" title="That cat" caption="I found it, the antidote capsule! It was in a box attached to the cat's necklace. I'M CURED BIATCH!"/>
 	
-	<item id="picture" title="Photograph" caption="I remember that she used to feed the cat some catnip to calm it down."/>
+	<item id="picture" title="Photograph" caption="I remember that she used to feed the cat some olives to calm it down."/>
 	
 	<item id="security_camera" title="Security Camera" caption="This reminded me of the panic room I recently installed. The recordings in there might show me where she hid the antidote."/>
 	
-	<item id="fireplace" title="Fireplace" caption="Fire in the hole!" />
-	
-	<item id="bathtub" title="Bathtub" caption="The water is hot...I probably was about to take a bath." />
-	
 	<item id="bed" title="Bed" caption="I love when Al Pacino says 'en tu cama verde especial'." />
 	
-	<item id="kitchen" title="Kitchen" caption="Fast food would be the perfect choice right now...ba dum tss." />
-	
-	<item id="clock" title="Clock" caption="I'm running out of time." />
-	
-	<item id="kitchen_table" title="Dining Table" caption="Nothing remarkable here..." />
-	
 	<item id="video_wall" title="Security Video" caption="I can see it in the video! The cat has a small box attached to its collar. There's a capsule inside it." />
-	
-	<item id="library_chair" title="Confortable Chair" caption="No time to loosen up!" />
 </view>

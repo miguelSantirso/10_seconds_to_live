@@ -173,7 +173,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_animations[_currentAnimation].gotoAndPlay(1);
 		}
 		
-		private function playFootstepsSound(animation:int):void
+		public function playFootstepsSound(animation:int):void
 		{
 			(_currentRoom == "garden")
 					? (new StopSound(Sounds.FOOTSTEPS_GARDEN)).execute()
@@ -186,6 +186,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					? (new PlaySound(Sounds.FOOTSTEPS_GARDEN, 0)).execute()
 					: (new PlaySound(Sounds.FOOTSTEPS_INHOUSE, 0)).execute();
 			}
+		}
+		
+		public function stopFootstepsSound():void
+		{
+			(_currentRoom == "garden")
+					? (new StopSound(Sounds.FOOTSTEPS_GARDEN)).execute()
+					: (new StopSound(Sounds.FOOTSTEPS_INHOUSE)).execute();
 		}
 		
 		public function playCinematic(id:int, loop:Boolean = false):void
