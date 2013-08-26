@@ -1,13 +1,16 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.HUD 
 {
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.utils.Dictionary;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Dialog;
+	import ten_seconds_to_live.com.five_ants.ten_secs.events.CinematicEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.InventoryItemEvent;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInitializable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IUpdateable;
-	
+	import com.greensock.TweenLite;
 	/**
 	 * ...
 	 * @author 10 2  Live Team
@@ -35,6 +38,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public static const WELCOME_OPENED_EVENT:String = "welcomeOpenedEvent";
 		public static const WELCOME_CLOSED_EVENT:String = "welcomeClosedEvent";
 		
+		public static const CINEMATIC_OPENED_EVENT:String = "cinematicOpenedEvent";
+		public static const CINEMATIC_CLOSED_EVENT:String = "cinematicClosedEvent";
+		
 		protected var _hudClock:HUDClock;
 		protected var _hudButtonPanel:HUDButtonPanel;
 		protected var _hudInventory:HUDInventory;
@@ -53,6 +59,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		protected var _creditsPopUpOpened:Boolean = false;
 		protected var _welcomePopUpOpened:Boolean = false;
 		protected var _dialogOpened:Boolean = false;
+		protected var _cinematicOpened:Boolean = false;
+		
+		// cinematics
+		protected var _currentCinematicType:String;
+		protected var _currentCinematicFunction:Function;
+		
+		protected var _cinematicsDictionary:Dictionary;
+		
+		public static const CINEMATIC_CAMERA_RECORDINGS:String = "camera_recordings";
 		
 		public function HUD() 
 		{
@@ -66,6 +81,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudWelcomePopUp = new HUDWelcomePopUp();
 			_hudDialog = new HUDDialog();
 			_slowmoOverlay = new SlowmoOverlay();
+			
+			_cinematicsDictionary = new Dictionary();
+			_cinematicsDictionary[CINEMATIC_CAMERA_RECORDINGS] = new CinematicRecording();
 			
 			_enabled = true;
 		}
@@ -180,6 +198,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			if(_dialogOpened)
 				_hudDialog.update();
 			
+			if (_cinematicOpened)
+				return;
+				
 			_hudButtonPanel.update();
 			
 			if(_popupOpened)
@@ -424,6 +445,51 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public function setClockVisibility(visible:Boolean):void 
 		{
 			_hudClock.visible = visible;
+		}
+		
+		public function launchCinematic(type:String):void
+		{
+			if (type) {
+				switch(type) {
+					case CINEMATIC_CAMERA_RECORDINGS :
+						_currentCinematicFunction = null;
+						break;
+					default :
+						break;
+				}
+				var cinematic:MovieClip = _cinematicsDictionary[type];
+				
+				//
+				if (cinematic) {
+					_currentCinematicType = type;
+					_cinematicOpened = true;
+					//FrameScriptInjector.injectFunction(cinematic,cinematic.totalFrames,onCinematicLastFrame);
+					
+					TweenLite.delayedCall(5.0, onCinematicLastFrame);
+					
+					addChildAt(cinematic, numChildren);
+					dispatchEvent(new CinematicEvent(_currentCinematicType,CINEMATIC_OPENED_EVENT));
+				}
+			}
+		}
+		
+		public function onCinematicLastFrame():void
+		{
+			var cinematic:MovieClip = _cinematicsDictionary[_currentCinematicType];
+				
+			//FrameScriptInjector.injectFunction(cinematic,cinematic.totalFrames,null);
+			
+			//if (_currentCinematicFunction)
+			//	_currentCinematicFunction();
+			
+			_cinematicOpened = false;
+			
+			removeChild(cinematic);
+			
+			dispatchEvent(new CinematicEvent(_currentCinematicType,CINEMATIC_CLOSED_EVENT));
+		
+			_currentCinematicType = null;
+			_currentCinematicFunction = null;
 		}
 	}
 

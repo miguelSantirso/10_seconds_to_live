@@ -13,6 +13,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ChangeCollision;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlayerCinematic;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlaySound;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlayFlashbackCinematic;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.RemoveInteractiveObject;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.RemoveItemFromInventory;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowClock;
@@ -27,6 +28,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.PlayerKnowledge;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Items;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Sounds;
+	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUD;
 	
 	/**
 	 * ...
@@ -68,6 +70,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		public function scriptEntities(logic:RealityLogic):void
 		{
 			_logic = logic;
+			
+			
+			//object("_roomTable$65").addActionSuccess(new PlayFlashbackCinematic(HUD.CINEMATIC_CAMERA_RECORDINGS));
 			
 			object("_roomTable$65").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "note_and_watch"));
 			object("_roomTable$65").addActionSuccess(new AlterKnowledge("going_to_die"));
@@ -157,7 +162,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_camera1").addActionSuccess(new AlterKnowledge("there_is_a_panic_room"));
 			object("_camera1").addActionSuccess(new PlaySound(Sounds.VIDEO_ONOFF));
 			
-			object("_videoWall").addActionSuccess(new ShowPopUp(Items.VIDEO_WALL, "video_wall"));
+			// CINEMATIC
+			object("_videoWall").addActionSuccess(new PlayFlashbackCinematic(HUD.CINEMATIC_CAMERA_RECORDINGS));
+			//object("_videoWall").addActionSuccess(new ShowPopUp(Items.VIDEO_WALL, "video_wall"));
 			object("_videoWall").addActionSuccess(new AlterKnowledge("cat_has_antidote"));
 			object("_videoWall").addActionSuccess(new PlaySound(Sounds.TV_NOISE));
 			

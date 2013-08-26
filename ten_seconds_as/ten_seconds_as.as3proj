@@ -58,6 +58,7 @@
     <element path="lib\sounds.swc" />
     <element path="lib\item_icons.swc" />
     <element path="lib\sort_test.swc" />
+    <element path="lib\video_camara.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
