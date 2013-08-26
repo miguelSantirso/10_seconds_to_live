@@ -70,6 +70,26 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			enableInteractions = !_gameplay.hud.popupOpened;
 		}
 		
+		public override function dispose():void
+		{
+			super.dispose();
+			
+			_roomUtils = null;
+			_itemDependency = -1;
+			_knowledgeDependency = null;
+			
+			for (var i:int = 0; i < _actionsNoItemNoKnowledge.length; i++) _actionsNoItemNoKnowledge.pop();
+			_actionsNoItemNoKnowledge = null;
+			
+			for (i = 0; i < _actionsNoItem.length; i++) _actionsNoItem.pop();
+			_actionsNoItem = null;
+			
+			for (i = 0; i < _actionsSuccess.length; i++) _actionsSuccess.pop();
+			_actionsSuccess = null;
+			 
+			_visualInteractionPointer = null;
+		}
+		
 		public function checkPlayerCollision(player:Player, playerInput:IPlayerInput):void
 		{
 			var interactionEvent:InteractiveObjectEvent;
@@ -167,7 +187,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					{
 						action.action.execute();
 						action.repeated = true;
-						unglowInteractionPointer();
+						if(!action.repeteable) unglowInteractionPointer();
 					}
 				}
 			}
@@ -180,7 +200,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					{
 						action.action.execute();
 						action.repeated = true;
-						unglowInteractionPointer();
+						if(!action.repeteable) unglowInteractionPointer();
 					}
 				}
 			}
@@ -193,7 +213,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					{
 						action.action.execute();
 						action.repeated = true;
-						unglowInteractionPointer();
+						if(!action.repeteable) unglowInteractionPointer();
 					}
 				}
 			}
@@ -229,8 +249,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public function unglowInteractionPointer():void
 		{
-			_visualInteractionPointer.visible = false;
-			_visualInteractionPointer.stop();
+			if (_visualInteractionPointer.visible)
+			{
+				_visualInteractionPointer.visible = false;
+				_visualInteractionPointer.stop();
+			}
 		}
 	}
 

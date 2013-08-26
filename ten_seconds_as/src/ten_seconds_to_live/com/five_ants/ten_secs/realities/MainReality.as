@@ -104,6 +104,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_bookshelf").setItemDependency(Items.BOOK);
 			object("_bookshelf").addActionNoItemNoKnowledge(new ShowPopUp(Items.BOOKSHELF, "book_shelf_noI_noK"));
 			object("_bookshelf").addActionNoItem(new ShowPopUp(Items.BOOKSHELF, "book_shelf_noI"));
+			object("_bookshelf").addActionNoItem(new AlterKnowledge("i_need_a_book")); // ALBERT (primero necesitas saber que falta un libro)
 			object("_bookshelf").addActionSuccess(new ShowPopUp(Items.BOOKSHELF, "book_shelf"));
 			object("_bookshelf").addActionSuccess(new RemoveItemFromInventory(Items.BOOK));
 			object("_bookshelf").addActionSuccess(new AlterKnowledge("i_need_the_secret_code"));
@@ -111,13 +112,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			object("_secretDoor").setKnowledgeDependency("the_secret_code_is_1234");
 			object("_secretDoor").addActionSuccess(new ShowPopUp(Items.SECRET_DOOR, "secretdoor"));
+			object("_secretDoor").addActionSuccess(new RemoveInteractiveObject("_bookshelf"));
 			object("_secretDoor").addActionSuccess(new ChangeCollision("library_secret_door", false));
 			object("_secretDoor").addActionSuccess(new RemoveInteractiveObject("_secretDoor"));
 			
 			object("_picture$80").addActionSuccess(new ShowPopUp(Items.PICTURE, "picture"));
 			object("_picture$80").addActionSuccess(new AlterKnowledge("catnip_attracts_cat"));
 			
-			object("_book").setKnowledgeDependency("there_is_a_panic_room");
+			object("_book").setKnowledgeDependency("i_need_a_book"); // ALBERT
 			object("_book").addActionNoItemNoKnowledge(new ShowPopUp(Items.BOOK, "book_noI_noK"));
 			object("_book").addActionSuccess(new ShowPopUp(Items.BOOK, "book"));
 			object("_book").addActionSuccess(new AddItemToInventory(Items.BOOK));
@@ -142,7 +144,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_clock$50").addActionSuccess(new ShowPopUp(Items.NONE, "clock"));
 			
 			object("_kitchenTable").addActionSuccess(new ShowPopUp(Items.NONE, "kitchen_table"));
-			
 		}
 	}
 
