@@ -71,10 +71,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		{
 			_logic = logic;
 			
-			
-			object("_roomTable$65").addActionSuccess(new PlayFlashbackCinematic(HUD.CINEMATIC_PREV_SHOOTING));
-			
-			//object("_roomTable$65").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "note_and_watch"));
+			object("_roomTable$65").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "note_and_watch"));
 			object("_roomTable$65").addActionSuccess(new AlterKnowledge("going_to_die"));
 			object("_roomTable$65").addActionSuccess(new ShowClock());
 			object("_roomTable$65").addActionSuccess(new PlaySound(Sounds.NOTE));

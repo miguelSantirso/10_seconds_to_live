@@ -65,14 +65,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		// cinematics
 		protected var _currentCinematicType:String;
-		protected var _currentCinematicFunction:Function;
 		
 		protected var _cinematicsDictionary:Dictionary;
 		
 		public static const CINEMATIC_CAMERA_RECORDINGS:String = "camera_recordings";
-		public static const CINEMATIC_PREV_SHOOTING:String = "prev_shooting";
 		public static const CINEMATIC_SHOOTING:String = "shooting";
-		public static const CINEMATIC_POST_SHOOTING:String = "post_shooting";
 		
 		public function HUD() 
 		{
@@ -460,8 +457,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 				
 				if (!cinematic)
 					return;
-				
-				_currentCinematicFunction = null;		
+					
 				_currentCinematicType = type;
 						
 				addChildAt(cinematic, numChildren);
@@ -478,26 +474,24 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 						break;
 						
 					case CINEMATIC_SHOOTING :
-						FrameScriptInjector.injectFunction(cinematic,cinematic.totalFrames,onCinematicShootingDone);
+						cinematic.gotoAndPlay(1);
 						
-						dispatchEvent(new CinematicEvent(_currentCinematicType,CINEMATIC_OPENED_EVENT));
+						FrameScriptInjector.injectFunction(cinematic,cinematic.totalFrames,onCinematicShootingDone);
 						
 						break;
 					
 					default :
 						break;
 				}
-				cinematic.gotoAndPlay(1);
+				dispatchEvent(new CinematicEvent(_currentCinematicType,CINEMATIC_OPENED_EVENT));
+						
 			}
 		}
 		
 		protected function onCinematicLastFrame():void
 		{
 			var cinematic:MovieClip = _cinematicsDictionary[_currentCinematicType];
-				
-			if (_currentCinematicFunction)
-				_currentCinematicFunction();
-			
+
 			_cinematicOpened = false;
 			
 			removeChild(cinematic);
@@ -505,16 +499,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			dispatchEvent(new CinematicEvent(_currentCinematicType,CINEMATIC_CLOSED_EVENT));
 		
 			_currentCinematicType = null;
-			_currentCinematicFunction = null;
 		}
 		
 		protected function onCinematicShootingDone():void
 		{
 			var cinematic:MovieClip = _cinematicsDictionary[_currentCinematicType];
 				
-			if (_currentCinematicFunction)
-				_currentCinematicFunction();
-			
+			FrameScriptInjector.injectFunction(cinematic,cinematic.totalFrames,null);
+						
 			_cinematicOpened = false;
 			
 			removeChild(cinematic);
@@ -522,7 +514,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			dispatchEvent(new CinematicEvent(_currentCinematicType,CINEMATIC_CLOSED_EVENT));
 		
 			_currentCinematicType = null;
-			_currentCinematicFunction = null;
 		}
 	}
 

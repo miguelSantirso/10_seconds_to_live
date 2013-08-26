@@ -59,6 +59,7 @@
     <element path="lib\item_icons.swc" />
     <element path="lib\sort_test.swc" />
     <element path="lib\video_camara.swc" />
+    <element path="lib\animacion_disparo_juntas.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

@@ -55,6 +55,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private static var _nDeaths:int = 0;
 		private var _dying:Boolean = false;
 		
+		public static var survived:Boolean = false;
+		protected var _sawHerDeath:Boolean = false;
+		
 		protected override function init():void 
 		{
 			// time
@@ -280,6 +283,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected function onItemPopUpClosed(event:Event):void
 		{
 			paused = false;
+			
+			if (survived && !_sawHerDeath){
+				_hud.launchCinematic(HUD.CINEMATIC_SHOOTING);
+			}
 		}
 		
 		protected function onKnowledgeOpened(event:Event):void
@@ -361,7 +368,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			switch(event.cinematicType) {
 				case HUD.CINEMATIC_CAMERA_RECORDINGS : 
 					(new ShowPopUp(Items.VIDEO_WALL, "video_wall")).execute();
-					//(new ShowPopUp(Items.NOTE_AND_WATCH, "note_and_watch")).execute();
+					break;
+				case HUD.CINEMATIC_SHOOTING :
+					_sawHerDeath = true;
+					paused = false;
+					break;
 				default :
 					break;
 			}

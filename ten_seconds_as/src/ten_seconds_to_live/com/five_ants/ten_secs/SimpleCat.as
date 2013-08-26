@@ -31,6 +31,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				(new PlaySound(Sounds.CAT_ANGRY)).execute();
 				(new RemoveItemFromInventory(Items.CATNIP)).execute();
 				_gameplay.disableTime();
+				
+				GameplayState.survived = true;
 			}
 			else if (_gameplay.hud.inventory.checkItemByID(Items.CATNIP))
 			{
