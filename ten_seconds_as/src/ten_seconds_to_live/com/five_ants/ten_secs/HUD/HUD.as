@@ -11,6 +11,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IUpdateable;
 	import com.greensock.TweenLite;
+	import ten_seconds_to_live.com.five_ants.ten_secs.FrameScriptInjector;
+	
 	/**
 	 * ...
 	 * @author 10 2  Live Team
@@ -68,6 +70,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		protected var _cinematicsDictionary:Dictionary;
 		
 		public static const CINEMATIC_CAMERA_RECORDINGS:String = "camera_recordings";
+		public static const CINEMATIC_PREV_SHOOTING:String = "prev_shooting";
+		public static const CINEMATIC_SHOOTING:String = "shooting";
+		public static const CINEMATIC_POST_SHOOTING:String = "post_shooting";
 		
 		public function HUD() 
 		{
@@ -84,6 +89,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			_cinematicsDictionary = new Dictionary();
 			_cinematicsDictionary[CINEMATIC_CAMERA_RECORDINGS] = new CinematicRecording();
+			_cinematicsDictionary[CINEMATIC_SHOOTING] = new CinematicShooting();
 			
 			_enabled = true;
 		}
@@ -450,37 +456,64 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public function launchCinematic(type:String):void
 		{
 			if (type) {
+				var cinematic:MovieClip = _cinematicsDictionary[type];
+				
+				if (!cinematic)
+					return;
+				
+				_currentCinematicFunction = null;		
+				_currentCinematicType = type;
+						
+				addChildAt(cinematic, numChildren);
+				
+				_cinematicOpened = true;
+				
 				switch(type) {
 					case CINEMATIC_CAMERA_RECORDINGS :
-						_currentCinematicFunction = null;
+						
+						TweenLite.delayedCall(5.0, onCinematicLastFrame);
+						
+						dispatchEvent(new CinematicEvent(_currentCinematicType,CINEMATIC_OPENED_EVENT));
+						
 						break;
+						
+					case CINEMATIC_SHOOTING :
+						FrameScriptInjector.injectFunction(cinematic,cinematic.totalFrames,onCinematicShootingDone);
+						
+						dispatchEvent(new CinematicEvent(_currentCinematicType,CINEMATIC_OPENED_EVENT));
+						
+						break;
+					
 					default :
 						break;
 				}
-				var cinematic:MovieClip = _cinematicsDictionary[type];
-				
-				//
-				if (cinematic) {
-					_currentCinematicType = type;
-					_cinematicOpened = true;
-					//FrameScriptInjector.injectFunction(cinematic,cinematic.totalFrames,onCinematicLastFrame);
-					
-					TweenLite.delayedCall(5.0, onCinematicLastFrame);
-					
-					addChildAt(cinematic, numChildren);
-					dispatchEvent(new CinematicEvent(_currentCinematicType,CINEMATIC_OPENED_EVENT));
-				}
+				cinematic.gotoAndPlay(1);
 			}
 		}
 		
-		public function onCinematicLastFrame():void
+		protected function onCinematicLastFrame():void
 		{
 			var cinematic:MovieClip = _cinematicsDictionary[_currentCinematicType];
 				
-			//FrameScriptInjector.injectFunction(cinematic,cinematic.totalFrames,null);
+			if (_currentCinematicFunction)
+				_currentCinematicFunction();
 			
-			//if (_currentCinematicFunction)
-			//	_currentCinematicFunction();
+			_cinematicOpened = false;
+			
+			removeChild(cinematic);
+			
+			dispatchEvent(new CinematicEvent(_currentCinematicType,CINEMATIC_CLOSED_EVENT));
+		
+			_currentCinematicType = null;
+			_currentCinematicFunction = null;
+		}
+		
+		protected function onCinematicShootingDone():void
+		{
+			var cinematic:MovieClip = _cinematicsDictionary[_currentCinematicType];
+				
+			if (_currentCinematicFunction)
+				_currentCinematicFunction();
 			
 			_cinematicOpened = false;
 			
