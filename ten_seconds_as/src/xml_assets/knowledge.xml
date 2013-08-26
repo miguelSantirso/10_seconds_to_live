@@ -6,5 +6,6 @@
 	<fact id="i_need_a_book" text="I must find the missing book to open the secret door."/> <!-- ALBERT -->
 	<fact id="there_is_a_panic_room" text="I must check the recordings in the panic room."/>
 	<fact id="the_secret_code_is_1234" text="The code for the panic room is 1602."/>
+	<fact id="cat_has_antidote" text="Is the antidote attached to the cat's collar?"/>
 	<fact id="catnip_attracts_cat" text="I can distract the cat with the catnip."/>
 </view>

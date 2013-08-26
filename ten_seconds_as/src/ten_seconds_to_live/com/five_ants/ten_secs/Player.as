@@ -4,10 +4,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import flash.media.ID3Info;
 	import flash.utils.Dictionary;
 	import org.osflash.signals.Signal;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.ICameraTarget;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlaySound;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.StopSound;
 	import ten_seconds_to_live.com.five_ants.ten_secs.realities.AlternativeReality;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.PlayerEvent;
 	
@@ -145,14 +148,18 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			{
 				dispatchEvent(new PlayerEvent(PlayerEvent.CHANGED_ROOM, true));
 				_currentRoom = _newRoom;
+				
+				playFootstepsSound(_currentAnimation);
 			}
 		}
 		
 		
 		private function setAnimation(newAnimation:int):void
 		{
-  			if (newAnimation == _currentAnimation)
+			if (newAnimation == _currentAnimation)
 				return;
+				
+				playFootstepsSound(newAnimation);
 			
 			if (_currentAnimation >= 0)
 			{
@@ -164,6 +171,21 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			addChild(_animations[_currentAnimation]);
 			_animations[_currentAnimation].gotoAndPlay(1);
+		}
+		
+		private function playFootstepsSound(animation:int):void
+		{
+			(_currentRoom == "garden")
+					? (new StopSound(Sounds.FOOTSTEPS_GARDEN)).execute()
+					: (new StopSound(Sounds.FOOTSTEPS_INHOUSE)).execute();
+				
+			if (animation == ANIM_WALK_DOWN || animation == ANIM_WALK_UP ||
+				animation == ANIM_WALK_LEFT || animation == ANIM_WALK_RIGHT)
+			{
+				(_currentRoom == "garden")
+					? (new PlaySound(Sounds.FOOTSTEPS_GARDEN, 0)).execute()
+					: (new PlaySound(Sounds.FOOTSTEPS_INHOUSE, 0)).execute();
+			}
 		}
 		
 		public function playCinematic(id:int, loop:Boolean = false):void
