@@ -38,8 +38,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			{
 				roomShape = roomShapes.getChildAt(i) as Sprite;
 				
-				if (roomShape == null)
-					return;
+				if (roomShape.name == "ignore")
+					continue;
 				
 				roomName = roomShape.name;
 				
@@ -58,7 +58,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			var roomNames:Vector.<String> = new Vector.<String>();
 			
 			for (var i:int = 0; i < _roomVisuals.numChildren; i++)
-				roomNames.push(_roomVisuals.getChildAt(i).name);
+				if (_roomVisuals.getChildAt(i).name != "ignore")
+					roomNames.push(_roomVisuals.getChildAt(i).name);
 			
 			return roomNames;
 		}

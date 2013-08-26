@@ -36,6 +36,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _realities:Vector.<AlternativeReality> = new Vector.<AlternativeReality>();
 		private var _currentReality:int = -1;
 		
+		
+		private static var _ambientSound:MP3Pitch = new MP3Pitch(new Sound_AmbientLoop());
 		protected var _hud:HUD;
 		
 		private var _paused:Boolean = false;
@@ -95,8 +97,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			visible = false;
 			TweenMax.delayedCall(0.05, shitshitshit);
-			
-			Sounds.playSoundById(Sounds.GIRL_LAUGH_REVERB);
 			
 			hud.setClockVisibility(false);
 			
@@ -196,6 +196,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function set paused(value:Boolean):void 
 		{
 			_paused = value;
+			_ambientSound.pause = value;
 		}
 		
 		protected function onTimeUp(e:Event):void 
@@ -219,6 +220,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function onSlowmoStart(e:Event):void
 		{
 			_hud.slowmo = true;
+			TweenMax.to(_ambientSound, 2, { rate: 0.5 } );
 		}
 		
 		public function onSlowmoEnd(e:Event):void
@@ -226,6 +228,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud.slowmo = false;
 			
 			_hud.closeKnowledgeList();
+			TweenMax.to(_ambientSound, 2, { rate: 1 } );
 		}
 		
 		protected function onPauseToggle(event:Event):void
@@ -313,6 +316,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_wakingUp = false;
 			if (PlayerKnowledge.getKnowledge("going_to_die"))
 				hud.setClockVisibility(true);
+			
+			_ambientSound.play();
 			
 			if (_nDeaths == 0)
 				hud.openDialog(TextManager.get().getDialogById("intro_dialog"));

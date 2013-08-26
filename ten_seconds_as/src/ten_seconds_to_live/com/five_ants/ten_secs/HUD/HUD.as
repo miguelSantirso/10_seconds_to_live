@@ -44,6 +44,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		protected var _hudCreditsPopUp:HUDCreditsPopUp;
 		protected var _hudWelcomePopUp:HUDWelcomePopUp;
 		protected var _hudDialog:HUDDialog;
+		protected var _slowmoOverlay:SlowmoOverlay;
 		
 		protected var _enabled:Boolean;
 		protected var _popupOpened:Boolean = false;
@@ -64,6 +65,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudCreditsPopUp = new HUDCreditsPopUp();
 			_hudWelcomePopUp = new HUDWelcomePopUp();
 			_hudDialog = new HUDDialog();
+			_slowmoOverlay = new SlowmoOverlay();
 			
 			_enabled = true;
 		}
@@ -112,6 +114,34 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		public function dispose():void
 		{
+			
+			if(contains(_hudClock))
+				removeChild(_hudClock);
+				
+			if(contains(_hudButtonPanel))
+				removeChild(_hudButtonPanel);
+			
+			if(contains(_hudInventory))
+				removeChild(_hudInventory);
+			
+			if(contains(_hudItemPopUp))
+				removeChild(_hudItemPopUp);
+			
+			if(contains(_hudKnowledgeList))
+				removeChild(_hudKnowledgeList);
+			
+			if(contains(_hudPauseMenu))
+				removeChild(_hudPauseMenu);
+			
+			if(contains(_hudCreditsPopUp))
+				removeChild(_hudCreditsPopUp);
+			
+			if(contains(_hudDialog))
+				removeChild(_hudDialog);
+			
+			if(contains(_slowmoOverlay))
+				removeChild(_slowmoOverlay);
+				
 			_hudClock.dispose();
 			_hudClock = null;
 
@@ -167,6 +197,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public function set slowmo(isActive:Boolean):void
 		{
 			_hudClock.slowmo = isActive;
+			
+			if (isActive)
+				addChildAt(_slowmoOverlay, 0);
+			else
+				if(contains(_slowmoOverlay))
+					removeChild(_slowmoOverlay);
 		}
 		
 		public function set time(seconds:String):void
