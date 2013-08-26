@@ -66,9 +66,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		{
 			_logic = logic;
 			
-			object("_roomTable").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "note_and_watch"));
-
-			object("_roomTable").addActionSuccess(new AlterKnowledge("going_to_die"));
+			object("_roomTable$65").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "note_and_watch"));
+			object("_roomTable$65").addActionSuccess(new AlterKnowledge("going_to_die"));
 			
 			object("_window$30").setKnowledgeDependency("going_to_die");
 			object("_window$30").addActionNoItemNoKnowledge(new ShowPopUp(Items.NONE, "window_noI_noK"));
@@ -125,6 +124,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_book").addActionSuccess(new AddItemToInventory(Items.BOOK));
 			
 			object("_catfood").setKnowledgeDependency("catnip_attracts_cat");
+			object("_catfood").addActionNoItemNoKnowledge(new ShowPopUp(Items.CATNIP, "catnip_noI_noK")); // ALBERT
 			object("_catfood").addActionSuccess(new ShowPopUp(Items.CATNIP, "catnip"));
 			object("_catfood").addActionSuccess(new AddItemToInventory(Items.CATNIP));
 			
