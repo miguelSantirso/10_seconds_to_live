@@ -184,7 +184,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				for each(action in _actionsNoItemNoKnowledge)
 				{
 					if (action.repeteable || (!action.repeteable && !action.repeated))
-					{
+					{ 
 						action.action.execute();
 						action.repeated = true;
 					}
@@ -234,6 +234,21 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function set enableInteractions(value:Boolean):void
 		{
 			_interactionEnabled = value;
+		}
+		
+		public function get numActionsNoItemNoKnowledge():int
+		{
+			return _actionsNoItemNoKnowledge.length;
+		}
+		
+		public function get numActionsNoItem():int
+		{
+			return _actionsNoItem.length;
+		}
+		
+		public function get numActionsSuccess():int
+		{
+			return _actionsSuccess.length;
 		}
 		
 		public override function glowInteractionPointer():void

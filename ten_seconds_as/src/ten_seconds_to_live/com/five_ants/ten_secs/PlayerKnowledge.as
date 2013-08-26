@@ -22,7 +22,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public static function getEverythingThePlayerKnows():Vector.<String>
 		{
-			return _knownThings
+			return _knownThings;
 		}
 	}
 

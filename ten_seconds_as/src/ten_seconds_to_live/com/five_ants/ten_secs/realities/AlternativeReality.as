@@ -194,8 +194,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		
 		public function setUpRoom(forceRoom:String = null):void
 		{
+			var forced:Boolean = true;
+			
 			if (forceRoom == null)
+			{
 				forceRoom = _player.getMyRoom();
+				forced = false;
+			}
 			
 			for each (var entity:Entity in _entities)
 			{
@@ -207,7 +212,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 				else if (entity.visualObject)
 				{
 					entity.visualObject.visible = true;
-					if (_firstUpdate)
+					//if (_firstUpdate)s
 					{
 						entity.glowInteractionPointer();
 					}
