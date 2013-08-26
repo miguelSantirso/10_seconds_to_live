@@ -57,7 +57,7 @@
 	
 	<dialog id="_statue">
 		<line speecher="Me" text="An statue of her. There's a date carved on the base: 'February 16th.'" color="0xCD8141"/>
-		<line speecher="Me" text="She beautiful, isn't she...?" color="0xCD8141"/>
+		<line speecher="Me" text="She's beautiful, isn't she...?" color="0xCD8141"/>
 	</dialog>
 	
 	<dialog id="_bookshelf">

@@ -10,6 +10,8 @@
 	
 	<item id="book_shelf" title="Secret passage" caption="The panic room door is visible now but I don't remember the secret code, it must be written somewhere!"/>
 	
+	<item id="book_shelf_nI" title="Secret passage" caption="I remember now! The panic room door is behind this bookshelf, I need the missing book to open it!"/>
+	
 	<item id="secretdoor" title="Panic room door" caption="The code I entered opened the panic room door." />
 	
 	<item id="statue" title="Statue" caption="'February 16th'...0216...That's the number I'm looking for, the secret code for entering the panic room!"/>

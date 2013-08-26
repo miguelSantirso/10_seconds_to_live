@@ -150,7 +150,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				return;
 			else if (lastBlock)
 			{
-				trace("*** " + _position);
 				_position = 0;
 			}
 			else
