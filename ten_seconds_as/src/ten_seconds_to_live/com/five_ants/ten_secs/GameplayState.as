@@ -93,7 +93,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			/*currentReality.collisions.removeCollisionBlock("door");
 			currentReality.collisions.removeCollisionBlock("library_secret_door");*/
 			
-			update();
+			visible = false;
+			TweenMax.delayedCall(0.05, shitshitshit);
 			
 			Sounds.playSoundById(Sounds.GIRL_LAUGH_REVERB);
 			
@@ -103,6 +104,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				hud.openWelcomePopUp();
 			else
 				onKnowledgeToggle(null);
+		}
+		
+		public function shitshitshit():void
+		{
+			visible = true;
+			currentReality.update();
 		}
 		
 		public override function update():void 
