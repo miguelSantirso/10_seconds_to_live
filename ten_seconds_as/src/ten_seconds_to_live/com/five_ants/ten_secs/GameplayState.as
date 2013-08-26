@@ -234,6 +234,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function disableTime():void 
 		{
 			_gameTime.stopForever();
+			onSlowmoEnd(null);
 			hud.setClockVisibility(false);
 		}
 		
