@@ -50,4 +50,6 @@
 	<item id="kitchen_table" title="Dining Table" caption="Nothing remarkable here..." />
 	
 	<item id="video_wall" title="Security Video" caption="I can see it in the video! The cat has a small box attached to its collar. There’s a capsule inside it." />
+	
+	<item id="library_chair" title="Confortable Chair" caption="No time to loosen up!" />
 </view>

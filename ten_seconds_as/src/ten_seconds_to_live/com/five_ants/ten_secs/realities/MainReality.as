@@ -94,16 +94,16 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_statue").addActionSuccess(new ShowPopUp(Items.STATUE, "statue"));
 			object("_statue").addActionSuccess(new AlterKnowledge("the_secret_code_is_1234"));
 			
-			object("_pills").setKnowledgeDependency("going_to_die");
-			object("_pills").addActionSuccess(new ShowPopUp(Items.MEDICATION, "adrenaline_pills"));
-			object("_pills").addActionSuccess(new AlterKnowledge("there_are_pills_in_car"));
-			object("_pills").addActionSuccess(new StartSlowMotion(0.2, 10));
+			object("_pills$65").setKnowledgeDependency("going_to_die");
+			object("_pills$65").addActionSuccess(new ShowPopUp(Items.MEDICATION, "adrenaline_pills"));
+			object("_pills$65").addActionSuccess(new AlterKnowledge("there_are_pills_in_car"));
+			object("_pills$65").addActionSuccess(new StartSlowMotion(0.2, 10));
 			
 			object("_bookshelf").setKnowledgeDependency("there_is_a_panic_room");
 			object("_bookshelf").setItemDependency(Items.BOOK);
 			object("_bookshelf").addActionNoItemNoKnowledge(new ShowPopUp(Items.BOOKSHELF, "book_shelf_noI_noK"));
 			object("_bookshelf").addActionNoItem(new ShowPopUp(Items.BOOKSHELF, "book_shelf_noI"));
-			object("_bookshelf").addActionNoItem(new AlterKnowledge("i_need_a_book")); // ALBERT (primero necesitas saber que falta un libro)
+			object("_bookshelf").addActionNoItem(new AlterKnowledge("i_need_a_book"));
 			object("_bookshelf").addActionSuccess(new ShowPopUp(Items.BOOKSHELF, "book_shelf"));
 			object("_bookshelf").addActionSuccess(new RemoveItemFromInventory(Items.BOOK));
 			object("_bookshelf").addActionSuccess(new AlterKnowledge("i_need_the_secret_code"));
@@ -118,13 +118,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_picture$80").addActionSuccess(new ShowPopUp(Items.PICTURE, "picture"));
 			object("_picture$80").addActionSuccess(new AlterKnowledge("catnip_attracts_cat"));
 			
-			object("_book").setKnowledgeDependency("i_need_a_book"); // ALBERT
+			object("_book").setKnowledgeDependency("i_need_a_book");
 			object("_book").addActionNoItemNoKnowledge(new ShowPopUp(Items.BOOK, "book_noI_noK"));
 			object("_book").addActionSuccess(new ShowPopUp(Items.BOOK, "book"));
 			object("_book").addActionSuccess(new AddItemToInventory(Items.BOOK));
 			
 			object("_catfood").setKnowledgeDependency("catnip_attracts_cat");
-			object("_catfood").addActionNoItemNoKnowledge(new ShowPopUp(Items.CATNIP, "catnip_noI_noK")); // ALBERT
+			object("_catfood").addActionNoItemNoKnowledge(new ShowPopUp(Items.CATNIP, "catnip_noI_noK"));
 			object("_catfood").addActionSuccess(new ShowPopUp(Items.CATNIP, "catnip"));
 			object("_catfood").addActionSuccess(new AddItemToInventory(Items.CATNIP));
 			
@@ -135,7 +135,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			object("_fireplace").addActionSuccess(new ShowPopUp(Items.NONE, "fireplace"));
 			
-			object("_bathtub").addActionSuccess(new ShowPopUp(Items.NONE, "bathtub"));
+			object("_bathtub$80").addActionSuccess(new ShowPopUp(Items.NONE, "bathtub"));
 			
 			object("_bed").addActionSuccess(new ShowPopUp(Items.NONE, "bed"));
 			
@@ -144,6 +144,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_clock$50").addActionSuccess(new ShowPopUp(Items.NONE, "clock"));
 			
 			object("_kitchenTable").addActionSuccess(new ShowPopUp(Items.NONE, "kitchen_table"));
+			
+			object("_chair").addActionSuccess(new ShowPopUp(Items.NONE, "library_chair"));
 		}
 	}
 
