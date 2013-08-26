@@ -119,7 +119,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			object("_secretDoor").setKnowledgeDependency("the_secret_code_is_1234");
 			object("_secretDoor").addActionSuccess(new ShowPopUp(Items.SECRET_DOOR, "secretdoor"));
-			object("_secretDoor").addActionSuccess(new RemoveInteractiveObject("_bookshelf"));
 			object("_secretDoor").addActionSuccess(new ChangeCollision("library_secret_door", false));
 			object("_secretDoor").addActionSuccess(new RemoveInteractiveObject("_secretDoor"));
 			

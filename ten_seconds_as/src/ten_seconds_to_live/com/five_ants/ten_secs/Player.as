@@ -133,7 +133,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			}
 			else if (_movement.x != 0 && _movement.y == 0)
 				setAnimation(_movement.x > 0 ? ANIM_WALK_RIGHT : ANIM_WALK_LEFT);
-			else if (_movement.y != 0 && _movement.x == 0)
+			else if (_movement.y != 0/* && _movement.x == 0*/)
 				setAnimation(_movement.y > 0 ? ANIM_WALK_DOWN : ANIM_WALK_UP);
 			/*else // x and y != 0 
 			{
