@@ -15,6 +15,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.Player;
 	import ten_seconds_to_live.com.five_ants.ten_secs.RealityLogic;
 	import ten_seconds_to_live.com.five_ants.ten_secs.RoomUtils;
+	import ten_seconds_to_live.com.five_ants.ten_secs.SimpleCat;
 	import ten_seconds_to_live.com.five_ants.ten_secs.WallCollisions;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.InteractiveObjectEvent;
 	/**
@@ -113,17 +114,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 				{
 					if (child.name.charAt(0) == "_")
 					{
-						if (child.name.indexOf("$") >= 0)
+						if (child.name == "_cat")
 						{
-							if (child.name.substr(child.name.indexOf("$") + 1) == "cat")
-							{
-								interactiveObject = new Cat(child, _roomUtils) as InteractiveObject;
-							}
-							else
-							{
-								forcedRadius = int(child.name.substr(child.name.indexOf("$") + 1));
-								interactiveObject = new InteractiveObject(child, _roomUtils, forcedRadius);
-							}
+							interactiveObject = new SimpleCat(child, _roomUtils);
+						}
+						else if (child.name.indexOf("$") >= 0)
+						{
+							forcedRadius = int(child.name.substr(child.name.indexOf("$") + 1));
+							interactiveObject = new InteractiveObject(child, _roomUtils, forcedRadius);
 						}
 						else interactiveObject = new InteractiveObject(child, _roomUtils);
 						

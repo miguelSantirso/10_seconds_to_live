@@ -95,6 +95,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			dispatchEvent(new Event(SLOWMO_START_EVENT));
 		}
 		
+		public function stopForever():void 
+		{
+			_over = true;
+		}
+		
 		public function get seconds():String
 		{
 			return _time.toPrecision(2);
