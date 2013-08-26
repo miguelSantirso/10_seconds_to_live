@@ -43,7 +43,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			return new _itemsByName[name]() as MovieClip;
 		}
 		
-		
 		private static function registerItem(mcClass:Class, name:String):int
 		{
 			if (!_itemsByName) _itemsByName = new Dictionary();

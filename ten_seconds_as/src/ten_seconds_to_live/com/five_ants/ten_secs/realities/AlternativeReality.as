@@ -206,16 +206,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			{
 				if (entity.getMyRoom() != forceRoom)
 				{
-					if (entity.visualObject)
-						entity.visualObject.visible = false;
+					entity.visualObject.visible = false;
 				}
 				else if (entity.visualObject)
 				{
 					entity.visualObject.visible = true;
-					//if (_firstUpdate)s
-					{
-						entity.glowInteractionPointer();
-					}
+					entity.glowInteractionPointer();
 				}
 			}
 			

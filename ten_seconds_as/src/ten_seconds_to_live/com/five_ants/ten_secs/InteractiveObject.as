@@ -92,28 +92,33 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public function checkPlayerCollision(player:Player, playerInput:IPlayerInput):void
 		{
-			var interactionEvent:InteractiveObjectEvent;
-			
-			if (_interactionEnabled && 
-				(_roomUtils.getRoomByPosition(player.x, player.y) == _roomUtils.getRoomByPosition(x, y)))
-			{
-				var p1:Point = new Point(player.x, player.y);
-				var p2:Point = new Point(x, y);
-				
-				var distance:Number = Math.sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
-				
-				if (distance <= _interactionRadius)
-				{	
-					if (playerInput.actionPressed)
-					{
-						_visualObject.gotoAndStop(LABEL_PRESSED);
-						
-						executeAllActions();
+			//if (!PlayerKnowledge.getSuccessfulItem(this._name))
+			//{
+				if (_interactionEnabled && 
+					(_roomUtils.getRoomByPosition(player.x, player.y) == _roomUtils.getRoomByPosition(x, y)))
+				{
+					var p1:Point = new Point(player.x, player.y);
+					var p2:Point = new Point(x, y);
+					
+					var distance:Number = Math.sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+					
+					if (distance <= _interactionRadius)
+					{	
+						if (playerInput.actionPressed)
+						{
+							_visualObject.gotoAndStop(LABEL_PRESSED);
+							
+							executeAllActions();
+						}
+						else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);
 					}
-					else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);
+					else if (_visualObject.currentLabel != LABEL_FAR) _visualObject.gotoAndStop(LABEL_FAR);
 				}
-				else if (_visualObject.currentLabel != LABEL_FAR) _visualObject.gotoAndStop(LABEL_FAR);
-			}
+			/*}
+			else
+			{
+				unglowInteractionPointer();
+			}*/
 		}
 		
 		public function getName():String
@@ -179,30 +184,58 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				knowledgeVerified = PlayerKnowledge.getKnowledge(_knowledgeDependency);
 			}
 			
+			switch(PlayerKnowledge.getItemState(_name))
+			{
+				case PlayerKnowledge.ACTION_NOI_NOK:
+					executeNINK(action, itemVerified, knowledgeVerified);
+					break;
+					
+				case PlayerKnowledge.ACTION_NO_ITEM:
+					executeNoItem(action, itemVerified, knowledgeVerified);
+					break;
+					
+				case PlayerKnowledge.ACTION_SUCCESS:
+					executeSuccess(action, itemVerified, knowledgeVerified);
+					break;
+			}
+		}
+		
+		private function executeNINK(action:ObjectActionTuple, itemVerified:Boolean, knowledgeVerified:Boolean):void
+		{
 			if ((!itemVerified && !knowledgeVerified) || (!knowledgeVerified && itemVerified))
 			{
 				for each(action in _actionsNoItemNoKnowledge)
 				{
 					if (action.repeteable || (!action.repeteable && !action.repeated))
 					{ 
-						action.action.execute();
+						if(action.repeteable) action.action.execute();
 						action.repeated = true;
+						
+						PlayerKnowledge.updateItemState(_name, PlayerKnowledge.ACTION_NOI_NOK);
 					}
 				}
 			}
-			
+		}
+		
+		private function executeNoItem(action:ObjectActionTuple, itemVerified:Boolean, knowledgeVerified:Boolean):void
+		{
 			if (!itemVerified && knowledgeVerified)
 			{
 				for each(action in _actionsNoItem)
 				{
 					if (action.repeteable || (!action.repeteable && !action.repeated))
 					{
-						action.action.execute();
+						if(action.repeteable) action.action.execute();
 						action.repeated = true;
+						
+						PlayerKnowledge.updateItemState(_name, PlayerKnowledge.ACTION_NO_ITEM);
 					}
 				}
 			}
-			
+		}
+		
+		private function executeSuccess(action:ObjectActionTuple, itemVerified:Boolean, knowledgeVerified:Boolean):void
+		{
 			if (itemVerified && knowledgeVerified)
 			{
 				for each(action in _actionsSuccess)
@@ -211,7 +244,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 					{
 						action.action.execute();
 						action.repeated = true;
-						if(!action.repeteable) unglowInteractionPointer();
+						if (!action.repeteable) unglowInteractionPointer();
+						
+						PlayerKnowledge.updateItemState(_name, PlayerKnowledge.ACTION_SUCCESS);
 					}
 				}
 			}

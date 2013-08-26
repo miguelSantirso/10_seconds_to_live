@@ -78,14 +78,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_gun").setKnowledgeDependency("going_to_die");
 			object("_gun").addActionNoItemNoKnowledge(new ShowPopUp(Items.NONE, "gun_noI_noK"));
 			object("_gun").addActionSuccess(new ShowPopUp(Items.GUN, "gun"));
-			object("_gun").addActionSuccess(new AddItemToInventory(Items.GUN));
+			object("_gun").addActionSuccess(new AddItemToInventory(Items.GUN), true);
 			
 			object("_door").setItemDependency(Items.GUN);
 			object("_door").addActionNoItem(new ShowPopUp(Items.DORM_DOOR, "locked_door_noI"));
-			object("_door").addActionSuccess(new ShowPopUp(Items.DORM_DOOR, "locked_door"));
-			object("_door").addActionSuccess(new ChangeCollision("door", false));
-			object("_door").addActionSuccess(new RemoveItemFromInventory(Items.GUN));
-			object("_door").addActionSuccess(new RemoveInteractiveObject("_door"));
+			object("_door").addActionSuccess(new ShowPopUp(Items.DORM_DOOR, "locked_door"), true);
+			object("_door").addActionSuccess(new ChangeCollision("door", false), true);
+			object("_door").addActionSuccess(new RemoveItemFromInventory(Items.GUN), true);
+			object("_door").addActionSuccess(new RemoveInteractiveObject("_door"), true);
 			
 			object("_car").setKnowledgeDependency("there_are_pills_in_car");
 			object("_car").addActionNoItemNoKnowledge(new ShowPopUp(Items.CAR, "car_noI_noK"));
