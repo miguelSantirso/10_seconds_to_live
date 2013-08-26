@@ -10,7 +10,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInitializable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IUpdateable;
-	import ten_seconds_to_live.com.five_ants.ten_secs.FrameScriptInjector;
+	import com.greensock.TweenLite;
 	/**
 	 * ...
 	 * @author 10 2  Live Team
@@ -463,7 +463,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 				if (cinematic) {
 					_currentCinematicType = type;
 					_cinematicOpened = true;
-					FrameScriptInjector.injectFunction(cinematic,cinematic.totalFrames,onCinematicLastFrame);
+					//FrameScriptInjector.injectFunction(cinematic,cinematic.totalFrames,onCinematicLastFrame);
+					
+					TweenLite.delayedCall(5.0, onCinematicLastFrame);
+					
 					addChildAt(cinematic, numChildren);
 					dispatchEvent(new CinematicEvent(_currentCinematicType,CINEMATIC_OPENED_EVENT));
 				}
@@ -474,7 +477,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		{
 			var cinematic:MovieClip = _cinematicsDictionary[_currentCinematicType];
 				
-			FrameScriptInjector.injectFunction(cinematic,cinematic.totalFrames,null);
+			//FrameScriptInjector.injectFunction(cinematic,cinematic.totalFrames,null);
 			
 			//if (_currentCinematicFunction)
 			//	_currentCinematicFunction();

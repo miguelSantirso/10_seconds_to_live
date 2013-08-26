@@ -357,12 +357,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			switch(event.cinematicType) {
 				case HUD.CINEMATIC_CAMERA_RECORDINGS : 
-					(new ShowPopUp(Items.NOTE_AND_WATCH, "note_and_watch")).execute();
+					(new ShowPopUp(Items.VIDEO_WALL, "video_wall")).execute();
+					//(new ShowPopUp(Items.NOTE_AND_WATCH, "note_and_watch")).execute();
 				default :
 					break;
 			}
 			
-			paused = false;
+			//paused = false;
 		}
 		
 		protected function onHUDResume(event:Event):void

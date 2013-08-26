@@ -138,7 +138,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_camera1").addActionSuccess(new ShowPopUp(Items.CAMERA, "security_camera"));
 			object("_camera1").addActionSuccess(new AlterKnowledge("there_is_a_panic_room"));
 			
-			object("_videoWall").addActionSuccess(new ShowPopUp(Items.VIDEO_WALL, "video_wall"));
+			// CINEMATIC
+			object("_videoWall").addActionSuccess(new PlayFlashbackCinematic(HUD.CINEMATIC_CAMERA_RECORDINGS));
+			//object("_videoWall").addActionSuccess(new ShowPopUp(Items.VIDEO_WALL, "video_wall"));
 			object("_videoWall").addActionSuccess(new AlterKnowledge("cat_has_antidote"));
 			
 			object("_fireplace").addActionSuccess(new ShowPopUp(Items.NONE, "fireplace"));
