@@ -84,7 +84,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			_config.scriptEntities(_realityLogic);
 			
 			// muestra los radios de todos los objetos interactivos:
-			_realityLogic.showInteractionRadiuses = true;
+			_realityLogic.showInteractionRadiuses = false;
 			_realityLogic.enableAllInteractions = true;
 			
 			for each (var entity:Entity in _entities)

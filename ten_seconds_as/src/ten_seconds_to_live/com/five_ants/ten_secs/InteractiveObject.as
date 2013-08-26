@@ -184,10 +184,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			{
 				for each(action in _actionsNoItemNoKnowledge)
 				{
-					if (action.repeteable || (!action.repeteable && !action.repeated))
+					//if (action.repeteable || (!action.repeteable && !action.repeated))
 					{ 
 						action.action.execute();
-						action.repeated = true;
+						//action.repeated = true;
 					}
 				}
 			}
@@ -196,10 +196,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			{
 				for each(action in _actionsNoItem)
 				{
-					if (action.repeteable || (!action.repeteable && !action.repeated))
+					//if (action.repeteable || (!action.repeteable && !action.repeated))
 					{
 						action.action.execute();
-						action.repeated = true;
+						//action.repeated = true;
 					}
 				}
 			}
