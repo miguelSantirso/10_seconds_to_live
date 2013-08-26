@@ -139,7 +139,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_fireplace").addActionSuccess(new ShowPopUp(Items.NONE, "fireplace"));
 			
 			object("_bathtub$80").addActionSuccess(new ShowPopUp(Items.NONE, "bathtub"));
-			
+
 			object("_bed").addActionSuccess(new ShowPopUp(Items.NONE, "bed"));
 			
 			object("_kitchen").addActionSuccess(new ShowPopUp(Items.NONE, "kitchen"));
