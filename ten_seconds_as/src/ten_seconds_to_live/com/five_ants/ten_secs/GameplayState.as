@@ -97,6 +97,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			Sounds.playSoundById(Sounds.GIRL_LAUGH_REVERB);
 			
+			hud.setClockVisibility(false);
+			
 			if (PlayerKnowledge.getEverythingThePlayerKnows().length == 0)
 				hud.openWelcomePopUp();
 			else
@@ -302,6 +304,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private function onPlayerWakeUp():void
 		{
 			_wakingUp = false;
+			if (PlayerKnowledge.getKnowledge("going_to_die"))
+				hud.setClockVisibility(true);
+			
 			if (_nDeaths == 0)
 				hud.openDialog(TextManager.get().getDialogById("intro_dialog"));
 			else if (_nDeaths == 1)

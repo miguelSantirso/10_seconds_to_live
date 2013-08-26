@@ -14,6 +14,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlayerCinematic;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.RemoveInteractiveObject;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.RemoveItemFromInventory;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowClock;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowDialog;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowPopUp;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.StartSlowMotion;
@@ -68,6 +69,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			object("_roomTable$65").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "note_and_watch"));
 			object("_roomTable$65").addActionSuccess(new AlterKnowledge("going_to_die"));
+			object("_roomTable$65").addActionSuccess(new ShowClock());
 			
 			object("_window$30").setKnowledgeDependency("going_to_die");
 			object("_window$30").addActionNoItemNoKnowledge(new ShowPopUp(Items.NONE, "window_noI_noK"));

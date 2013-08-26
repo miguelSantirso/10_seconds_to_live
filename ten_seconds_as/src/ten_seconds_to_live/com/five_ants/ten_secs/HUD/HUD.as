@@ -384,6 +384,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		{
 			dispatchEvent(event);
 		}
+		
+		public function setClockVisibility(visible:Boolean):void 
+		{
+			_hudClock.visible = visible;
+		}
 	}
 
 }
