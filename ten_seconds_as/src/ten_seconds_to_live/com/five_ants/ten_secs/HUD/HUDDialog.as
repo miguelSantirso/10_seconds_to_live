@@ -36,7 +36,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			super.init();
 			
 			coreComponent.continueLabel.visible = false;
-			coreComponent.skipLabel.visible = false;
+			//coreComponent.skipLabel.visible = false;
 			coreComponent.endLabel.visible = false;
 		}
 		
@@ -104,7 +104,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 					_hudDialogItems.push(tempHUDDialogItem);
 				}
 				
-				coreComponent.skipLabel.visible = true;
+				//coreComponent.skipLabel.visible = true;
 				
 				// start dialogs
 				_textMoving = true;
@@ -121,8 +121,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			if (_hudDialogItems.length > 0) {
 				coreComponent.continueLabel.visible = false;
-				if (_hudDialogItems.length <= 1)
-					coreComponent.skipLabel.visible = false;
+				//if (_hudDialogItems.length <= 1)
+				//	coreComponent.skipLabel.visible = false;
 				_textMoving = true;
 				
 				if (_currentItem && contains(_currentItem))
