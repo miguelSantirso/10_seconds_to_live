@@ -49,9 +49,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			return _keysState[39] || _keysState[68];
 		}
 		
-		public function get ePressed():Boolean
+		public function get actionPressed():Boolean
 		{
-			return _keysState[69] || _keysState[13];
+			return _keysState[69] || _keysState[13];// || _keysState[32];
 		}
 		
 		public function get spacebarPressed():Boolean

@@ -66,9 +66,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		{
 			_logic = logic;
 			
-			object("_roomTable").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "note_and_watch"));
-
-			object("_roomTable").addActionSuccess(new AlterKnowledge("going_to_die"));
+			object("_roomTable$65").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "note_and_watch"));
+			object("_roomTable$65").addActionSuccess(new AlterKnowledge("going_to_die"));
 			
 			object("_window$30").setKnowledgeDependency("going_to_die");
 			object("_window$30").addActionNoItemNoKnowledge(new ShowPopUp(Items.NONE, "window_noI_noK"));
@@ -88,22 +87,23 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_car").setKnowledgeDependency("there_are_pills_in_car");
 			object("_car").addActionNoItemNoKnowledge(new ShowPopUp(Items.CAR, "car_noI_noK"));
 			object("_car").addActionSuccess(new ShowPopUp(Items.CAR, "car"));
-			object("_car").addActionSuccess(new StartSlowMotion(0.05, 10));
+			object("_car").addActionSuccess(new StartSlowMotion(0.01, 12));
 			
 			object("_statue").setKnowledgeDependency("i_need_the_secret_code");
 			object("_statue").addActionNoItemNoKnowledge(new ShowPopUp(Items.STATUE, "statue_noI_noK"));
 			object("_statue").addActionSuccess(new ShowPopUp(Items.STATUE, "statue"));
 			object("_statue").addActionSuccess(new AlterKnowledge("the_secret_code_is_1234"));
 			
-			object("_pills").setKnowledgeDependency("going_to_die");
-			object("_pills").addActionSuccess(new ShowPopUp(Items.MEDICATION, "adrenaline_pills"));
-			object("_pills").addActionSuccess(new AlterKnowledge("there_are_pills_in_car"));
-			object("_pills").addActionSuccess(new StartSlowMotion(0.05, 10));
+			object("_pills$65").setKnowledgeDependency("going_to_die");
+			object("_pills$65").addActionSuccess(new ShowPopUp(Items.MEDICATION, "adrenaline_pills"));
+			object("_pills$65").addActionSuccess(new AlterKnowledge("there_are_pills_in_car"));
+			object("_pills$65").addActionSuccess(new StartSlowMotion(0.01, 12));
 			
 			object("_bookshelf").setKnowledgeDependency("there_is_a_panic_room");
 			object("_bookshelf").setItemDependency(Items.BOOK);
 			object("_bookshelf").addActionNoItemNoKnowledge(new ShowPopUp(Items.BOOKSHELF, "book_shelf_noI_noK"));
 			object("_bookshelf").addActionNoItem(new ShowPopUp(Items.BOOKSHELF, "book_shelf_noI"));
+			object("_bookshelf").addActionNoItem(new AlterKnowledge("i_need_a_book"));
 			object("_bookshelf").addActionSuccess(new ShowPopUp(Items.BOOKSHELF, "book_shelf"));
 			object("_bookshelf").addActionSuccess(new RemoveItemFromInventory(Items.BOOK));
 			object("_bookshelf").addActionSuccess(new AlterKnowledge("i_need_the_secret_code"));
@@ -111,18 +111,20 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			object("_secretDoor").setKnowledgeDependency("the_secret_code_is_1234");
 			object("_secretDoor").addActionSuccess(new ShowPopUp(Items.SECRET_DOOR, "secretdoor"));
+			object("_secretDoor").addActionSuccess(new RemoveInteractiveObject("_bookshelf"));
 			object("_secretDoor").addActionSuccess(new ChangeCollision("library_secret_door", false));
 			object("_secretDoor").addActionSuccess(new RemoveInteractiveObject("_secretDoor"));
 			
 			object("_picture$80").addActionSuccess(new ShowPopUp(Items.PICTURE, "picture"));
 			object("_picture$80").addActionSuccess(new AlterKnowledge("catnip_attracts_cat"));
 			
-			object("_book").setKnowledgeDependency("there_is_a_panic_room");
+			object("_book").setKnowledgeDependency("i_need_a_book");
 			object("_book").addActionNoItemNoKnowledge(new ShowPopUp(Items.BOOK, "book_noI_noK"));
 			object("_book").addActionSuccess(new ShowPopUp(Items.BOOK, "book"));
 			object("_book").addActionSuccess(new AddItemToInventory(Items.BOOK));
 			
 			object("_catfood").setKnowledgeDependency("catnip_attracts_cat");
+			object("_catfood").addActionNoItemNoKnowledge(new ShowPopUp(Items.CATNIP, "catnip_noI_noK"));
 			object("_catfood").addActionSuccess(new ShowPopUp(Items.CATNIP, "catnip"));
 			object("_catfood").addActionSuccess(new AddItemToInventory(Items.CATNIP));
 			
@@ -133,7 +135,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			object("_fireplace").addActionSuccess(new ShowPopUp(Items.NONE, "fireplace"));
 			
-			object("_bathtub").addActionSuccess(new ShowPopUp(Items.NONE, "bathtub"));
+			object("_bathtub$80").addActionSuccess(new ShowPopUp(Items.NONE, "bathtub"));
 			
 			object("_bed").addActionSuccess(new ShowPopUp(Items.NONE, "bed"));
 			
@@ -143,6 +145,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			object("_kitchenTable").addActionSuccess(new ShowPopUp(Items.NONE, "kitchen_table"));
 			
+			object("_chair").addActionSuccess(new ShowPopUp(Items.NONE, "library_chair"));
 		}
 	}
 

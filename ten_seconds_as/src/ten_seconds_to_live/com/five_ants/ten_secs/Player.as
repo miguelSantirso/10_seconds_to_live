@@ -196,6 +196,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			if (!_loopCinematic)
 				setAnimation(_animationBeforeCinematic);
+			else
+				_animations[_currentAnimation].stop();
 		}
 		
 		public function get animationComplete():Signal

@@ -26,7 +26,8 @@
 	<item id="book_noI_noK" title="A Book" caption="I wonder how many pages I could read before the poison kills me"/>
 	<item id="book" title="A Book" caption="I'm sure this is the book missing in the book shelf"/>
 	
-	<item id="catnip" title="Catnip" caption="Here’s the Catnip!"/>
+	<item id="catnip_noI_noK" title="Catnip" caption="A catnip can and some cooked meal..."/>
+	<item id="catnip" title="Catnip" caption="Here’s the catnip!"/>
 	
 	<item id="cat_noI_noK" title="That cat" caption=""/>
 	<item id="cat_noK" title="That cat" caption=""/>
@@ -49,4 +50,6 @@
 	<item id="kitchen_table" title="Dining Table" caption="Nothing remarkable here..." />
 	
 	<item id="video_wall" title="Security Video" caption="I can see it in the video! The cat has a small box attached to its collar. There’s a capsule inside it." />
+	
+	<item id="library_chair" title="Confortable Chair" caption="No time to loosen up!" />
 </view>

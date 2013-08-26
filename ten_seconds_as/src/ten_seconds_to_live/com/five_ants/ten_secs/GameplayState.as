@@ -47,6 +47,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		private var _realityLogic:RealityLogic;
 		private var _wakingUp:Boolean = true;
+		private static var _nDeaths:int = 0;
+		private var _dying:Boolean = false;
 		
 		protected override function init():void 
 		{
@@ -118,6 +120,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public override function dispose():void 
 		{
+			_nDeaths++;
+			
 			_playerInput.dispose();
 			
 			for each (var reality:AlternativeReality in _realities)
@@ -195,8 +199,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		}
 		private function onDeathComplete():void
 		{
-			trace("death complete");
-			TweenMax.to(this, 0.3, { "alpha": 0, onComplete: onFadeOutComplete } );
+			hud.openDialog(TextManager.get().getDialogById("death"));
+			_dying = true;
 		}
 		private function onFadeOutComplete():void
 		{
@@ -259,7 +263,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			if (_wakingUp)
 			{
-				currentReality.playerWokeUp.addOnce(function ():void { _wakingUp = false; } );
+				currentReality.playerWokeUp.addOnce(onPlayerWakeUp);
 				currentReality.player.playCinematic(Player.ANIM_WAKE_UP);
 			}
 			
@@ -274,6 +278,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private function onDialogClosed(e:Event):void 
 		{
 			paused = false;
+			if (_dying)
+				TweenMax.to(this, 0.3, { "alpha": 0, onComplete: onFadeOutComplete } );
 		}
 		
 		protected function onWelcomeOpened(event:Event):void
@@ -285,11 +291,21 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			if (_wakingUp)
 			{
-				currentReality.playerWokeUp.addOnce(function ():void { _wakingUp = false; hud.openDialog(TextManager.get().getDialogById("intro_dialog")); } );
+				currentReality.playerWokeUp.addOnce(onPlayerWakeUp);
 				currentReality.player.playCinematic(Player.ANIM_WAKE_UP);
 			}
 			
 			paused = false;
+		}
+		
+		
+		private function onPlayerWakeUp():void
+		{
+			_wakingUp = false;
+			if (_nDeaths == 0)
+				hud.openDialog(TextManager.get().getDialogById("intro_dialog"));
+			else if (_nDeaths == 1)
+				hud.openDialog(TextManager.get().getDialogById("intro_dialog_2"));
 		}
 		
 		
