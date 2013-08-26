@@ -2,7 +2,7 @@
 <view name="popup_texts">
 	<item id="note_and_watch" title="Piece Of Paper" caption="This note reads: 'A lethal poison is spreading through your body. You’ll die at 15:00. The antidote is here but it's unreachable.' Signed: A. B."/>
 	
-	<item id="adrenaline_pills" title="Slowmo pills" caption="I ate the pills and the effect was immediate. I move so fast. There are more in the trunk of my car."/>
+	<item id="adrenaline_pills" title="Slowmo pills" caption="I ate the pills and the effect was immediate. I move really fast. I recall having more in the trunk of my car."/>
 	
 	<item id="window_noI_noK" title="Window" caption="This window is always closed and I don't remember opening it up." />
 	
