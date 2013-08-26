@@ -8,6 +8,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import org.osflash.signals.Signal;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.ICameraTarget;
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IDisposable;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlaySound;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.StopSound;
 	import ten_seconds_to_live.com.five_ants.ten_secs.realities.AlternativeReality;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.PlayerEvent;
 	
@@ -151,8 +153,16 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		private function setAnimation(newAnimation:int):void
 		{
-  			if (newAnimation == _currentAnimation)
+			if (newAnimation == _currentAnimation)
 				return;
+			
+			(new StopSound(Sounds.FOOTSTEPS_INHOUSE)).execute();
+				
+			if (newAnimation == ANIM_WALK_DOWN || newAnimation == ANIM_WALK_UP ||
+				newAnimation == ANIM_WALK_LEFT || newAnimation == ANIM_WALK_RIGHT)
+			{
+				(new PlaySound(Sounds.FOOTSTEPS_INHOUSE, 0)).execute();
+			}
 			
 			if (_currentAnimation >= 0)
 			{

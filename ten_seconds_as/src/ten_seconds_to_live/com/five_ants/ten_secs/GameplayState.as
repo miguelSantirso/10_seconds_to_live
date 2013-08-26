@@ -5,6 +5,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.events.Event;
 	import flash.text.TextField;
 	import flash.utils.Dictionary;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlaySound;
 	
 	import com.greensock.TweenMax;
 	
@@ -204,6 +205,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			// Game Over
 			trace("time up");
 			currentReality.player.playCinematic(Player.ANIM_DIE, true);
+			
+			(new PlaySound(Sounds.DYING)).execute();
 			
 			TweenMax.delayedCall(3.3, onDeathComplete);
 		}

@@ -1,6 +1,7 @@
 package ten_seconds_to_live.com.five_ants.ten_secs 
 {
 	import flash.media.Sound;
+	import flash.media.SoundChannel;
 	import flash.utils.Dictionary;
 	import flash.utils.getDefinitionByName;
 	/**
@@ -56,17 +57,23 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private static var _soundsById:Vector.<Sound>;
 		private static var _soundsByName:Dictionary;
 		
+		private static var _soundChannel:SoundChannel = new SoundChannel();
 		
-		public static function playSoundById(id:int):void
+		
+		public static function playSoundById(id:int, loops:int = 1):void
 		{
-			_soundsById[id].play();
+			_soundChannel = _soundsById[id].play(0, loops);
 		}
 		public static function playSoundByName(name:String):void
 		{
 			if (_soundsByName[name] == null)
 				throw new Error("Sounds: Can't find sound with name " + name);
 			
-			_soundsByName[name].play();
+			_soundChannel = _soundsByName[name].play();
+		}
+		public static function stopSoundById(id:int):void
+		{
+			_soundChannel.stop();
 		}
 		
 		private static function registerSound(soundClass:Class, name:String):int

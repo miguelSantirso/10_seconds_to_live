@@ -151,6 +151,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_catfood").addActionNoItemNoKnowledge(new PlaySound(Sounds.TIN_CAN));
 			object("_catfood").addActionSuccess(new ShowPopUp(Items.CATNIP, "catnip"));
 			object("_catfood").addActionSuccess(new PlaySound(Sounds.TIN_CAN));
+			object("_catfood").addActionSuccess(new AddItemToInventory(Items.CATNIP));
 			
 			object("_camera1").addActionSuccess(new ShowPopUp(Items.CAMERA, "security_camera"));
 			object("_camera1").addActionSuccess(new AlterKnowledge("there_is_a_panic_room"));
