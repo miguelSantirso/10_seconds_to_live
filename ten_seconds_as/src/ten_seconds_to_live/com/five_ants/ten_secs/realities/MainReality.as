@@ -76,6 +76,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_window$30").addActionSuccess(new PlayerCinematic(Player.ANIM_JUMP_WINDOW), true);
 			
 			object("_gun").setKnowledgeDependency("going_to_die");
+			object("_gun").addActionNoItemNoKnowledge(new ShowPopUp(Items.NONE, "gun_noI_noK"));
 			object("_gun").addActionSuccess(new ShowPopUp(Items.GUN, "gun"));
 			object("_gun").addActionSuccess(new AddItemToInventory(Items.GUN));
 			
