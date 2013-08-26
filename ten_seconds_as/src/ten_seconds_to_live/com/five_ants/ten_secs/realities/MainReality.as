@@ -88,7 +88,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_car").setKnowledgeDependency("there_are_pills_in_car");
 			object("_car").addActionNoItemNoKnowledge(new ShowPopUp(Items.CAR, "car_noI_noK"));
 			object("_car").addActionSuccess(new ShowPopUp(Items.CAR, "car"));
-			object("_car").addActionSuccess(new StartSlowMotion(0.2, 10));
+			object("_car").addActionSuccess(new StartSlowMotion(0.05, 10));
 			
 			object("_statue").setKnowledgeDependency("i_need_the_secret_code");
 			object("_statue").addActionNoItemNoKnowledge(new ShowPopUp(Items.STATUE, "statue_noI_noK"));
@@ -98,7 +98,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_pills").setKnowledgeDependency("going_to_die");
 			object("_pills").addActionSuccess(new ShowPopUp(Items.MEDICATION, "adrenaline_pills"));
 			object("_pills").addActionSuccess(new AlterKnowledge("there_are_pills_in_car"));
-			object("_pills").addActionSuccess(new StartSlowMotion(0.2, 10));
+			object("_pills").addActionSuccess(new StartSlowMotion(0.05, 10));
 			
 			object("_bookshelf").setKnowledgeDependency("there_is_a_panic_room");
 			object("_bookshelf").setItemDependency(Items.BOOK);
