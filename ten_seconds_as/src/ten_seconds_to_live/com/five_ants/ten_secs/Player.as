@@ -11,6 +11,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import ten_seconds_to_live.com.five_ants.ten_secs.realities.AlternativeReality;
 	import ten_seconds_to_live.com.five_ants.ten_secs.events.PlayerEvent;
 	
+		import com.greensock.TweenMax;
+		
 	/**
 	 * ...
 	 * @author Miguel Santirso
@@ -47,7 +49,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _loopCinematic:Boolean;
 		private var _animationBeforeCinematic:int;
 		
-		private var _currentRoom:String;
+		private var _currentRoom:String = "room";
 		
 		public function Player()
 		{
@@ -167,6 +169,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			if (_inCinematic)
 				return;
+			
+			if (id == ANIM_JUMP_WINDOW)
+			{
+				_gameplay.currentReality.setUpRoom("garden");
+			}
+			//	TweenMax.to(this, 1, { y: y - 45 } );
 			
 			_animationBeforeCinematic = _currentAnimation;
 			setAnimation(id);

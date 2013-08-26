@@ -147,14 +147,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			{
 				entity.update();
 			}
-
+			
 			_gameMap.update();
 			
 			_camera.update();
 			
 			_realityLogic.update(_player, _gameplay.playerInput);
-			
-			if (_firstUpdate) setUpRoom();
 			
 			if (_firstUpdate) setUpRoom("room");
 		}
@@ -194,13 +192,17 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			setUpRoom();
 		}
 		
-		private function setUpRoom(forceRoom:String = null):void
+		public function setUpRoom(forceRoom:String = null):void
 		{
+			if (forceRoom == null)
+				forceRoom = _player.getMyRoom();
+			
 			for each (var entity:Entity in _entities)
 			{
-				if (entity.getMyRoom() != _player.getMyRoom())
+				if (entity.getMyRoom() != forceRoom)
 				{
-					entity.visualObject.visible = false;
+					if (entity.visualObject)
+						entity.visualObject.visible = false;
 				}
 				else if (entity.visualObject)
 				{
@@ -214,11 +216,13 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			for each(var roomName:String in _roomUtils.allRoomNames)
 			{
-				if(roomName != (forceRoom ? forceRoom : _player.getMyRoom()))
+				if(roomName != forceRoom)
 					_roomUtils.hideRoom(roomName);
 				else
 					_roomUtils.showRoom(roomName);
 			}
+			
+			_firstUpdate = false;
 		}
 		
 		public function get roomUtils():RoomUtils 
