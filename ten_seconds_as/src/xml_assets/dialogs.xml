@@ -1,22 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
 <view name="dialogs">
 	<dialog id="intro_dialog">
-		<line speecher="Me" text="What did just happen...?" color="0xffffff"/>
-		<line speecher="Me" text="I feel a terrible headache... How did I end up this way?" color="0xffffff"/>
+		<line speecher="Me" text="What's going on...?" color="0xCD8141"/>
+		<line speecher="Me" text="I feel a terrible headache... How did I end up this way?" color="0xCD8141"/>
+		<line speecher="Me" text="My memory is fuzzy, however, I remember her clearly." color="0xCD8141"/>
 	</dialog>
 	
 	<dialog id="intro_dialog_2">
-		<line speecher="Me" text="...?" color="0xffffff"/>
-		<line speecher="Me" text="I feel like I've lived this before. Deja-vu?" color="0xffffff"/>
+		<line speecher="Me" text="...?" color="0xCD8141"/>
+		<line speecher="Me" text="I feel like I've lived this before. Deja-vu?" color="0xCD8141"/>
 	</dialog>
 	
 	<dialog id="death">
-		<line speecher="Me" text="Everything is getting dark suddenly. My time is up..." color="0xffffff"/>
-	</dialog>
-	
-	<dialog id="test_dialog_1">
-		<line speecher="Albert" text="My name is Albert" color="0x0000ff"/>
-		<line speecher="Miguel" text="My name is Miguel" color="0x00ff00"/>
-		<line speecher="Luis" text="My name is Luis" color="0x00ffff"/>
+		<line speecher="Me" text="Everything is getting dark suddenly. My time is up..." color="0xCD8141"/>
 	</dialog>
 </view>

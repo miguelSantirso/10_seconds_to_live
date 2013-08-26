@@ -39,7 +39,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		
 		private var _sceneContainer:Sprite;
 		
-		private var _realityLogic:RealityLogic;
+		public static var _realityLogic:RealityLogic;
 		
 		private var _playerWokeUp:OnceSignal = new OnceSignal();
 		

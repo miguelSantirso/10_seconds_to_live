@@ -11,6 +11,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInteractiveEntity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ObjectActionBase;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ObjectActionTuple;
+	import ten_seconds_to_live.com.five_ants.ten_secs.realities.AlternativeReality;
 	/**
 	 * ...
 	 * @author ...
@@ -103,7 +104,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				var distance:Number = Math.sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
 				
 				if (distance <= _interactionRadius)
-				{	
+				{
 					if (playerInput.actionPressed)
 					{
 						_visualObject.gotoAndStop(LABEL_PRESSED);

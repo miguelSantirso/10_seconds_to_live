@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <view name="knowledge">
-	<fact id="going_to_die" text="I'm poisoned."/>
-	<fact id="there_are_pills_in_car" text="I have more adrenaline in the trunk of the car."/>
-	<fact id="i_need_the_secret_code" text="I must remember the code to enter the panic room."/>
+	<fact id="going_to_die" text="I'm poisoned and I need to find the antidote."/>
+	<fact id="there_are_pills_in_car" text="I have more slowmo pills in the trunk of the car."/>
+	<fact id="i_need_the_secret_code" text="I must remember the secret code to enter the panic room."/>
 	<fact id="i_need_a_book" text="I must find the missing book to open the secret door."/> <!-- ALBERT -->
-	<fact id="there_is_a_panic_room" text="I have a panic room, the cameras recorded eveything."/>
-	<fact id="the_secret_code_is_1234" text="The secret code is 1602, our aniversary date."/>
-	<fact id="catnip_attracts_cat" text="The catnip is irresistible for the cat."/>
+	<fact id="there_is_a_panic_room" text="I must check the recordings in the panic room."/>
+	<fact id="the_secret_code_is_1234" text="The code for the panic room is 1602."/>
+	<fact id="catnip_attracts_cat" text="I can distract the cat with the catnip."/>
 </view>
