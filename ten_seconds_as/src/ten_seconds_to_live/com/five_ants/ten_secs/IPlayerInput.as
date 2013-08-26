@@ -21,8 +21,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		function get fPressed():Boolean;
 		function get pPressed():Boolean;
 		function get escapePressed():Boolean;
+		function get ctrlPressed():Boolean;
 		
-		function get testPressed():Boolean;
+		//function get testPressed():Boolean;
 		
 		function set enabled(value:Boolean):void;
 	}

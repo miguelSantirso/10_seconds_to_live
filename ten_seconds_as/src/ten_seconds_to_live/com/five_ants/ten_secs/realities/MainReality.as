@@ -120,6 +120,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_pills$65").addActionSuccess(new PlaySound(Sounds.SWALLOW));
 			object("_pills$65").addActionSuccess(new AlterKnowledge("there_are_pills_in_car"));
 			object("_pills$65").addActionSuccess(new StartSlowMotion(0.01, 12));
+			object("_pills$65").addActionSuccess(new RemoveInteractiveObject("_pills$65"));
 			
 			object("_bookshelf").setKnowledgeDependency("there_is_a_panic_room");
 			object("_bookshelf").setItemDependency(Items.BOOK);
@@ -151,6 +152,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_book").addActionSuccess(new ShowPopUp(Items.BOOK, "book"));
 			object("_book").addActionSuccess(new PlaySound(Sounds.NOTE));
 			object("_book").addActionSuccess(new AddItemToInventory(Items.BOOK));
+			object("_book").addActionSuccess(new RemoveInteractiveObject("_book"));
 			
 			object("_catfood").setKnowledgeDependency("catnip_attracts_cat");
 			object("_catfood").addActionNoItemNoKnowledge(new ShowPopUp(Items.CATNIP, "catnip_noI_noK"));

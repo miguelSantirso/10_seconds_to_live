@@ -52,10 +52,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		public override function update():void
 		{
-			if (!_continuing && !_textMoving && GameplayState.playerInput.spacebarPressed) {
+			if (!_continuing && !_textMoving && GameplayState.playerInput.ctrlPressed) {
 				_continuing = true;
 				nextDialogItem();
-			}else if (!GameplayState.playerInput.spacebarPressed){
+			}else if (!GameplayState.playerInput.ctrlPressed){
 				_continuing = false;
 			}
 		}

@@ -79,10 +79,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			return _keysState[27];
 		}
 		
-		public function get testPressed():Boolean 
+		public function get ctrlPressed():Boolean
+		{
+			return _keysState[17];
+		}
+		
+		/*public function get testPressed():Boolean 
 		{
 			return _keysState[84];//t
-		}
+		}*/
 		
 		private function onKeyDown(e:KeyboardEvent):void
 		{
