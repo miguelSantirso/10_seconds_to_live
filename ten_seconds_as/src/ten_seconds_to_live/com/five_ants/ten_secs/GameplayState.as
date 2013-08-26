@@ -231,6 +231,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			TweenMax.to(_ambientSound, 2, { rate: 1 } );
 		}
 		
+		public function disableTime():void 
+		{
+			_gameTime.stopForever();
+			hud.setClockVisibility(false);
+		}
+		
 		protected function onPauseToggle(event:Event):void
 		{
 			if (!_hud.pauseMenuOpened){
