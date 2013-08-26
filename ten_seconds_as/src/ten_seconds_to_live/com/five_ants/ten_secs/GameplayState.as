@@ -5,6 +5,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.events.Event;
 	import flash.text.TextField;
 	import flash.utils.Dictionary;
+	import ten_seconds_to_live.com.five_ants.ten_secs.events.CinematicEvent;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowPopUp;
 	
 	import com.greensock.TweenMax;
 	
@@ -87,6 +89,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud.addEventListener(HUD.DIALOG_CLOSED_EVENT, onDialogClosed, false, 0, true);
 			_hud.addEventListener(HUD.PAUSEMENU_OPENED_EVENT, onPauseMenuOpened, false, 0, true);
 			_hud.addEventListener(HUD.PAUSEMENU_CLOSED_EVENT, onPauseMenuClosed, false, 0, true);
+			_hud.addEventListener(HUD.CINEMATIC_OPENED_EVENT, onCinematicOpened, false, 0, true);
+			_hud.addEventListener(HUD.CINEMATIC_CLOSED_EVENT, onCinematicClosed, false, 0, true);
 			_hud.addEventListener(HUDPauseMenu.RESUME_REQUEST_EVENT, onHUDResume, false, 0, true);
 			_hud.addEventListener(HUDPauseMenu.CREDITS_REQUEST_EVENT, onHUDCredits, false, 0, true);
 			
@@ -148,6 +152,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			_hud.removeEventListener(HUD.DIALOG_CLOSED_EVENT, onDialogClosed);
 			_hud.removeEventListener(HUD.PAUSEMENU_OPENED_EVENT, onPauseMenuOpened);
 			_hud.removeEventListener(HUD.PAUSEMENU_CLOSED_EVENT, onPauseMenuClosed);
+			_hud.removeEventListener(HUD.CINEMATIC_OPENED_EVENT, onCinematicOpened);
+			_hud.removeEventListener(HUD.CINEMATIC_CLOSED_EVENT, onCinematicClosed);
 			_hud.removeEventListener(HUDPauseMenu.RESUME_REQUEST_EVENT, onHUDResume);
 			_hud.removeEventListener(HUDPauseMenu.CREDITS_REQUEST_EVENT, onHUDCredits);
 			_hud.dispose();
@@ -331,7 +337,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				hud.openDialog(TextManager.get().getDialogById("intro_dialog_2"));
 		}
 		
-		
 		protected function onPauseMenuOpened(event:Event):void
 		{
 			paused = true;
@@ -339,6 +344,23 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		protected function onPauseMenuClosed(event:Event):void
 		{
+			paused = false;
+		}
+		
+		protected function onCinematicOpened(event:CinematicEvent):void
+		{
+			paused = true;
+		}
+		
+		protected function onCinematicClosed(event:CinematicEvent):void
+		{
+			switch(event.cinematicType) {
+				case HUD.CINEMATIC_CAMERA_RECORDINGS : 
+					(new ShowPopUp(Items.NOTE_AND_WATCH, "note_and_watch")).execute();
+				default :
+					break;
+			}
+			
 			paused = false;
 		}
 		

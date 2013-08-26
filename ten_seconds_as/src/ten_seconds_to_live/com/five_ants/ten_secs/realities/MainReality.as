@@ -12,6 +12,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.AlterKnowledge;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ChangeCollision;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlayerCinematic;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlayFlashbackCinematic;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.RemoveInteractiveObject;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.RemoveItemFromInventory;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ShowClock;
@@ -25,6 +26,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.WallCollisions;
 	import ten_seconds_to_live.com.five_ants.ten_secs.PlayerKnowledge;
 	import ten_seconds_to_live.com.five_ants.ten_secs.Items;
+	import ten_seconds_to_live.com.five_ants.ten_secs.HUD.HUD;
 	
 	/**
 	 * ...
@@ -66,6 +68,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		public function scriptEntities(logic:RealityLogic):void
 		{
 			_logic = logic;
+			
+			
+			//object("_roomTable$65").addActionSuccess(new PlayFlashbackCinematic(HUD.CINEMATIC_CAMERA_RECORDINGS));
 			
 			object("_roomTable$65").addActionSuccess(new ShowPopUp(Items.NOTE_AND_WATCH, "note_and_watch"));
 			object("_roomTable$65").addActionSuccess(new AlterKnowledge("going_to_die"));
