@@ -4,41 +4,30 @@
 	
 	<item id="adrenaline_pills" title="Slowmo pills" caption="I ate the pills and the effect was immediate. I move really fast. I recall having more in the trunk of my car."/>
 	
-	<item id="window_noI_noK" title="Window" caption="This window is always closed and I don't remember opening it up." />
-	
-	<item id="gun_noI_noK" title="Wardrobe" caption="My wardrobe...I think." />
 	<item id="gun" title="Gun" caption="I took the gun, it will probably be useful." />
 	
-	<item id="car_noI_noK" title="My Car" caption="The nearest hospital is too far away."/>
 	<item id="car" title="My Car" caption="I found my other bottle of Slowmo pills. I feel like crazy after swallowing them."/>
 	
-	<item id="book_shelf_noI_noK" title="Bookshelf" caption="This shelf is filled with my books, there's only one book missing."/>
-	<item id="book_shelf_noI" title="Bookshelf" caption="I remember now! The panic room door is behind this bookshelf, I need the missing book to open it!"/>
 	<item id="book_shelf" title="Secret passage" caption="The panic room door is visible now but I don't remember the secret code, it must be written somewhere!"/>
 	
 	<item id="secretdoor" title="Panic room door" caption="The code I entered opened the panic room door." />
 	
-	<item id="statue_noI_noK" title="Statue" caption="An statue of her. There's a date carved on the base: 'February 16th.', She beautiful, isn't her...?"/>
 	<item id="statue" title="Statue" caption="'February 16th'...0216...That's the number I'm looking for, the secret code for entering the panic room!"/>
 	
-	<item id="locked_door_noI" title="Locked Door" caption="The door is locked I need something to open it."/>
 	<item id="locked_door" title="Locked Door" caption="After shooting down the lock, the door wide opens, also showing that I have a pretty good aiming."/>
-		
-	<item id="book_noI_noK" title="A Book" caption="I wonder how many pages I could read before the poison kills me."/>
+	
 	<item id="book" title="A Book" caption="I'm sure this is the book missing in the book shelf. I took it."/>
 	
-	<item id="catnip_noI_noK" title="Olives" caption="I see a can of olives and some food leftovers."/>
 	<item id="catnip" title="Olives" caption="I took the olives, now the cat will let me grab him."/>
 	
-	<item id="cat_noI_noK" title="That cat" caption="The cat looks very upset, it looks like it won't let me grab it"/>
 	<item id="cat_noK" title="That cat" caption="I can grab the cat while it's enjoying the olives."/>
 	<item id="cat" title="That cat" caption="I found it, the antidote capsule! It was in a box attached to the cat's necklace. I'M CURED BIATCH!"/>
 	
-	<item id="picture" title="Photograph" caption="I remember that she used to feed the cat some olives to calm it down."/>
+	<item id="picture" title="Photograph" caption="T remember now that she used to feed olives to the cat in order to calm him down."/>
 	
 	<item id="security_camera" title="Security Camera" caption="This reminded me of the panic room I recently installed. The recordings in there might show me where she hid the antidote."/>
 	
 	<item id="bed" title="Bed" caption="I love when Al Pacino says 'en tu cama verde especial'." />
 	
-	<item id="video_wall" title="Security Video" caption="I can see it in the video! The cat has a small box attached to its collar. There's a capsule inside it." />
+	<item id="video_wall" title="Security Video" caption="I can see it in the video! The cat has a small box attached to its collar. That has to be the antidote." />
 </view>

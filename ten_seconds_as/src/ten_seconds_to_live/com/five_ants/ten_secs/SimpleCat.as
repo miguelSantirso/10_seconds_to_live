@@ -41,7 +41,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			}
 			else
 			{
-				(new ShowPopUp(Items.CAT, "cat_noI_noK")).execute();
+				(new ShowDialog(TextManager.get().getDialogById("_cat"))).execute();
 				(new PlaySound(Sounds.CAT_PURRING)).execute();
 			}
 		}

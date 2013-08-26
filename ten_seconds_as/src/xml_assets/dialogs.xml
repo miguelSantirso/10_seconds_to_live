@@ -38,5 +38,48 @@
 	<dialog id="_chair">
 		<line speecher="Me" text="No time to loosen up!" color="0xCD8141"/>
 	</dialog>
+	
+	<dialog id="_window$30">
+		<line speecher="Me" text="This window is always closed and I don't remember opening it up." color="0xCD8141"/>
+	</dialog>
+	
+	<dialog id="_gun">
+		<line speecher="Me" text="My wardrobe...I think." color="0xCD8141"/>
+	</dialog>
+	
+	<dialog id="_door">
+		<line speecher="Me" text="The door is locked I need something to open it." color="0xCD8141"/>
+	</dialog>
+	
+	<dialog id="_car">
+		<line speecher="Me" text="The nearest hospital is too far away." color="0xCD8141"/>
+	</dialog>
+	
+	<dialog id="_statue">
+		<line speecher="Me" text="An statue of her. There's a date carved on the base: 'February 16th.'" color="0xCD8141"/>
+		<line speecher="Me" text="She beautiful, isn't she...?" color="0xCD8141"/>
+	</dialog>
+	
+	<dialog id="_bookshelf">
+		<line speecher="Me" text="This shelf is filled with my books, there's only one book missing." color="0xCD8141"/>
+	</dialog>
+	
+	<dialog id="_bookshelf2">
+		<line speecher="Me" text="I remember now!" color="0xCD8141"/>
+		<line speecher="Me" text="The panic room door is behind this bookshelf, I need the missing book to open it!" color="0xCD8141"/>
+	</dialog>
+	
+	<dialog id="_book">
+		<line speecher="Me" text="A big and heavy book." color="0xCD8141"/>
+		<line speecher="Me" text="I wonder how many pages I could read before the poison kills me." color="0xCD8141"/>
+	</dialog>
+	
+	<dialog id="_catfood">
+		<line speecher="Me" text="I see a can of olives and some food leftovers." color="0xCD8141"/>
+	</dialog>
+	
+	<dialog id="_cat">
+		<line speecher="Me" text="The cat looks very upset, it looks like it won't let me grab him." color="0xCD8141"/>
+	</dialog>
 
 </view>

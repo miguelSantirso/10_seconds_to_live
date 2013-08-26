@@ -80,19 +80,19 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_roomTable$65").addActionSuccess(new PlaySound(Sounds.NOTE));
 			
 			object("_window$30").setKnowledgeDependency("going_to_die");
-			object("_window$30").addActionNoItemNoKnowledge(new ShowPopUp(Items.NONE, "window_noI_noK"));
+			object("_window$30").addActionNoItemNoKnowledge(new ShowDialog(TextManager.get().getDialogById("_window$30")));
 			object("_window$30").addActionSuccess(new PlayerCinematic(Player.ANIM_JUMP_WINDOW), true);
 			object("_window$30").addActionSuccess(new PlaySound(Sounds.GEAR));
 			
 			object("_gun").setKnowledgeDependency("going_to_die");
-			object("_gun").addActionNoItemNoKnowledge(new ShowPopUp(Items.NONE, "gun_noI_noK"));
+			object("_gun").addActionNoItemNoKnowledge(new ShowDialog(TextManager.get().getDialogById("_gun")));
 			object("_gun").addActionSuccess(new ShowPopUp(Items.GUN, "gun"));
 			object("_gun").addActionSuccess(new AddItemToInventory(Items.GUN));
 			object("_gun").addActionSuccess(new PlaySound(Sounds.CLOSET_OPEN));
 			object("_gun").addActionSuccess(new PlaySound(Sounds.TAKING_GUN));
 			
 			object("_door").setItemDependency(Items.GUN);
-			object("_door").addActionNoItem(new ShowPopUp(Items.DORM_DOOR, "locked_door_noI"));
+			object("_door").addActionNoItem(new ShowDialog(TextManager.get().getDialogById("_door")));
 			object("_door").addActionNoItem(new PlaySound(Sounds.LOCKED_DOOR));
 			object("_door").addActionSuccess(new ShowPopUp(Items.DORM_DOOR, "locked_door"));
 			object("_door").addActionSuccess(new PlaySound(Sounds.GUN_SHOT));
@@ -101,7 +101,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_door").addActionSuccess(new RemoveInteractiveObject("_door"));
 			
 			object("_car").setKnowledgeDependency("there_are_pills_in_car");
-			object("_car").addActionNoItemNoKnowledge(new ShowPopUp(Items.CAR, "car_noI_noK"));
+			object("_car").addActionNoItemNoKnowledge(new ShowDialog(TextManager.get().getDialogById("_car")));
 			object("_car").addActionNoItemNoKnowledge(new PlaySound(Sounds.CAR_UNLOCK));
 			object("_car").addActionSuccess(new ShowPopUp(Items.CAR, "car"));
 			object("_car").addActionSuccess(new PlaySound(Sounds.PILLS2));
@@ -109,7 +109,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_car").addActionSuccess(new StartSlowMotion(0.01, 12));
 			
 			object("_statue").setKnowledgeDependency("i_need_the_secret_code");
-			object("_statue").addActionNoItemNoKnowledge(new ShowPopUp(Items.STATUE, "statue_noI_noK"));
+			object("_statue").addActionNoItemNoKnowledge(new ShowDialog(TextManager.get().getDialogById("_statue")));
 			object("_statue").addActionNoItemNoKnowledge(new PlaySound(Sounds.BIRDS));
 			object("_statue").addActionSuccess(new ShowPopUp(Items.STATUE, "statue"));
 			object("_statue").addActionSuccess(new PlaySound(Sounds.BIRDS));
@@ -123,9 +123,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			object("_bookshelf").setKnowledgeDependency("there_is_a_panic_room");
 			object("_bookshelf").setItemDependency(Items.BOOK);
-			object("_bookshelf").addActionNoItemNoKnowledge(new ShowPopUp(Items.BOOKSHELF, "book_shelf_noI_noK"));
+			object("_bookshelf").addActionNoItemNoKnowledge(new ShowDialog(TextManager.get().getDialogById("_bookshelf")));
 			object("_bookshelf").addActionNoItemNoKnowledge(new PlaySound(Sounds.TAKING_THING));
-			object("_bookshelf").addActionNoItem(new ShowPopUp(Items.BOOKSHELF, "book_shelf_noI"));
+			object("_bookshelf").addActionNoItem(new ShowDialog(TextManager.get().getDialogById("_bookshelf2")));
 			object("_bookshelf").addActionNoItem(new PlaySound(Sounds.TAKING_THING));
 			object("_bookshelf").addActionNoItem(new AlterKnowledge("i_need_a_book"));
 			object("_bookshelf").addActionSuccess(new ShowPopUp(Items.BOOKSHELF, "book_shelf"));
@@ -146,14 +146,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_picture$80").addActionSuccess(new AlterKnowledge("catnip_attracts_cat"));
 			
 			object("_book").setKnowledgeDependency("i_need_a_book");
-			object("_book").addActionNoItemNoKnowledge(new ShowPopUp(Items.BOOK, "book_noI_noK"));
+			object("_book").addActionNoItemNoKnowledge(new ShowDialog(TextManager.get().getDialogById("_book")));
+			object("_book").addActionNoItem(new ShowDialog(TextManager.get().getDialogById("_book")));
 			object("_book").addActionSuccess(new PlaySound(Sounds.NOTE));
 			object("_book").addActionSuccess(new ShowPopUp(Items.BOOK, "book"));
 			object("_book").addActionSuccess(new PlaySound(Sounds.NOTE));
 			object("_book").addActionSuccess(new AddItemToInventory(Items.BOOK));
 			
 			object("_catfood").setKnowledgeDependency("catnip_attracts_cat");
-			object("_catfood").addActionNoItemNoKnowledge(new ShowPopUp(Items.CATNIP, "catnip_noI_noK"));
+			object("_catfood").addActionNoItem(new ShowDialog(TextManager.get().getDialogById("_catfood")));
 			object("_catfood").addActionNoItemNoKnowledge(new PlaySound(Sounds.TIN_CAN));
 			object("_catfood").addActionSuccess(new ShowPopUp(Items.CATNIP, "catnip"));
 			object("_catfood").addActionSuccess(new PlaySound(Sounds.TIN_CAN));
