@@ -26,7 +26,7 @@
 	<item id="cat_noK" title="That Cat" caption="I can grab the cat while it's enjoying the olives."/>
 	<item id="cat" title="That Cat" caption="I found it, the antidote capsule! It was in a box attached to the cat's necklace. I'M CURED BIATCH!"/>
 	
-	<item id="picture_nI_nK" title="Photograph" caption="Her angelic face is now more vivid in my memory. However, I can't remember 'Her' yet..."/>
+	<!!--<item id="picture_nI_nK" title="Photograph" caption="Her angelic face is now more vivid in my memory. However, I can't remember 'Her' yet..."/>-->
 	<item id="picture" title="Photograph" caption="I remember now that she used to feed olives to the cat in order to calm him down."/>
 	
 	<item id="security_camera" title="Security Camera" caption="This reminded me of the panic room I recently installed. The recordings in there might show me where she hid the antidote."/>

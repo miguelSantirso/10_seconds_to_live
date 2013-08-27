@@ -141,8 +141,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_secretDoor").addActionSuccess(new ChangeCollision("library_secret_door", false));
 			object("_secretDoor").addActionSuccess(new RemoveInteractiveObject("_secretDoor"));
 			
-			object("_picture$80").setKnowledgeDependency("cat_has_antidote");
-			object("_picture$80").addActionNoItemNoKnowledge(new ShowPopUp(Items.PICTURE, "picture_nI_nK"));
+			//object("_picture$80").setKnowledgeDependency("cat_has_antidote");
+			//object("_picture$80").addActionNoItemNoKnowledge(new ShowPopUp(Items.PICTURE, "picture_nI_nK"));
 			object("_picture$80").addActionSuccess(new ShowPopUp(Items.PICTURE, "picture"));
 			object("_picture$80").addActionSuccess(new PlaySound(Sounds.GIRL_LAUGH_REVERB));
 			object("_picture$80").addActionSuccess(new AlterKnowledge("catnip_attracts_cat"));
