@@ -11,6 +11,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import ten_seconds_to_live.com.five_ants.ten_secs.interfaces.IInteractiveEntity;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ObjectActionBase;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ObjectActionTuple;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.RemoveInteractiveObject;
 	import ten_seconds_to_live.com.five_ants.ten_secs.realities.AlternativeReality;
 	/**
 	 * ...
@@ -68,7 +69,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			super.update();
 			
 			_roomName = _roomUtils.getRoomByPosition(_visualObject.x, _visualObject.y);
-			enableInteractions = !_gameplay.hud.popupOpened;
+			//enableInteractions = !_gameplay.hud.popupOpened;
 		}
 		
 		public override function dispose():void
@@ -110,7 +111,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 						_visualObject.gotoAndStop(LABEL_PRESSED);
 						
 						player.stopFootstepsSound();
-						
+
 						executeAllActions();
 					}
 					else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);
@@ -208,14 +209,25 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			if (itemVerified && knowledgeVerified)
 			{
+				var repeatedActionCounter:int = 0;
 				for each(action in _actionsSuccess)
 				{
 					if (action.repeteable || (!action.repeteable && !action.repeated))
 					{
 						action.action.execute();
 						action.repeated = true;
-						if(!action.repeteable) unglowInteractionPointer();
+						if (!action.repeteable)
+						{
+							unglowInteractionPointer();
+							
+							if (action.repeated) repeatedActionCounter++;
+						}
 					}
+				}
+				
+				if (repeatedActionCounter == numActionsSuccess)
+				{
+					enableInteractions = false;
 				}
 			}
 		}
@@ -237,6 +249,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function set enableInteractions(value:Boolean):void
 		{
 			_interactionEnabled = value;
+			
+			value ? glowInteractionPointer() : unglowInteractionPointer();
 		}
 		
 		public function get numActionsNoItemNoKnowledge():int
@@ -256,7 +270,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		
 		public override function glowInteractionPointer():void
 		{
-			if (!_visualInteractionPointer.visible)
+			if (_interactionEnabled && !_visualInteractionPointer.visible)
 			{
 				_visualInteractionPointer.visible = true;
 				_visualInteractionPointer.gotoAndPlay(LABEL_POINTER_BEGIN);
