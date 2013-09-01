@@ -12,6 +12,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _stage:Stage;
 		
 		private var _keysState:Dictionary = new Dictionary();
+		private var _actionAvailable:Boolean = false;
 		
 		public function init(stage:Stage):void
 		{
@@ -49,16 +50,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			return _keysState[39] || _keysState[68];
 		}
 		
-		public function get actionPressed():Boolean
-		{
-			return _keysState[69] || _keysState[13] || _keysState[32];
-		}
-		
-		public function get spacebarPressed():Boolean
-		{
-			return _keysState[32];
-		}
-		
 		public function get cPressed():Boolean
 		{
 			return _keysState[67];
@@ -79,10 +70,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			return _keysState[27];
 		}
 		
-		public function get ctrlPressed():Boolean
+		
+		public function shouldTakeAction():Boolean
 		{
-			return _keysState[17];
+			var actionAvailable:Boolean = _actionAvailable;
+			_actionAvailable = false;
+			return actionAvailable;
 		}
+		
 		
 		/*public function get testPressed():Boolean 
 		{
@@ -92,6 +87,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private function onKeyDown(e:KeyboardEvent):void
 		{
 			//trace("key down: " + e.keyCode);
+			
 			_keysState[e.keyCode] = true;
 		}
 		
@@ -99,6 +95,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			//trace("key up: " + e.keyCode);
 			_keysState[e.keyCode] = false;
+			if (e.keyCode == 32) _actionAvailable = true;
 		}
 		
 		public function set enabled(value:Boolean):void

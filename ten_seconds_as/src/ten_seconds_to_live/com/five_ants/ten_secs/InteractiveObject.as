@@ -107,7 +107,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				
 				if (distance <= _interactionRadius)
 				{
-					if (playerInput.actionPressed)
+					if (playerInput.shouldTakeAction())
 					{
 						//_visualObject.gotoAndStop(LABEL_PRESSED);
 						
