@@ -1,5 +1,6 @@
 package ten_seconds_to_live.com.five_ants.ten_secs 
 {
+	import flash.display.FrameLabel;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -108,15 +109,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				{
 					if (playerInput.actionPressed)
 					{
-						_visualObject.gotoAndStop(LABEL_PRESSED);
+						//_visualObject.gotoAndStop(LABEL_PRESSED);
 						
 						player.stopFootstepsSound();
 
 						executeAllActions();
 					}
-					else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);
+					//else if (_visualObject.currentLabel != LABEL_NEAR) _visualObject.gotoAndStop(LABEL_NEAR);
 				}
-				else if (_visualObject.currentLabel != LABEL_FAR) _visualObject.gotoAndStop(LABEL_FAR);
+				//else if (_visualObject.currentLabel != LABEL_FAR){ _visualObject.gotoAndStop(LABEL_FAR); }
 			}
 		}
 		
