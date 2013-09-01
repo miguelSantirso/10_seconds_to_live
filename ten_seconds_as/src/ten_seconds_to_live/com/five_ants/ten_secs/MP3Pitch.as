@@ -3,6 +3,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 	import flash.events.Event;
 	import flash.events.SampleDataEvent;
 	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
 	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
 
@@ -22,28 +24,40 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private var _rate: Number;
 		private var _pause:Boolean;
 		private var _emptyBlock:ByteArray;
+		private var _soundTransform:SoundTransform;
+		private var _soundChannel:SoundChannel;
 		
 		public function MP3Pitch(original:Sound)
 		{
 			_target = new ByteArray();
 			_emptyBlock = new ByteArray();
 			_emptyBlock.length = BLOCK_SIZE;
-
+			
 			_mp3 = original;
-
+			
 			_position = 0.0;
 			_rate = 1.0;
-
+			
+			_soundTransform = new SoundTransform(0, 0);
 			_sound = new Sound();
 			_sound.addEventListener( SampleDataEvent.SAMPLE_DATA, sampleData );
-			_sound.play();
+			_soundChannel = _sound.play(0, 0, _soundTransform);
 		}
 
+		public function get volume():Number
+		{
+			return _soundTransform.volume;
+		}
+		public function set volume(value:Number):void
+		{
+			_soundTransform.volume = value;
+			_soundChannel.soundTransform = _soundTransform;
+		}
+		
 		public function get rate(): Number
 		{
 			return _rate;
 		}
-		
 		public function set rate( value: Number ): void
 		{
 			if( value < 0.0 )

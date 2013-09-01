@@ -129,8 +129,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			
 			currentReality.update();
 			
-			//if (!_wakingUp)
-			//	_gameTime.update();
+			if (!_wakingUp)
+				_gameTime.update();
 			
 			_hud.time = _gameTime.seconds;
 		}
@@ -206,7 +206,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		public function set paused(value:Boolean):void 
 		{
 			_paused = value;
-			_ambientSound.pause = value;
+			TweenMax.to(_ambientSound, 0.75, { volume: _paused? 0.3 : 1 } );
 		}
 		
 		protected function onTimeUp(e:Event):void 
@@ -342,7 +342,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 			if (PlayerKnowledge.getKnowledge("going_to_die"))
 				hud.setClockVisibility(true);
 			
-			_ambientSound.play();
+			//_ambientSound.play();
 			
 			if (_nDeaths == 0)
 				hud.openDialog(TextManager.get().getDialogById("intro_dialog"));
