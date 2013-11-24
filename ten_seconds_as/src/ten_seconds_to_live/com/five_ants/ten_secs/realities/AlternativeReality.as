@@ -29,7 +29,6 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		private var _player:Player;
 		//private var _cat:Cat; // TEMP ALBERT
 		private var _entities:Vector.<Entity> = new Vector.<Entity>();
-		private var _interactiveObjects:Dictionary = new Dictionary();
 		public static var _gameplay:GameplayState;
 		private var _camera:Camera;
 		private var _gameMap:GameMap;
@@ -81,11 +80,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			
 			initInteractiveObjects();
 			
-			_config.scriptEntities(_realityLogic);
-			
 			// muestra los radios de todos los objetos interactivos:
 			_realityLogic.showInteractionRadiuses = false;
 			_realityLogic.enableAllInteractions = true;
+			
+			_config.scriptEntities(_realityLogic);
 			
 			for each (var entity:Entity in _entities)
 				entity.load(_gameplay);
@@ -163,18 +162,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 				entity.dispose();
 				
 			_player.removeEventListener(PlayerEvent.CHANGED_ROOM, onPlayerChangedRoom);
-			
-			for each(var interactive:InteractiveObject in _interactiveObjects)
-				interactive.dispose();
 		}
 		
 		
 		public function findInteractiveObject(name:String):InteractiveObject
 		{
-			if (!_interactiveObjects[name])
-				throw new Error("AlternativeReality: Can't find interactive object with name " + name);
-			
-			return _interactiveObjects[name];
+			return _realityLogic.findEntityByName(name) as InteractiveObject;
 		}
 		public function removeInteractiveObject(name:String):void
 		{

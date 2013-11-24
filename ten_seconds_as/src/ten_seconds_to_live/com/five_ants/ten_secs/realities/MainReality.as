@@ -13,6 +13,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.AddItemToInventory;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.AlterKnowledge;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ChangeCollision;
+	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.ObjectToggleInteraction;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlayerCinematic;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlaySound;
 	import ten_seconds_to_live.com.five_ants.ten_secs.object_actions.PlayFlashbackCinematic;
@@ -132,10 +133,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 			object("_bookshelf").addActionSuccess(new ShowPopUp(Items.BOOKSHELF, "book_shelf"));
 			object("_bookshelf").addActionSuccess(new PlaySound(Sounds.DOOR_IRON));
 			object("_bookshelf").addActionSuccess(new AlterKnowledge("i_need_the_secret_code"));
+			object("_bookshelf").addActionSuccess(new RemoveItemFromInventory(Items.BOOK));
+			object("_bookshelf").addActionSuccess(new ObjectToggleInteraction("_secretDoor", true)); // Enable secret door now
 			object("_bookshelf").addActionSuccess(new RemoveInteractiveObject("_bookshelf"));
 			
+			object("_secretDoor").enableInteractions = false; // Initially disabled to avoid conflicts with the bookshelf
 			object("_secretDoor").setKnowledgeDependency("the_secret_code_is_1234");
-			object("_secretDoor").setItemDependency(Items.BOOK);
 			object("_secretDoor").addActionSuccess(new ShowPopUp(Items.SECRET_DOOR, "secretdoor"));
 			object("_secretDoor").addActionSuccess(new PlaySound(Sounds.DOOR_HEAVY));
 			object("_secretDoor").addActionSuccess(new ChangeCollision("library_secret_door", false));
