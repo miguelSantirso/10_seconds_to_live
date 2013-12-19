@@ -247,6 +247,11 @@ package ten_seconds_to_live.com.five_ants.ten_secs.realities
 		{
 			return _playerWokeUp;
 		}
+		
+		public function get realityLogic():RealityLogic
+		{
+			return _realityLogic;
+		}
 	}
 
 }

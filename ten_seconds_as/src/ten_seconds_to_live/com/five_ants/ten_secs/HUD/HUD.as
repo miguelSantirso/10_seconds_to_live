@@ -1,6 +1,7 @@
 package ten_seconds_to_live.com.five_ants.ten_secs.HUD 
 {
 	import flash.display.MovieClip;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.utils.Dictionary;
@@ -43,6 +44,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		public static const CINEMATIC_OPENED_EVENT:String = "cinematicOpenedEvent";
 		public static const CINEMATIC_CLOSED_EVENT:String = "cinematicClosedEvent";
 		
+		public static const FREEWALK_OPENED_EVENT:String = "freewalkOpenedEvent";
+		public static const FREEWALK_CLOSED_EVENT:String = "freewalkClosedEvent";
+		
 		protected var _hudClock:HUDClock;
 		protected var _hudButtonPanel:HUDButtonPanel;
 		protected var _hudInventory:HUDInventory;
@@ -51,6 +55,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		protected var _hudPauseMenu:HUDPauseMenu;
 		protected var _hudCreditsPopUp:HUDCreditsPopUp;
 		protected var _hudWelcomePopUp:HUDWelcomePopUp;
+		protected var _hudFreewalkPopUp:HUDFreeWalkPopUp;
 		protected var _hudDialog:HUDDialog;
 		protected var _slowmoOverlay:SlowmoOverlay;
 		
@@ -62,11 +67,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		protected var _welcomePopUpOpened:Boolean = false;
 		protected var _dialogOpened:Boolean = false;
 		protected var _cinematicOpened:Boolean = false;
+		protected var _freewalkPopUpOpened:Boolean = false;
 		
 		// cinematics
 		protected var _currentCinematicType:String;
 		
 		protected var _cinematicsDictionary:Dictionary;
+		
+		protected var _overlayRect:Shape;
 		
 		public static const CINEMATIC_CAMERA_RECORDINGS:String = "camera_recordings";
 		public static const CINEMATIC_SHOOTING:String = "shooting";
@@ -81,12 +89,15 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudPauseMenu = new HUDPauseMenu();
 			_hudCreditsPopUp = new HUDCreditsPopUp();
 			_hudWelcomePopUp = new HUDWelcomePopUp();
+			_hudFreewalkPopUp = new HUDFreeWalkPopUp();
 			_hudDialog = new HUDDialog();
 			_slowmoOverlay = new SlowmoOverlay();
 			
 			_cinematicsDictionary = new Dictionary();
 			_cinematicsDictionary[CINEMATIC_CAMERA_RECORDINGS] = new CinematicRecording();
 			_cinematicsDictionary[CINEMATIC_SHOOTING] = new CinematicShooting();
+			
+			_overlayRect = new Shape();
 			
 			_enabled = true;
 		}
@@ -124,9 +135,17 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			_hudWelcomePopUp.y = (600 - _hudWelcomePopUp.height) * 0.5;
 			_hudWelcomePopUp.addEventListener(HUDWelcomePopUp.CLOSE_REQUEST_EVENT, closeWelcomePopUp, false, 0, true);
 			
+			_hudFreewalkPopUp.x = (800 - _hudFreewalkPopUp.width) * 0.5;
+			_hudFreewalkPopUp.y = (600 - _hudFreewalkPopUp.height) * 0.5;
+			_hudFreewalkPopUp.addEventListener(HUDFreeWalkPopUp.CLOSE_REQUEST_EVENT, closeFreeWalkPopUp, false, 0, true);
+			
 			_hudDialog.x = (800 - _hudDialog.width) * 0.5;
 			_hudDialog.y = 456;
 			_hudDialog.addEventListener(HUDDialog.DIALOG_COMPLETE_EVENT, closeDialog, false, 0, true);
+			
+			_overlayRect.graphics.beginFill(0x220000, 0.75);
+			_overlayRect.graphics.drawRect(0, 0, 800, 600);
+			_overlayRect.graphics.endFill();
 			
 			addChild(_hudClock);
 			addChild(_hudButtonPanel);
@@ -216,6 +235,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 				_hudCreditsPopUp.update();
 			if(_welcomePopUpOpened)
 				_hudWelcomePopUp.update();
+			if(_freewalkPopUpOpened)
+				_hudFreewalkPopUp.update();
 		}
 		
 		public function set slowmo(isActive:Boolean):void
@@ -261,6 +282,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 				_hudButtonPanel.visible = true;
 				_hudCreditsPopUp.visible = true;
 				_hudWelcomePopUp.visible = true;
+				_hudFreewalkPopUp.visible = true;
 				
 			}else if (!value && _enabled) {
 				// disable
@@ -272,6 +294,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 				_hudButtonPanel.visible = false;
 				_hudCreditsPopUp.visible = false;
 				_hudWelcomePopUp.visible = false;
+				_hudFreewalkPopUp.visible = false;
 			}
 			
 			_enabled = value;
@@ -316,13 +339,19 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		public function openKnowledgeList(knowledgeVector:Vector.<String>):void
 		{
-			_hudKnowledgeList.open(knowledgeVector);
-			
-			_knowledgeListOpened = true;
-			
-			addChild(_hudKnowledgeList);
-			
-			dispatchEvent(new Event(KNOWLEDGE_OPENED_EVENT));
+			if (!dialogOpened && !pauseMenuOpened)
+			{
+				_hudKnowledgeList.open(knowledgeVector);
+				
+				_knowledgeListOpened = true;
+				
+				showButtonPanel = false;
+				
+				addChild(_overlayRect);
+				addChild(_hudKnowledgeList);
+				
+				dispatchEvent(new Event(KNOWLEDGE_OPENED_EVENT));
+			}
 		}
 		
 		public function closeKnowledgeList(event:Event = null):void
@@ -334,6 +363,9 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			_knowledgeListOpened = false;
 			
+			showButtonPanel = true;
+			
+			removeChild(_overlayRect);
 			removeChild(_hudKnowledgeList);
 			
 			dispatchEvent(new Event(KNOWLEDGE_CLOSED_EVENT));
@@ -341,12 +373,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 		
 		public function openDialog(dialog:Dialog):void
 		{
-			if(dialog){
+			if(dialog && !pauseMenuOpened){
 				_hudDialog.dialog = dialog;	
 				
 				_dialogOpened = true;
 			
 				addChild(_hudDialog);
+				
+				showButtonPanel = false;
 				
 				dispatchEvent(new Event(DIALOG_OPENED_EVENT));
 			}
@@ -358,16 +392,24 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			removeChild(_hudDialog);
 			
+			showButtonPanel = true;
+			
 			dispatchEvent(new Event(DIALOG_CLOSED_EVENT));
 		}
 		
 		public function openPauseMenu():void
 		{
-			_pauseMenuOpened = true;
-			
-			addChild(_hudPauseMenu);
-			
-			dispatchEvent(new Event(PAUSEMENU_OPENED_EVENT));
+			if (!dialogOpened && !knowledgeListOpen)
+			{
+				_pauseMenuOpened = true;
+				
+				addChild(_overlayRect);
+				addChild(_hudPauseMenu);
+				
+				showButtonPanel = false;
+				
+				dispatchEvent(new Event(PAUSEMENU_OPENED_EVENT));
+			}
 		}
 		
 		public function closePauseMenu():void
@@ -377,7 +419,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 				
 			_pauseMenuOpened = false;
 			
+			removeChild(_overlayRect);
 			removeChild(_hudPauseMenu);
+			
+			showButtonPanel = true;
 			
 			dispatchEvent(new Event(PAUSEMENU_CLOSED_EVENT));
 		}
@@ -409,6 +454,10 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			addChild(_hudWelcomePopUp);
 			
+			showButtonPanel = false;
+			
+			addChildAt(_overlayRect, 0);
+			
 			dispatchEvent(new Event(WELCOME_OPENED_EVENT));
 		}
 		
@@ -419,11 +468,46 @@ package ten_seconds_to_live.com.five_ants.ten_secs.HUD
 			
 			_welcomePopUpOpened = false;
 			
+			showButtonPanel = true;
+			
 			removeChild(_hudWelcomePopUp);
+			removeChild(_overlayRect);
 			
 			dispatchEvent(new Event(WELCOME_CLOSED_EVENT));
 		}
 		
+		public function openFreeWalkPopUp():void
+		{
+			_freewalkPopUpOpened = true;
+			
+			addChild(_hudFreewalkPopUp);
+			
+			showButtonPanel = false;
+			
+			addChildAt(_overlayRect, 0);
+			
+			dispatchEvent(new Event(FREEWALK_OPENED_EVENT));
+		}
+		
+		public function closeFreeWalkPopUp(e:Event = null):void
+		{
+			if (!_freewalkPopUpOpened)
+				return;
+				
+			_freewalkPopUpOpened = false;
+			
+			showButtonPanel = true;
+			
+			removeChild(_hudFreewalkPopUp);
+			removeChild(_overlayRect);
+			
+			dispatchEvent(new Event(FREEWALK_CLOSED_EVENT));
+		}
+		
+		public function set showButtonPanel(show:Boolean):void
+		{
+			_hudButtonPanel.visible = show;
+		}
 		
 		public function onPauseRequest(event:Event):void
 		{

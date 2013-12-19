@@ -207,6 +207,8 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		{
 			_paused = value;
 			TweenMax.to(_ambientSound, 0.75, { volume: _paused? 0.3 : 1 } );
+			
+			currentReality.realityLogic.enableAllInteractions = !value;
 		}
 		
 		protected function onTimeUp(e:Event):void 
@@ -253,7 +255,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected function onPauseToggle(event:Event):void
 		{
 			if (!_hud.pauseMenuOpened){
-				_hud.closeKnowledgeList();
+				//_hud.closeKnowledgeList();
 				_hud.closeCreditsPopUp();
 				
 				_hud.openPauseMenu();
@@ -268,12 +270,12 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected function onKnowledgeToggle(event:Event):void
 		{
 			if (!_hud.knowledgeListOpen){
-				_hud.closePauseMenu();
+				//_hud.closePauseMenu();
 				_hud.closeCreditsPopUp();
 				
 				_hud.openKnowledgeList(PlayerKnowledge.getEverythingThePlayerKnows());
 			}else{
-				_hud.closeKnowledgeList();
+				if(!_hud.pauseMenuOpened) _hud.closeKnowledgeList();
 			}
 		}
 		
@@ -310,11 +312,14 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		private function onDialogOpened(e:Event):void 
 		{
 			paused = true;
+			currentReality.realityLogic.enableAllInteractions = false;
 		}
 		
 		private function onDialogClosed(e:Event):void 
 		{
 			paused = false;
+			currentReality.realityLogic.enableAllInteractions = true;
+			
 			if (_dying)
 				TweenMax.to(this, 0.3, { "alpha": 0, onComplete: onFadeOutComplete } );
 		}
@@ -322,14 +327,19 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 		protected function onWelcomeOpened(event:Event):void
 		{
 			paused = true;
+			
+			currentReality.realityLogic.enableAllInteractions = false;
+			currentReality.player.visible = false;
 		}
 		
 		protected function onWelcomeClosed(event:Event):void
 		{
 			if (_wakingUp)
 			{
+				currentReality.player.visible = true;
 				currentReality.playerWokeUp.addOnce(onPlayerWakeUp);
 				currentReality.player.playCinematic(Player.ANIM_WAKE_UP);
+				currentReality.realityLogic.enableAllInteractions = true;
 			}
 			
 			paused = false;
@@ -374,6 +384,7 @@ package ten_seconds_to_live.com.five_ants.ten_secs
 				case HUD.CINEMATIC_SHOOTING :
 					_sawHerDeath = true;
 					paused = false;
+					hud.openFreeWalkPopUp();
 					break;
 				default :
 					break;
